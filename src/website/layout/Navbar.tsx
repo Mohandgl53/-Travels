@@ -93,6 +93,15 @@ export const Navbar: React.FC = () => {
           {/* User Profile & Actions */}
           <div className="hidden md:flex items-center space-x-3">
             <Link
+              to="/login"
+              title="Experience Cinematic Animated Arrival & Window Auth"
+              className="px-3 py-2 rounded-xl bg-white/[0.05] hover:bg-white/[0.1] text-sky-300 border border-white/10 text-xs font-semibold flex items-center space-x-1.5 transition-all"
+            >
+              <span className="w-1.5 h-1.5 rounded-full bg-sky-400 animate-pulse" />
+              <span>Cinematic Intro</span>
+            </Link>
+
+            <Link
               to="/search"
               className="px-4 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold uppercase tracking-wider flex items-center space-x-1.5 shadow-lg shadow-blue-600/25 active:scale-95 transition-all border border-blue-400/30"
             >
@@ -220,6 +229,15 @@ export const Navbar: React.FC = () => {
               </Link>
             );
           })}
+
+          <Link
+            to="/login"
+            onClick={() => setMobileMenuOpen(false)}
+            className="flex items-center space-x-3 px-3.5 py-2.5 rounded-xl text-sm font-medium text-sky-300 hover:bg-white/[0.05]"
+          >
+            <span className="w-2 h-2 rounded-full bg-sky-400 animate-pulse" />
+            <span>Cinematic Bus Intro</span>
+          </Link>
 
           <Link
             to="/account"

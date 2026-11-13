@@ -13,14 +13,14 @@ import { ProtectedRoute } from '../auth/ProtectedRoute';
 import { useAuth } from '../auth/AuthContext';
 
 export const AppRoutes: React.FC = () => {
-  const { isAuthenticated, isLoading } = useAuth();
+  const { isLoading } = useAuth();
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-slate-950 flex items-center justify-center text-slate-300">
+      <div className="min-h-screen bg-[#090a0f] flex items-center justify-center text-slate-300">
         <div className="flex flex-col items-center space-y-3">
-          <div className="w-10 h-10 border-4 border-rose-600 border-t-transparent rounded-full animate-spin" />
-          <p className="text-xs uppercase font-bold tracking-widest text-rose-400">Loading Application...</p>
+          <div className="w-10 h-10 border-4 border-blue-500 border-t-transparent rounded-full animate-spin" />
+          <p className="text-xs uppercase font-bold tracking-widest text-blue-400">Loading Application...</p>
         </div>
       </div>
     );
@@ -49,22 +49,11 @@ export const AppRoutes: React.FC = () => {
         <Route path="/account" element={<Account />} />
       </Route>
 
-      {/* Root redirect: if logged in go to /home, else /login */}
-      <Route
-        path="/"
-        element={
-          <Navigate to={isAuthenticated ? '/home' : '/login'} replace />
-        }
-      />
+      {/* Root route: navigates straight to /home */}
+      <Route path="/" element={<Navigate to="/home" replace />} />
 
       {/* 404 Wildcard Fallback */}
-      <Route
-        path="*"
-        element={
-          <Navigate to={isAuthenticated ? '/home' : '/login'} replace />
-        }
-      />
+      <Route path="*" element={<Navigate to="/home" replace />} />
     </Routes>
   );
 };
-

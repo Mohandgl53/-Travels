@@ -1,10 +1,11 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation, Link } from 'react-router-dom';
 import { VideoSequence, SequencePhase } from './VideoSequence';
 import { LoginForm } from './LoginForm';
 import { RegisterForm } from './RegisterForm';
 import { animateFormEntrance, animateFormExit } from './animations';
 import { useAuth } from '../../auth/AuthContext';
+import { ArrowRight, Compass } from 'lucide-react';
 
 interface AnimatedAuthProps {
   initialMode?: 'login' | 'register';
@@ -13,7 +14,7 @@ interface AnimatedAuthProps {
 export const AnimatedAuth: React.FC<AnimatedAuthProps> = ({ initialMode = 'login' }) => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { login, register, isAuthenticated } = useAuth();
+  const { login, register } = useAuth();
 
   const [mode, setMode] = useState<'login' | 'register'>(initialMode);
   const [phase, setPhase] = useState<SequencePhase>('arriving');
@@ -29,13 +30,6 @@ export const AnimatedAuth: React.FC<AnimatedAuthProps> = ({ initialMode = 'login
       setMode('login');
     }
   }, [location.pathname]);
-
-  // If already authenticated and not currently departing, navigate to home immediately
-  useEffect(() => {
-    if (isAuthenticated && phase !== 'departing' && phase !== 'authenticating') {
-      navigate('/home', { replace: true });
-    }
-  }, [isAuthenticated, phase, navigate]);
 
   // When the video sequence reaches the passenger window (~10.8s)
   const handleWindowReached = () => {
@@ -107,6 +101,18 @@ export const AnimatedAuth: React.FC<AnimatedAuthProps> = ({ initialMode = 'login
         isFormSubmitting={isFormSubmitting}
       />
 
+      {/* Direct Bypass Link to Explore Travel Website */}
+      <div className="absolute top-20 right-4 sm:right-6 z-30 pointer-events-auto">
+        <Link
+          to="/home"
+          className="px-4 py-2 rounded-xl bg-slate-900/80 hover:bg-slate-800 text-sky-300 border border-white/10 text-xs font-bold flex items-center space-x-1.5 backdrop-blur-md transition-all shadow-xl active:scale-95"
+        >
+          <Compass size={14} className="text-sky-400" />
+          <span>Explore Website Directly</span>
+          <ArrowRight size={13} />
+        </Link>
+      </div>
+
       {/* 2. Interactive React HTML/CSS Form over the Window Scene */}
       {(phase === 'window-ready' || phase === 'authenticating') && (
         <div className="absolute inset-0 z-30 flex items-center justify-center p-4 pointer-events-auto">
@@ -152,4 +158,3 @@ export const AnimatedAuth: React.FC<AnimatedAuthProps> = ({ initialMode = 'login
     </div>
   );
 };
-

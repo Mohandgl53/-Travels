@@ -5,8 +5,17 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 const STORAGE_KEY = 'mariamman_auth_user';
 
+export const DEFAULT_USER: User = {
+  id: 'USR-777',
+  name: 'Mohan Kumar',
+  email: 'mohan@mariammantravels.com',
+  phone: '+91 98421 23456',
+  loyaltyPoints: 450,
+  memberSince: '2024',
+};
+
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<User | null>(DEFAULT_USER);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -14,16 +23,20 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       const stored = localStorage.getItem(STORAGE_KEY);
       if (stored) {
         setUser(JSON.parse(stored));
+      } else {
+        // Initialize default active traveler session so all website pages & navigations load immediately
+        setUser(DEFAULT_USER);
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(DEFAULT_USER));
       }
     } catch (e) {
       console.error('Failed to parse stored auth user', e);
+      setUser(DEFAULT_USER);
     } finally {
       setIsLoading(false);
     }
   }, []);
 
   const login = async (emailOrPhone: string, _password?: string): Promise<boolean> => {
-    // Realistic simulated authentication delay
     await new Promise((resolve) => setTimeout(resolve, 800));
 
     const name = emailOrPhone.includes('@')
@@ -34,8 +47,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
     const loggedInUser: User = {
       id: 'USR-' + Math.floor(100000 + Math.random() * 900000),
-      name: cleanName || 'Traveler',
-      email: emailOrPhone.includes('@') ? emailOrPhone : 'traveler@mariammantravels.com',
+      name: cleanName || 'Mohan Kumar',
+      email: emailOrPhone.includes('@') ? emailOrPhone : 'mohan@mariammantravels.com',
       phone: emailOrPhone.includes('@') ? '+91 98421 23456' : emailOrPhone,
       loyaltyPoints: 450,
       memberSince: '2024',
@@ -51,10 +64,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
     const newUser: User = {
       id: 'USR-' + Math.floor(100000 + Math.random() * 900000),
-      name: name.trim(),
-      email: email.trim(),
-      phone: phone.trim(),
-      loyaltyPoints: 100, // Welcome bonus
+      name: name.trim() || 'Mohan Kumar',
+      email: email.trim() || 'mohan@mariammantravels.com',
+      phone: phone.trim() || '+91 98421 23456',
+      loyaltyPoints: 100,
       memberSince: new Date().getFullYear().toString(),
     };
 
@@ -99,4 +112,3 @@ export const useAuth = (): AuthContextType => {
   }
   return context;
 };
-
