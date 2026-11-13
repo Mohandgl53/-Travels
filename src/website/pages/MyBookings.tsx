@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { TicketPass } from '../components/TicketPass';
 import { BookingRecord, INITIAL_BOOKINGS } from '../data/travelData';
-import { Ticket, Search, Calendar, AlertCircle } from 'lucide-react';
+import { Ticket, Search, Calendar, AlertCircle, ArrowRight, CheckCircle2, Clock, MapPin, Printer } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 export const MyBookings: React.FC = () => {
@@ -38,38 +38,39 @@ export const MyBookings: React.FC = () => {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8 text-slate-100">
-      {/* Page Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+      {/* Page Header Banner */}
+      <div className="porcelain-canvas rounded-[2.5rem] p-8 sm:p-10 shadow-2xl relative border border-slate-300/40 text-slate-900 flex flex-col md:flex-row md:items-center justify-between gap-6 overflow-hidden">
         <div>
-          <span className="text-xs uppercase tracking-widest font-black text-blue-400">
-            Passenger Portal
-          </span>
-          <h1 className="text-3xl font-black text-white font-tamil">
+          <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-blue-100 border border-blue-200 text-blue-700 text-xs font-bold mb-2 shadow-sm">
+            <Ticket size={13} className="text-blue-600" />
+            <span>Passenger Portal & Verified E-Tickets</span>
+          </div>
+          <h1 className="text-3xl sm:text-4xl font-black text-slate-900 font-tamil tracking-tight">
             My Bookings & E-Tickets (என் பயணங்கள்)
           </h1>
-          <p className="text-xs text-slate-400 font-medium mt-1">
-            Access, view, download or reschedule your verified travel bookings.
+          <p className="text-xs sm:text-sm text-slate-600 mt-1 font-medium">
+            Access, view, download or print your official verified digital boarding pass.
           </p>
         </div>
 
         {/* PNR Search Box */}
-        <div className="relative w-full md:w-72">
-          <span className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
-            <Search size={15} />
+        <div className="relative w-full md:w-80">
+          <span className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400">
+            <Search size={16} />
           </span>
           <input
             type="text"
             value={searchPnr}
             onChange={(e) => setSearchPnr(e.target.value)}
             placeholder="Search by PNR Number..."
-            className="w-full pl-9 pr-4 py-2.5 bg-[#111625] border border-white/10 rounded-xl text-xs text-white placeholder-slate-400 focus:outline-none focus:border-blue-500 shadow-inner"
+            className="clay-pill-input w-full pl-11 pr-4 py-3 rounded-full text-xs font-bold text-slate-800 placeholder-slate-400 border border-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500/40 transition-all shadow-sm"
           />
         </div>
       </div>
 
       {/* Ticket Modal if Selected */}
       {selectedTicket && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md overflow-y-auto animate-fade-in">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md overflow-y-auto animate-fade-in">
           <div className="relative w-full max-w-2xl my-auto">
             <TicketPass booking={selectedTicket} onClose={() => setSelectedTicket(null)} />
           </div>
@@ -78,154 +79,165 @@ export const MyBookings: React.FC = () => {
 
       {/* Cancel Confirmation Modal */}
       {cancelModalPnr && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-fade-in">
-          <div className="bg-[#111625] border border-white/10 rounded-3xl p-7 max-w-md w-full shadow-2xl space-y-4 text-slate-100">
-            <div className="w-12 h-12 rounded-2xl bg-rose-500/10 border border-rose-500/20 text-rose-400 flex items-center justify-center mx-auto">
-              <AlertCircle size={26} />
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md animate-fade-in">
+          <div className="bg-[#101524] border border-white/10 rounded-[2rem] p-8 max-w-md w-full shadow-2xl space-y-4 text-slate-100">
+            <div className="w-14 h-14 rounded-2xl bg-rose-500/10 border border-rose-500/20 text-rose-400 flex items-center justify-center mx-auto">
+              <AlertCircle size={30} />
             </div>
             <div className="text-center">
-              <h3 className="text-lg font-bold text-white">Cancel Booking {cancelModalPnr}?</h3>
-              <p className="text-xs text-slate-400 mt-1">
-                According to our cancellation policy, 100% refund is initiated within 24 hours back to your original payment method.
+              <h3 className="text-xl font-black text-white">Cancel Booking {cancelModalPnr}?</h3>
+              <p className="text-xs text-slate-400 mt-2 leading-relaxed font-normal">
+                According to our cancellation policy, 100% refund will be credited back to your original payment method within 24 hours.
               </p>
             </div>
-            <div className="flex space-x-3 pt-2">
+            <div className="flex space-x-3 pt-4">
               <button
                 onClick={() => setCancelModalPnr(null)}
-                className="flex-1 py-2.5 rounded-xl bg-white/[0.06] hover:bg-white/[0.12] text-slate-300 text-xs font-semibold transition-colors"
+                className="flex-1 py-3 rounded-xl bg-white/[0.06] hover:bg-white/[0.12] text-slate-300 text-xs font-bold transition-all active:scale-95"
               >
                 Keep Booking
               </button>
               <button
                 onClick={() => handleCancelBooking(cancelModalPnr)}
-                className="flex-1 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-500 text-white text-xs font-bold transition-colors"
+                className="flex-1 py-3 rounded-xl bg-rose-600 hover:bg-rose-500 text-white text-xs font-bold shadow-lg shadow-rose-600/30 transition-all active:scale-95"
               >
-                Confirm Cancellation
+                Confirm Cancel
               </button>
             </div>
           </div>
         </div>
       )}
 
-      {/* Bookings List */}
-      <div className="space-y-4">
+      {/* Bookings List Cards */}
+      <div className="space-y-6">
         {filteredBookings.length > 0 ? (
           filteredBookings.map((b) => (
             <div
               key={b.pnr}
-              className={`rounded-3xl border p-6 transition-all ${
-                b.status === 'CANCELLED'
-                  ? 'bg-[#0a0d16] border-white/5 opacity-60'
-                  : 'bg-[#111625] border-white/10 hover:border-blue-500/40 shadow-xl'
-              }`}
+              className="p-7 rounded-[2rem] bg-[#101524] border border-white/10 hover:border-blue-500/40 shadow-xl transition-all duration-300"
             >
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-white/[0.08]">
-                <div className="flex items-center space-x-3.5">
-                  <div className="w-10 h-10 rounded-xl bg-blue-600/15 border border-blue-500/30 flex items-center justify-center text-blue-400 font-bold font-tamil text-sm">
+              {/* Header Bar */}
+              <div className="flex flex-wrap items-center justify-between gap-3 pb-5 border-b border-white/[0.08]">
+                <div className="flex items-center space-x-3">
+                  <div className="w-11 h-11 rounded-2xl bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center text-white font-black font-tamil text-sm shadow-md">
                     மா
                   </div>
                   <div>
                     <div className="flex items-center space-x-2">
-                      <span className="font-mono font-bold text-white text-sm">PNR: {b.pnr}</span>
+                      <span className="text-xs text-slate-400 font-bold">PNR:</span>
+                      <span className="text-sm font-mono font-black text-white px-2 py-0.5 rounded bg-white/[0.08] border border-white/10">
+                        {b.pnr}
+                      </span>
                       <span
                         className={`text-[10px] font-black uppercase tracking-wider px-2.5 py-0.5 rounded-full border ${
                           b.status === 'CONFIRMED'
-                            ? 'bg-emerald-500/15 border-emerald-500/30 text-emerald-400'
-                            : 'bg-rose-500/15 border-rose-500/30 text-rose-400'
+                            ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30'
+                            : b.status === 'CANCELLED'
+                            ? 'bg-rose-500/10 text-rose-400 border-rose-500/30'
+                            : 'bg-blue-500/10 text-blue-400 border-blue-500/30'
                         }`}
                       >
                         {b.status}
                       </span>
                     </div>
-                    <p className="text-xs text-slate-400 font-medium mt-0.5">
+                    <p className="text-xs text-slate-400 mt-1">
                       Booked on {b.bookedAt} • {b.busType} ({b.busNumber})
                     </p>
                   </div>
                 </div>
 
-                <div className="text-left sm:text-right">
-                  <span className="text-xs text-slate-400 font-medium">Total Paid</span>
-                  <div className="text-xl font-black text-white">₹{b.totalAmount}</div>
+                <div className="text-right">
+                  <span className="text-[10px] text-slate-400 uppercase font-bold tracking-wider block">Total Fare Paid</span>
+                  <span className="text-2xl font-black text-white">₹{b.totalAmount}</span>
                 </div>
               </div>
 
-              {/* Journey Details */}
-              <div className="py-4 grid grid-cols-1 md:grid-cols-12 gap-4 items-center">
-                <div className="md:col-span-3">
-                  <div className="text-xl font-black text-white">{b.from}</div>
-                  <p className="text-xs text-blue-400 font-bold mt-0.5">{b.departureTime}</p>
-                  <p className="text-xs text-slate-400 truncate max-w-[200px] mt-0.5 font-medium">
-                    {b.boardingPoint}
+              {/* Journey Route Info */}
+              <div className="py-6 grid grid-cols-1 md:grid-cols-12 gap-5 items-center">
+                <div className="md:col-span-4">
+                  <div className="text-2xl font-black text-white">{b.from}</div>
+                  <div className="text-xs font-bold text-sky-400 mt-0.5">{b.departureTime}</div>
+                  <p className="text-xs text-slate-400 mt-1 flex items-center gap-1">
+                    <MapPin size={11} className="text-blue-400 shrink-0" />
+                    <span>{b.boardingPoint}</span>
                   </p>
                 </div>
 
-                <div className="md:col-span-3 flex flex-col items-center justify-center text-center">
-                  <span className="text-xs font-semibold text-slate-300 flex items-center space-x-1">
+                <div className="md:col-span-4 flex flex-col items-center justify-center text-center">
+                  <span className="text-xs font-semibold text-slate-300 flex items-center gap-1 mb-1">
                     <Calendar size={13} className="text-blue-400" />
                     <span>{b.journeyDate}</span>
                   </span>
-                  <div className="w-24 border-t border-dashed border-slate-600 my-1 relative">
-                    <span className="absolute -top-1 right-0 w-2.5 h-2.5 rounded-full bg-emerald-400" />
+                  <div className="w-full flex items-center space-x-1 px-4">
+                    <div className="w-2.5 h-2.5 rounded-full bg-blue-500" />
+                    <div className="flex-1 border-t-2 border-dashed border-slate-600" />
+                    <div className="w-2.5 h-2.5 rounded-full bg-emerald-400" />
                   </div>
-                  <span className="text-[11px] text-slate-400 font-medium">
-                    {b.passengers.length} Passenger(s)
+                  <span className="text-[11px] text-slate-400 mt-1">
+                    {b.passengers.length} Passenger{b.passengers.length > 1 ? 's' : ''}
                   </span>
                 </div>
 
-                <div className="md:col-span-3">
-                  <div className="text-xl font-black text-white">{b.to}</div>
-                  <p className="text-xs text-emerald-400 font-bold mt-0.5">{b.arrivalTime}</p>
-                  <p className="text-xs text-slate-400 truncate max-w-[200px] mt-0.5 font-medium">
-                    {b.droppingPoint}
+                <div className="md:col-span-4 md:text-right">
+                  <div className="text-2xl font-black text-white">{b.to}</div>
+                  <div className="text-xs font-bold text-emerald-400 mt-0.5">{b.arrivalTime}</div>
+                  <p className="text-xs text-slate-400 mt-1 flex items-center md:justify-end gap-1">
+                    <MapPin size={11} className="text-emerald-400 shrink-0" />
+                    <span>{b.droppingPoint}</span>
                   </p>
                 </div>
+              </div>
 
-                {/* Actions */}
-                <div className="md:col-span-3 flex flex-col sm:flex-row md:flex-col gap-2 justify-end">
+              {/* Passengers & Action Buttons */}
+              <div className="pt-4 border-t border-white/[0.08] flex flex-wrap items-center justify-between gap-4">
+                <div className="flex items-center space-x-2 text-xs">
+                  <span className="text-slate-400 font-bold">Reserved Berths:</span>
+                  <div className="flex items-center space-x-1.5">
+                    {b.passengers.map((p, idx) => (
+                      <span
+                        key={idx}
+                        className="px-2.5 py-1 rounded-lg bg-blue-500/15 border border-blue-500/30 text-sky-300 font-bold"
+                      >
+                        {p.seatNumber} ({p.name})
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="flex items-center space-x-2.5">
                   <button
                     onClick={() => setSelectedTicket(b)}
-                    className="px-4 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs uppercase tracking-wider shadow-md text-center transition-all border border-blue-400/30"
+                    className="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs uppercase tracking-wider shadow-lg shadow-blue-600/30 flex items-center space-x-1.5 active:scale-95 transition-all border border-blue-400/30"
                   >
-                    View E-Ticket
+                    <Printer size={13} />
+                    <span>View E-Ticket</span>
                   </button>
 
                   {b.status === 'CONFIRMED' && (
                     <button
                       onClick={() => setCancelModalPnr(b.pnr)}
-                      className="px-4 py-2 rounded-xl bg-white/[0.05] hover:bg-rose-500/10 text-slate-300 hover:text-rose-400 border border-white/10 text-xs font-semibold text-center transition-colors"
+                      className="px-4 py-2.5 rounded-xl bg-white/[0.05] hover:bg-rose-600/20 text-slate-300 hover:text-rose-300 border border-white/10 hover:border-rose-500/30 font-bold text-xs transition-all active:scale-95"
                     >
                       Cancel Ticket
                     </button>
                   )}
                 </div>
               </div>
-
-              {/* Passengers Bar */}
-              <div className="pt-3 border-t border-white/[0.08] flex flex-wrap items-center gap-2 text-xs text-slate-400">
-                <span className="font-semibold text-slate-300">Reserved Berths:</span>
-                {b.passengers.map((p, idx) => (
-                  <span
-                    key={idx}
-                    className="px-2.5 py-0.5 rounded-lg bg-white/[0.05] border border-white/10 text-slate-300 font-mono font-bold text-[11px]"
-                  >
-                    {p.seatNumber} ({p.name})
-                  </span>
-                ))}
-              </div>
             </div>
           ))
         ) : (
-          <div className="text-center py-16 bg-[#111625] rounded-3xl border border-white/10 p-8 space-y-4 shadow-xl">
-            <Ticket size={44} className="mx-auto text-slate-600" />
-            <h3 className="text-lg font-bold text-white">No Bookings Found</h3>
-            <p className="text-xs text-slate-400 max-w-sm mx-auto">
-              You do not have any bookings matching this criteria. Search our daily bus routes and reserve your luxury sleeper berth.
+          <div className="p-12 rounded-[2rem] bg-[#101524] border border-white/10 text-center space-y-4 shadow-xl">
+            <Ticket size={36} className="text-slate-500 mx-auto" />
+            <h3 className="text-xl font-bold text-white">No Bookings Found</h3>
+            <p className="text-xs text-slate-400 max-w-sm mx-auto font-normal">
+              No reservation found matching "{searchPnr}". Search across South India routes to book your next voyage.
             </p>
             <Link
               to="/search"
-              className="inline-block px-6 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold uppercase tracking-wider transition-colors shadow-md border border-blue-400/30"
+              className="inline-flex items-center space-x-2 px-6 py-3 rounded-xl bg-blue-600 text-white font-bold text-xs uppercase tracking-wider"
             >
-              Book a Bus Now
+              <span>Book a Sleeper Bus</span>
+              <ArrowRight size={14} />
             </Link>
           </div>
         )}

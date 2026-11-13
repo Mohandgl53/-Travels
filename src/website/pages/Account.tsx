@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useAuth } from '../../auth/AuthContext';
-import { User, Check, LogOut, Ticket, Heart } from 'lucide-react';
+import { User, Check, LogOut, Ticket, Heart, Award, ShieldCheck, Sparkles, Phone, Mail } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 
 export const Account: React.FC = () => {
@@ -24,137 +24,156 @@ export const Account: React.FC = () => {
   };
 
   return (
-    <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8 text-slate-100">
-      {/* Account Hero Bar */}
-      <div className="rounded-3xl bg-[#0a0d16] border border-white/10 text-white p-6 md:p-8 flex flex-col md:flex-row items-center justify-between gap-6 shadow-2xl">
-        <div className="flex items-center space-x-4">
-          <div className="w-16 h-16 rounded-2xl bg-gradient-to-tr from-blue-600 to-indigo-600 border border-blue-400/30 text-white font-black text-2xl flex items-center justify-center shadow-lg">
-            {user?.name ? user.name.charAt(0).toUpperCase() : 'U'}
+    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8 text-slate-100">
+      {/* Porcelain Canvas Header matching Reference Theme */}
+      <div className="porcelain-canvas rounded-[2.5rem] p-8 sm:p-10 shadow-2xl relative border border-slate-300/40 text-slate-900 flex flex-col md:flex-row items-center justify-between gap-6 overflow-hidden">
+        <div className="flex items-center space-x-5">
+          <div className="w-18 h-18 sm:w-20 sm:h-20 rounded-3xl bg-gradient-to-tr from-blue-600 to-indigo-600 border-4 border-white text-white font-black text-2xl sm:text-3xl flex items-center justify-center shadow-xl font-tamil shrink-0">
+            {user?.name ? user.name.charAt(0).toUpperCase() : 'M'}
           </div>
           <div>
-            <h1 className="text-2xl font-bold text-white font-tamil">{user?.name || 'Valued Passenger'}</h1>
-            <p className="text-xs text-slate-400">{user?.email}</p>
-            <div className="flex items-center space-x-2 mt-2">
-              <span className="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-blue-500/15 text-blue-300 border border-blue-500/30">
-                Gold Member
-              </span>
-              <span className="text-[11px] text-slate-400">Member since {user?.memberSince || '2024'}</span>
+            <div className="inline-flex items-center space-x-1.5 px-3 py-0.5 rounded-full bg-amber-100 border border-amber-300 text-amber-800 text-[11px] font-black uppercase tracking-wider mb-1.5 shadow-sm">
+              <Sparkles size={11} className="text-amber-600" />
+              <span>Gold Tier Passenger</span>
             </div>
+            <h1 className="text-2xl sm:text-4xl font-black text-slate-900 font-tamil tracking-tight">
+              {user?.name || 'Mohan Kumar'}
+            </h1>
+            <p className="text-xs text-slate-600 font-medium mt-0.5">{user?.email}</p>
+            <p className="text-[11px] text-slate-500 font-medium mt-1">
+              Member since {user?.memberSince || '2024'} • Verified Identity
+            </p>
           </div>
         </div>
 
         {/* Loyalty Points Card */}
-        <div className="bg-[#111625] border border-white/10 rounded-2xl p-4 text-center min-w-[200px]">
-          <span className="text-[11px] uppercase tracking-wider text-slate-400 block font-bold">
+        <div className="organic-blob-weather p-6 text-center min-w-[220px] shadow-lg">
+          <span className="text-[11px] uppercase tracking-wider text-slate-500 block font-bold">
             Mariamman Club Points
           </span>
-          <div className="text-3xl font-black text-blue-400 mt-1">
+          <div className="text-4xl font-black text-blue-600 mt-1">
             {user?.loyaltyPoints || 450}
           </div>
-          <p className="text-[10px] text-emerald-400 font-semibold mt-0.5">Worth ₹{(user?.loyaltyPoints || 450) * 0.5} on next ticket</p>
+          <p className="text-xs text-emerald-600 font-bold mt-1">
+            ₹{(user?.loyaltyPoints || 450) * 0.5} Instant Discount Available
+          </p>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         {/* Profile Information Form */}
-        <div className="lg:col-span-7 bg-[#111625] border border-white/10 rounded-3xl p-6 md:p-8 space-y-6 shadow-xl">
+        <div className="lg:col-span-7 bg-[#101524] border border-white/10 rounded-[2rem] p-7 md:p-8 space-y-6 shadow-xl">
           <div className="flex items-center justify-between border-b border-white/[0.08] pb-4">
-            <h2 className="text-lg font-bold text-white flex items-center space-x-2">
+            <h2 className="text-lg font-black text-white flex items-center space-x-2">
               <User size={18} className="text-blue-400" />
               <span>Personal Details</span>
             </h2>
             {isSaved && (
-              <span className="text-xs text-emerald-400 flex items-center space-x-1 animate-fade-in font-bold">
+              <span className="text-xs text-emerald-400 flex items-center space-x-1 font-bold animate-fade-in">
                 <Check size={14} />
-                <span>Saved!</span>
+                <span>Changes Saved!</span>
               </span>
             )}
           </div>
 
           <form onSubmit={handleSave} className="space-y-4">
             <div>
-              <label className="block text-xs font-semibold text-slate-300 mb-1">Full Name</label>
+              <label className="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1.5">
+                Full Name
+              </label>
               <input
                 type="text"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className="w-full px-4 py-2.5 rounded-xl bg-[#0a0d16] border border-white/10 text-xs text-white font-medium focus:outline-none focus:border-blue-500 shadow-inner"
+                className="w-full px-4 py-3 rounded-xl bg-white/[0.05] border border-white/10 text-xs text-white font-medium focus:outline-none focus:border-blue-500"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-slate-300 mb-1">Email Address (Registered)</label>
+              <label className="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1.5">
+                Email Address (Permanent)
+              </label>
               <input
                 type="email"
                 disabled
                 value={user?.email || ''}
-                className="w-full px-4 py-2.5 rounded-xl bg-white/[0.03] border border-white/5 text-xs text-slate-500 cursor-not-allowed"
+                className="w-full px-4 py-3 rounded-xl bg-white/[0.02] border border-white/5 text-xs text-slate-500 cursor-not-allowed"
               />
-              <span className="text-[10px] text-slate-500 mt-1 block">Email address cannot be changed</span>
+              <span className="text-[10px] text-slate-500 mt-1 block">Verified contact email</span>
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-slate-300 mb-1">Mobile Number (WhatsApp Enabled)</label>
+              <label className="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1.5">
+                Mobile Number (SMS & WhatsApp Telemetry)
+              </label>
               <input
                 type="tel"
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
-                className="w-full px-4 py-2.5 rounded-xl bg-[#0a0d16] border border-white/10 text-xs text-white font-medium focus:outline-none focus:border-blue-500 shadow-inner"
+                className="w-full px-4 py-3 rounded-xl bg-white/[0.05] border border-white/10 text-xs text-white font-medium focus:outline-none focus:border-blue-500"
               />
             </div>
 
-            <button
-              type="submit"
-              className="py-2.5 px-6 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold uppercase tracking-wider transition-colors shadow-lg shadow-blue-600/30 border border-blue-400/30"
-            >
-              Update Profile
-            </button>
+            <div className="pt-2">
+              <button
+                type="submit"
+                className="px-6 py-3 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs uppercase tracking-wider shadow-lg shadow-blue-600/30 transition-all active:scale-95 border border-blue-400/30"
+              >
+                Save Profile Updates
+              </button>
+            </div>
           </form>
         </div>
 
-        {/* Quick Shortcuts & Preferences */}
-        <div className="lg:col-span-5 space-y-6">
-          {/* Quick Actions */}
-          <div className="bg-[#111625] border border-white/10 rounded-3xl p-6 space-y-3 shadow-xl">
-            <h3 className="text-xs font-bold text-slate-400 uppercase tracking-wider">
-              Account Shortcuts
-            </h3>
-            <Link
-              to="/bookings"
-              className="flex items-center justify-between p-3.5 rounded-2xl bg-[#0a0d16] hover:bg-white/[0.05] border border-white/10 transition-colors group"
-            >
-              <div className="flex items-center space-x-3">
-                <Ticket size={18} className="text-blue-400" />
-                <span className="text-xs font-semibold text-slate-200">View Active Bookings</span>
-              </div>
-              <span className="text-xs text-slate-400 group-hover:text-blue-400 font-bold">→</span>
-            </Link>
+        {/* Quick Shortcuts & Security */}
+        <div className="lg:col-span-5 space-y-5">
+          <div className="bg-[#101524] border border-white/10 rounded-[2rem] p-7 space-y-4 shadow-xl">
+            <h3 className="text-base font-black text-white">Traveler Dashboard</h3>
+            
+            <div className="space-y-2">
+              <Link
+                to="/bookings"
+                className="flex items-center justify-between p-3.5 rounded-xl bg-white/[0.03] hover:bg-white/[0.08] border border-white/5 transition-all text-xs font-semibold text-white group"
+              >
+                <div className="flex items-center space-x-2.5">
+                  <Ticket size={16} className="text-emerald-400" />
+                  <span>My Active & Past Bookings</span>
+                </div>
+                <span className="text-slate-400 group-hover:translate-x-1 transition-transform">→</span>
+              </Link>
 
-            <Link
-              to="/search"
-              className="flex items-center justify-between p-3.5 rounded-2xl bg-[#0a0d16] hover:bg-white/[0.05] border border-white/10 transition-colors group"
-            >
-              <div className="flex items-center space-x-3">
-                <Heart size={18} className="text-emerald-400" />
-                <span className="text-xs font-semibold text-slate-200">Book New Express Route</span>
-              </div>
-              <span className="text-xs text-slate-400 group-hover:text-emerald-400 font-bold">→</span>
-            </Link>
-          </div>
+              <Link
+                to="/search"
+                className="flex items-center justify-between p-3.5 rounded-xl bg-white/[0.03] hover:bg-white/[0.08] border border-white/5 transition-all text-xs font-semibold text-white group"
+              >
+                <div className="flex items-center space-x-2.5">
+                  <Award size={16} className="text-sky-400" />
+                  <span>Explore Sleeper Routes</span>
+                </div>
+                <span className="text-slate-400 group-hover:translate-x-1 transition-transform">→</span>
+              </Link>
 
-          {/* Sign Out Card */}
-          <div className="bg-[#111625] border border-white/10 rounded-3xl p-6 text-center space-y-3 shadow-xl">
-            <h4 className="text-sm font-bold text-white">Sign Out of Session</h4>
-            <p className="text-xs text-slate-400">
-              You will be navigated back to the animated login experience.
-            </p>
-            <button
-              onClick={handleLogout}
-              className="w-full py-2.5 rounded-xl bg-white/[0.05] hover:bg-rose-500/15 border border-white/10 hover:border-rose-500/30 text-rose-400 text-xs font-bold flex items-center justify-center space-x-2 transition-all"
-            >
-              <LogOut size={15} />
-              <span>Sign Out</span>
-            </button>
+              <Link
+                to="/login"
+                className="flex items-center justify-between p-3.5 rounded-xl bg-white/[0.03] hover:bg-white/[0.08] border border-white/5 transition-all text-xs font-semibold text-white group"
+              >
+                <div className="flex items-center space-x-2.5">
+                  <Sparkles size={16} className="text-amber-400" />
+                  <span>Re-watch Cinematic Intro Video</span>
+                </div>
+                <span className="text-slate-400 group-hover:translate-x-1 transition-transform">→</span>
+              </Link>
+            </div>
+
+            <div className="pt-4 border-t border-white/10">
+              <button
+                onClick={handleLogout}
+                className="w-full py-3 rounded-xl bg-rose-600/10 hover:bg-rose-600/20 border border-rose-500/20 text-rose-300 font-bold text-xs flex items-center justify-center space-x-2 transition-all active:scale-95"
+              >
+                <LogOut size={14} />
+                <span>Sign Out of Account</span>
+              </button>
+            </div>
           </div>
         </div>
       </div>
