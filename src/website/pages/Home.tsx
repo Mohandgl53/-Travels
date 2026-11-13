@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { SearchBar } from '../components/SearchBar';
 import {
@@ -13,12 +13,100 @@ import {
   Ticket,
   Award,
   PhoneCall,
-  ShieldCheck,
-  CheckCircle2,
+  Sun,
+  CloudSun,
+  Compass,
 } from 'lucide-react';
 import { MOCK_BUS_TRIPS } from '../data/travelData';
 
 export const Home: React.FC = () => {
+  const [activeFeaturedIndex, setActiveFeaturedIndex] = useState(0);
+
+  const featuredDestinations = [
+    {
+      id: 'madurai',
+      city: 'Madurai',
+      tamilName: 'மதுரை',
+      tag: 'SACRED HERITAGE • MEENAKSHI SHRINE',
+      title: 'Madurai Temple Express',
+      subtitle: 'Experience midnight Jigarthanda, thousand-pillar mandapams, and restorative sleep aboard our Volvo multi-axle coaches.',
+      weather: '28°C Pleasant Skies',
+      corridor: 'Madurai Central Terminal',
+      departureTime: '20:45 Tonight',
+      busNumber: 'TN-72-CD-7777',
+      coachType: 'Volvo Multi-Axle 9600 Sleeper',
+      availableSeats: 9,
+      fare: 1350,
+      bgGradient: 'from-blue-900/90 via-slate-900 to-[#0a0d16]',
+      accentColor: 'text-amber-400',
+      iconBg: 'bg-amber-500/20 text-amber-300 border-amber-500/30',
+    },
+    {
+      id: 'ooty',
+      city: 'Ooty',
+      tamilName: 'ஊட்டி',
+      tag: 'MISTY NILGIRIS • 7,500 FT ELEVATION',
+      title: 'Nilgiri Mountain Sleeper',
+      subtitle: 'Wake up refreshed amidst rolling emerald tea gardens, crisp eucalyptus air, and breathtaking Western Ghats pine peaks.',
+      weather: '16°C Misty Morning',
+      corridor: 'Ooty Central Stand',
+      departureTime: '21:30 Tonight',
+      busNumber: 'TN-43-BB-9999',
+      coachType: 'BharatBenz Glider AC Sleeper',
+      availableSeats: 12,
+      fare: 1450,
+      bgGradient: 'from-emerald-950/90 via-slate-900 to-[#0a0d16]',
+      accentColor: 'text-emerald-400',
+      iconBg: 'bg-emerald-500/20 text-emerald-300 border-emerald-500/30',
+    },
+    {
+      id: 'rameswaram',
+      city: 'Rameswaram',
+      tamilName: 'ராமேஸ்வரம்',
+      tag: 'HOLY ISLAND • OCEAN CORRIDOR',
+      title: 'Pamban Sea Express',
+      subtitle: 'Cross the majestic ocean bridge to India’s sacred southern tip with high-speed 4-lane highway cruising.',
+      weather: '29°C Ocean Breeze',
+      corridor: 'Rameswaram Temple Gate',
+      departureTime: '19:45 Tonight',
+      busNumber: 'TN-65-RM-1212',
+      coachType: 'Volvo B11R Luxury Sleeper',
+      availableSeats: 7,
+      fare: 1550,
+      bgGradient: 'from-cyan-950/90 via-slate-900 to-[#0a0d16]',
+      accentColor: 'text-cyan-400',
+      iconBg: 'bg-cyan-500/20 text-cyan-300 border-cyan-500/30',
+    },
+    {
+      id: 'coimbatore',
+      city: 'Coimbatore',
+      tamilName: 'கோயம்புத்தூர்',
+      tag: 'MANCHESTER OF SOUTH • ADIYOGI SHIVA',
+      title: 'Siruvani Adiyogi Express',
+      subtitle: 'Swift, non-stop luxury transit to the bustling industrial capital and the peaceful foothills of Isha Adiyogi.',
+      weather: '24°C Cool Ghats',
+      corridor: 'Gandhipuram Omni Terminal',
+      departureTime: '22:00 Tonight',
+      busNumber: 'TN-38-CB-4444',
+      coachType: 'BharatBenz Executive Sleeper',
+      availableSeats: 14,
+      fare: 1250,
+      bgGradient: 'from-indigo-950/90 via-slate-900 to-[#0a0d16]',
+      accentColor: 'text-indigo-400',
+      iconBg: 'bg-indigo-500/20 text-indigo-300 border-indigo-500/30',
+    },
+  ];
+
+  // Auto rotate featured showcase smoothly every 7 seconds
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setActiveFeaturedIndex((prev) => (prev + 1) % featuredDestinations.length);
+    }, 7000);
+    return () => clearInterval(timer);
+  }, [featuredDestinations.length]);
+
+  const currentFeatured = featuredDestinations[activeFeaturedIndex];
+
   const quickPortals = [
     {
       title: 'Home',
@@ -71,15 +159,15 @@ export const Home: React.FC = () => {
   ];
 
   return (
-    <div className="space-y-16 pb-24 text-slate-100">
+    <div className="space-y-16 pb-24 text-slate-100 overflow-x-hidden">
       {/* 1. Hero Section - Deep Atmospheric Obsidian & Sapphire Blue */}
-      <section className="relative pt-14 pb-28 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-[#06080e] via-[#0d1424] to-[#090a0f] text-white overflow-hidden border-b border-white/[0.08]">
+      <section className="relative pt-12 pb-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-[#06080e] via-[#0d1424] to-[#090a0f] text-white overflow-hidden border-b border-white/[0.08]">
         {/* Subtle patterned background ambient glows */}
         <div className="absolute top-0 right-1/4 w-[500px] h-[500px] bg-blue-600/10 rounded-full blur-[120px] pointer-events-none" />
         <div className="absolute bottom-0 left-1/4 w-[400px] h-[400px] bg-emerald-500/10 rounded-full blur-[100px] pointer-events-none" />
 
         <div className="max-w-7xl mx-auto relative z-10">
-          <div className="text-center max-w-3xl mx-auto mb-10">
+          <div className="text-center max-w-3xl mx-auto mb-8">
             <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-blue-500/10 border border-blue-400/20 text-sky-400 text-xs font-semibold mb-4 backdrop-blur-md shadow-sm">
               <Sparkles size={14} className="text-sky-400" />
               <span>South India's Most Trusted Luxury Coach Network</span>
@@ -97,20 +185,20 @@ export const Home: React.FC = () => {
           </div>
 
           {/* Quick Metrics Bar */}
-          <div className="mt-8 grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto text-center">
-            <div className="p-4 rounded-2xl bg-white/[0.03] border border-white/10 backdrop-blur-md">
+          <div className="mt-6 grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto text-center">
+            <div className="p-4 rounded-2xl bg-white/[0.03] border border-white/10 backdrop-blur-md shadow-lg">
               <div className="text-2xl sm:text-3xl font-black text-sky-400">120+</div>
               <div className="text-xs text-slate-400 font-medium mt-0.5">Daily Coach Services</div>
             </div>
-            <div className="p-4 rounded-2xl bg-white/[0.03] border border-white/10 backdrop-blur-md">
+            <div className="p-4 rounded-2xl bg-white/[0.03] border border-white/10 backdrop-blur-md shadow-lg">
               <div className="text-2xl sm:text-3xl font-black text-white">4.8 ★</div>
               <div className="text-xs text-slate-400 font-medium mt-0.5">Passenger Rating</div>
             </div>
-            <div className="p-4 rounded-2xl bg-white/[0.03] border border-white/10 backdrop-blur-md">
+            <div className="p-4 rounded-2xl bg-white/[0.03] border border-white/10 backdrop-blur-md shadow-lg">
               <div className="text-2xl sm:text-3xl font-black text-emerald-400">1.2M+</div>
               <div className="text-xs text-slate-400 font-medium mt-0.5">Happy Travelers</div>
             </div>
-            <div className="p-4 rounded-2xl bg-white/[0.03] border border-white/10 backdrop-blur-md">
+            <div className="p-4 rounded-2xl bg-white/[0.03] border border-white/10 backdrop-blur-md shadow-lg">
               <div className="text-2xl sm:text-3xl font-black text-cyan-400">99.4%</div>
               <div className="text-xs text-slate-400 font-medium mt-0.5">Punctuality Score</div>
             </div>
@@ -123,8 +211,130 @@ export const Home: React.FC = () => {
         <SearchBar compact={true} />
       </div>
 
-      {/* 2. Architectural Flow Showcase: The 6 Website Portals (Matching Design Specification) */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
+      {/* 2. Organic Fluid Showcase Canvas (Inspired by Reference Image & Motion Choreography) */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative pt-2">
+        <div className="text-center max-w-2xl mx-auto mb-6">
+          <div className="inline-flex items-center space-x-1.5 text-xs uppercase tracking-widest font-black text-blue-400">
+            <Compass size={14} className="text-blue-400 animate-spin" style={{ animationDuration: '12s' }} />
+            <span>Featured Express Corridors</span>
+          </div>
+          <h2 className="text-2xl sm:text-3xl font-black text-white mt-1">
+            Curated Highway Journeys
+          </h2>
+          <p className="text-xs sm:text-sm text-slate-400 mt-1.5 font-normal">
+            Immerse yourself in scenic journeys crafted for deep relaxation and punctuality.
+          </p>
+        </div>
+
+        {/* Outer Canvas with Floating Badges */}
+        <div className="relative">
+          {/* Handwritten Script Accent (Top Left) */}
+          <div className="hidden md:flex items-center space-x-2 absolute -top-4 left-6 z-20 px-3.5 py-1 rounded-full bg-blue-600/20 border border-blue-500/30 backdrop-blur-md shadow-lg">
+            <span className="text-sm">✨</span>
+            <span className="text-xs font-bold text-sky-300 font-tamil tracking-wide">
+              பயணம் செய்வோம்!
+            </span>
+            <span className="text-xs text-slate-300 font-medium">— Let's Journey</span>
+          </div>
+
+          {/* Floating Weather & Telemetry Widget (Top Right) */}
+          <div className="hidden lg:flex items-center space-x-3 absolute -top-5 right-6 z-20 px-4 py-2 rounded-2xl bg-[#111625]/90 border border-white/15 backdrop-blur-xl shadow-2xl animate-float-slow">
+            <div className="w-8 h-8 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center border border-amber-500/30">
+              <Sun size={17} className="animate-spin" style={{ animationDuration: '20s' }} />
+            </div>
+            <div>
+              <div className="text-xs font-bold text-white">{currentFeatured.weather}</div>
+              <div className="text-[10px] text-slate-400 font-medium">{currentFeatured.corridor}</div>
+            </div>
+          </div>
+
+          {/* Floating Upcoming Coach Status Widget (Bottom Right) */}
+          <div className="hidden lg:flex items-center space-x-3.5 absolute -bottom-5 right-8 z-20 px-4 py-2.5 rounded-2xl bg-[#111625]/95 border border-white/15 backdrop-blur-xl shadow-2xl animate-float-reverse">
+            <div className="w-9 h-9 rounded-xl bg-blue-600 text-white flex items-center justify-center font-tamil font-black text-sm shadow-md">
+              மா
+            </div>
+            <div>
+              <div className="flex items-center space-x-2">
+                <span className="text-xs font-bold text-white">{currentFeatured.departureTime}</span>
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                <span className="text-[10px] font-bold text-emerald-400 uppercase tracking-wider">On-Time</span>
+              </div>
+              <p className="text-[10px] text-slate-400 font-medium mt-0.5">
+                {currentFeatured.coachType} • <strong className="text-blue-400">{currentFeatured.availableSeats} Berths Left</strong>
+              </p>
+            </div>
+          </div>
+
+          {/* The Main Organic Sculpted Frame */}
+          <div className={`organic-card-frame bg-gradient-to-br ${currentFeatured.bgGradient} p-8 md:p-12 relative overflow-hidden transition-all duration-700`}>
+            {/* Ambient Background Art Glows */}
+            <div className="absolute top-0 right-0 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl pointer-events-none" />
+            <div className="absolute -bottom-10 -left-10 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
+
+            <div className="relative z-10 max-w-2xl space-y-5">
+              {/* Category Pill */}
+              <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-white/[0.08] border border-white/15 text-xs font-bold uppercase tracking-wider">
+                <span className="w-2 h-2 rounded-full bg-blue-400 animate-ping" />
+                <span className="text-slate-200">{currentFeatured.tag}</span>
+              </div>
+
+              {/* Title & Tamil Subhead */}
+              <div>
+                <div className="flex items-baseline space-x-3">
+                  <h3 className="text-3xl sm:text-5xl font-black text-white tracking-tight">
+                    {currentFeatured.title}
+                  </h3>
+                  <span className="text-2xl sm:text-3xl font-black font-tamil text-blue-400">
+                    {currentFeatured.tamilName}
+                  </span>
+                </div>
+                <p className="text-sm sm:text-base text-slate-300 mt-3 leading-relaxed font-normal">
+                  {currentFeatured.subtitle}
+                </p>
+              </div>
+
+              {/* Action & Pricing Bar */}
+              <div className="pt-2 flex flex-wrap items-center gap-4">
+                <Link
+                  to={`/search?from=Chennai&to=${currentFeatured.city}`}
+                  className="px-6 py-3 rounded-2xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs uppercase tracking-wider shadow-lg shadow-blue-600/30 flex items-center space-x-2 transition-all border border-blue-400/30 active:scale-95"
+                >
+                  <span>Explore Sleeper Schedule</span>
+                  <ArrowRight size={15} />
+                </Link>
+
+                <div className="px-4 py-2.5 rounded-2xl bg-white/[0.06] border border-white/10 text-xs">
+                  <span className="text-slate-400 block text-[10px] uppercase tracking-wider font-semibold">Starting Fare</span>
+                  <span className="text-white text-lg font-black">₹{currentFeatured.fare}</span>
+                </div>
+              </div>
+
+              {/* Mini Thumbnail Destination Switcher Avatars (Direct Reference Element) */}
+              <div className="pt-4 flex items-center space-x-3">
+                <span className="text-xs text-slate-400 font-semibold">Select Destination:</span>
+                <div className="flex items-center space-x-2">
+                  {featuredDestinations.map((dest, idx) => (
+                    <button
+                      key={dest.id}
+                      onClick={() => setActiveFeaturedIndex(idx)}
+                      className={`px-3 py-1 rounded-xl text-xs font-semibold transition-all ${
+                        activeFeaturedIndex === idx
+                          ? 'bg-blue-600 text-white shadow-md border border-blue-400/40 font-bold scale-105'
+                          : 'bg-white/[0.06] text-slate-400 hover:text-white hover:bg-white/[0.12] border border-white/10'
+                      }`}
+                    >
+                      {dest.city}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 3. Architectural Flow Showcase: The 6 Website Portals (Matching Design Specification) */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="p-8 sm:p-10 rounded-3xl bg-[#0f1422] border border-white/10 shadow-2xl relative overflow-hidden">
           <div className="absolute top-0 right-0 w-80 h-80 bg-blue-600/5 rounded-full blur-3xl pointer-events-none" />
 
@@ -178,7 +388,7 @@ export const Home: React.FC = () => {
         </div>
       </section>
 
-      {/* 3. Popular Routes Showcase */}
+      {/* 4. Popular Routes Showcase */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 gap-4">
           <div>
@@ -256,7 +466,7 @@ export const Home: React.FC = () => {
         </div>
       </section>
 
-      {/* 4. Why Travel with மாரியம்மன் Travels */}
+      {/* 5. Why Travel with மாரியம்மன் Travels */}
       <section className="bg-[#0c101a] border-y border-white/[0.08] py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-2xl mx-auto mb-12">
@@ -305,7 +515,7 @@ export const Home: React.FC = () => {
         </div>
       </section>
 
-      {/* 5. Destinations Spotlight */}
+      {/* 6. Destinations Spotlight */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-2xl mx-auto mb-10">
           <span className="text-xs uppercase tracking-widest font-black text-blue-400">
