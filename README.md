@@ -219,3 +219,4 @@ The repository includes a ready-to-use `vercel.json` configuration for seamless 
 ## 🛡️ License
 
 This project is licensed under the [MIT License](LICENSE). All media assets and branding elements are reserved by **மாரியம்மன் Travels Private Limited**.
+
