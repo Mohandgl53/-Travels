@@ -106,9 +106,42 @@
   color: #0f172a;
 }
 
+/* SVG Clip Path Classes for true organic fluid non-rectangular cutouts */
+.clip-reference-hero {
+  clip-path: url(#reference-hero-clip);
+  -webkit-clip-path: url(#reference-hero-clip);
+}
+
+.clip-reference-weather {
+  clip-path: url(#reference-weather-clip);
+  -webkit-clip-path: url(#reference-weather-clip);
+}
+
+/* Reference Video Card Expansion & Blossom Animation */
+@keyframes cardExpandBloom {
+  0% {
+    transform: scale(0.92) translateY(16px);
+    opacity: 0.5;
+    filter: blur(4px);
+  }
+  55% {
+    transform: scale(1.015) translateY(-3px);
+    opacity: 0.95;
+    filter: blur(0px);
+  }
+  100% {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+    filter: blur(0px);
+  }
+}
+
+.animate-card-expand {
+  animation: cardExpandBloom 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
 /* Reference Fluid Organic Blob Cutouts with 3D Sculpted Bevels */
 .organic-blob-hero {
-  border-radius: 56px 84px 68px 92px / 76px 64px 84px 68px;
   border: 7px solid #ffffff;
   box-shadow: 
     0 24px 48px -12px rgba(15, 23, 42, 0.16),

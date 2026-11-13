@@ -55,6 +55,23 @@ export const Home: React.FC = () => {
 
   const featuredDestinations: FeaturedSlide[] = [
     {
+      id: 'santorini',
+      name: 'Santorini',
+      tamilName: 'சாண்டோரினி',
+      region: 'Greece, Cyclades Islands',
+      tag: 'FEATURED DESTINATION',
+      description: 'White towns, blue domes and magical sunsets.',
+      temp: '27°',
+      weatherCondition: 'Sunny',
+      locationLabel: 'Santorini, Greece',
+      upcomingRoute: 'Greece Islands Tour',
+      upcomingDate: '12 - 18 Sep 2026',
+      upcomingPassengers: '2 People',
+      startingFare: 1450,
+      imageUrl: 'https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?auto=format&fit=crop&w=1600&q=80',
+      accentColor: 'from-blue-950/85 via-blue-900/40 to-transparent',
+    },
+    {
       id: 'madurai',
       name: 'Madurai',
       tamilName: 'மதுரை',
@@ -171,12 +188,24 @@ export const Home: React.FC = () => {
 
   return (
     <div className="space-y-12 pb-24 text-slate-800 overflow-x-hidden">
+      {/* SVG Global Definitions for True Organic Non-Rectangular Blob Cutouts matching Reference */}
+      <svg className="absolute w-0 h-0 pointer-events-none" aria-hidden="true">
+        <defs>
+          <clipPath id="reference-hero-clip" clipPathUnits="objectBoundingBox">
+            <path d="M 0.6136,0.0 C 0.5892,0.0065 0.5311,0.0261 0.4899,0.0418 C 0.4487,0.0575 0.4075,0.0866 0.3662,0.094 C 0.325,0.1014 0.2836,0.0932 0.2424,0.0862 C 0.2012,0.0792 0.1549,0.0452 0.1187,0.0522 C 0.0825,0.0592 0.0388,0.094 0.0253,0.1279 C 0.0118,0.1619 0.0354,0.2133 0.0379,0.2559 C 0.0404,0.2986 0.0438,0.3412 0.0404,0.3838 C 0.037,0.4264 0.0244,0.4704 0.0177,0.5117 C 0.011,0.553 -0.003,0.5918 0.0,0.6319 C 0.003,0.672 0.0312,0.7107 0.0354,0.752 C 0.0396,0.7933 0.011,0.8451 0.0253,0.8799 C 0.0396,0.9147 0.0846,0.9499 0.1212,0.9608 C 0.1578,0.9717 0.2036,0.9504 0.2449,0.9452 C 0.2862,0.94 0.3274,0.9291 0.3687,0.9295 C 0.41,0.9299 0.4524,0.936 0.4924,0.9478 C 0.5324,0.9596 0.5716,1.0009 0.6086,1.0 C 0.6456,0.9991 0.6763,0.9478 0.7146,0.9426 C 0.7529,0.9374 0.7976,0.9692 0.8384,0.9687 C 0.8792,0.9682 0.9444,0.9534 0.9596,0.9399 C 0.9748,0.9264 0.9424,0.9151 0.9293,0.8877 C 0.9162,0.8603 0.8893,0.8155 0.8813,0.7755 C 0.8733,0.7355 0.8699,0.6888 0.8813,0.6475 C 0.8927,0.6062 0.9499,0.5683 0.9495,0.5274 C 0.9491,0.4865 0.8893,0.4443 0.8788,0.4021 C 0.8683,0.3599 0.9041,0.3073 0.8864,0.2742 C 0.8687,0.2411 0.7975,0.235 0.7727,0.2037 C 0.7479,0.1724 0.7601,0.1197 0.7374,0.0862 C 0.7147,0.0527 0.657,0.017 0.6364,0.0026 C 0.6158,-0.0118 0.638,-0.0065 0.6136,0.0 Z" />
+          </clipPath>
+          <clipPath id="reference-weather-clip" clipPathUnits="objectBoundingBox">
+            <path d="M 0.6554,0.0 C 0.6025,0.0225 0.5056,0.092 0.4459,0.1595 C 0.3862,0.227 0.3514,0.3517 0.2973,0.4049 C 0.2432,0.4581 0.1678,0.4488 0.1216,0.4785 C 0.0754,0.5082 0.0203,0.5378 0.0203,0.5828 C 0.0203,0.6278 0.0968,0.7045 0.1216,0.7485 C 0.1464,0.7925 0.1407,0.8159 0.1689,0.8466 C 0.197,0.8773 0.2443,0.9233 0.2905,0.9325 C 0.3367,0.9417 0.3896,0.8998 0.4459,0.9018 C 0.5022,0.9038 0.5664,0.9397 0.6284,0.9448 C 0.6903,0.9499 0.7726,0.9233 0.8176,0.9325 C 0.8626,0.9417 0.8749,1.0368 0.8986,1.0 C 0.9222,0.9632 0.9696,0.7506 0.9595,0.7117 C 0.9494,0.6728 0.8896,0.7475 0.8378,0.7669 C 0.786,0.7863 0.6666,0.8323 0.6486,0.8282 C 0.6306,0.8241 0.6959,0.7689 0.7297,0.7423 C 0.7635,0.7157 0.8064,0.6983 0.8514,0.6687 C 0.8964,0.639 0.9854,0.6216 1.0,0.5644 C 1.0146,0.5072 0.9572,0.3906 0.9392,0.3252 C 0.9212,0.2598 0.9212,0.2219 0.8919,0.1718 C 0.8626,0.1217 0.8029,0.0531 0.7635,0.0245 C 0.7241,-0.0041 0.7083,-0.0225 0.6554,0.0 Z" />
+          </clipPath>
+        </defs>
+      </svg>
+
       {/* =========================================================================
           HERO SHOWCASE CANVAS: EXACT REFERENCE IMAGE COMPOSITION & MOTION
           ========================================================================= */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
         <div
-          className="porcelain-canvas rounded-[2.5rem] p-6 sm:p-10 shadow-2xl relative border border-slate-300/40 animate-hero-entrance"
+          className="porcelain-canvas rounded-[2.5rem] p-6 sm:p-10 shadow-2xl relative border border-slate-300/40 animate-card-expand"
           onMouseEnter={() => setIsAutoPlay(false)}
           onMouseLeave={() => setIsAutoPlay(true)}
         >
@@ -188,7 +217,7 @@ export const Home: React.FC = () => {
                 <span className="inline-block animate-bounce origin-bottom-right">👋</span>
               </h1>
               <p className="text-xs sm:text-sm text-slate-600 mt-1 font-medium">
-                Discover South India's scenic places, create unforgettable journeys.
+                Discover new places, create unforgettable memories.
               </p>
             </div>
 
@@ -222,121 +251,147 @@ export const Home: React.FC = () => {
                 LEFT / CENTER: Large Fluid Organic Showcase Card (Reference Blob)
                 ------------------------------------------------------------- */}
             <div className="lg:col-span-8 relative">
-              <div className="organic-blob-hero relative h-[420px] sm:h-[480px] overflow-hidden group">
-                {/* Background Photo with smooth crossfade & gentle Ken-Burns zoom */}
-                <img
-                  key={active.id}
-                  src={active.imageUrl}
-                  alt={active.name}
-                  className="absolute inset-0 w-full h-full object-cover object-center scale-100 group-hover:scale-105 transition-transform duration-1000 ease-out"
-                />
+              <div className="relative h-[440px] sm:h-[500px] group transition-all duration-700 ease-out">
+                {/* True Non-Rectangular Organic SVG Frame: Drop shadow + White 3D Bevel */}
+                <svg
+                  className="absolute inset-0 w-full h-full pointer-events-none z-20 overflow-visible"
+                  viewBox="0 0 1 1"
+                  preserveAspectRatio="none"
+                >
+                  <filter id="hero-rim-shadow" x="-10%" y="-10%" width="130%" height="130%">
+                    <feDropShadow dx="0" dy="16" stdDeviation="16" floodColor="#0f172a" floodOpacity="0.16" />
+                    <feDropShadow dx="0" dy="4" stdDeviation="6" floodColor="#0f172a" floodOpacity="0.08" />
+                  </filter>
+                  {/* Sculpted white 3D rim with drop shadow */}
+                  <path
+                    d="M 0.6136,0.0 C 0.5892,0.0065 0.5311,0.0261 0.4899,0.0418 C 0.4487,0.0575 0.4075,0.0866 0.3662,0.094 C 0.325,0.1014 0.2836,0.0932 0.2424,0.0862 C 0.2012,0.0792 0.1549,0.0452 0.1187,0.0522 C 0.0825,0.0592 0.0388,0.094 0.0253,0.1279 C 0.0118,0.1619 0.0354,0.2133 0.0379,0.2559 C 0.0404,0.2986 0.0438,0.3412 0.0404,0.3838 C 0.037,0.4264 0.0244,0.4704 0.0177,0.5117 C 0.011,0.553 -0.003,0.5918 0.0,0.6319 C 0.003,0.672 0.0312,0.7107 0.0354,0.752 C 0.0396,0.7933 0.011,0.8451 0.0253,0.8799 C 0.0396,0.9147 0.0846,0.9499 0.1212,0.9608 C 0.1578,0.9717 0.2036,0.9504 0.2449,0.9452 C 0.2862,0.94 0.3274,0.9291 0.3687,0.9295 C 0.41,0.9299 0.4524,0.936 0.4924,0.9478 C 0.5324,0.9596 0.5716,1.0009 0.6086,1.0 C 0.6456,0.9991 0.6763,0.9478 0.7146,0.9426 C 0.7529,0.9374 0.7976,0.9692 0.8384,0.9687 C 0.8792,0.9682 0.9444,0.9534 0.9596,0.9399 C 0.9748,0.9264 0.9424,0.9151 0.9293,0.8877 C 0.9162,0.8603 0.8893,0.8155 0.8813,0.7755 C 0.8733,0.7355 0.8699,0.6888 0.8813,0.6475 C 0.8927,0.6062 0.9499,0.5683 0.9495,0.5274 C 0.9491,0.4865 0.8893,0.4443 0.8788,0.4021 C 0.8683,0.3599 0.9041,0.3073 0.8864,0.2742 C 0.8687,0.2411 0.7975,0.235 0.7727,0.2037 C 0.7479,0.1724 0.7601,0.1197 0.7374,0.0862 C 0.7147,0.0527 0.657,0.017 0.6364,0.0026 C 0.6158,-0.0118 0.638,-0.0065 0.6136,0.0 Z"
+                    fill="none"
+                    stroke="#ffffff"
+                    strokeWidth="12"
+                    strokeLinejoin="round"
+                    strokeLinecap="round"
+                    filter="url(#hero-rim-shadow)"
+                    vectorEffect="non-scaling-stroke"
+                  />
+                </svg>
 
-                {/* Rich Atmospheric Gradient Overlay */}
-                <div className={`absolute inset-0 bg-gradient-to-t ${active.accentColor} transition-opacity duration-700`} />
-                <div className="absolute inset-0 bg-gradient-to-r from-slate-950/80 via-slate-900/30 to-transparent" />
+                {/* Clipped Content Container using True Organic Blob Silhouette */}
+                <div className="clip-reference-hero absolute inset-0 w-full h-full overflow-hidden bg-slate-900">
+                  {/* Background Photo with smooth crossfade & gentle Ken-Burns zoom */}
+                  <img
+                    key={active.id}
+                    src={active.imageUrl}
+                    alt={active.name}
+                    className="absolute inset-0 w-full h-full object-cover object-center scale-100 group-hover:scale-105 transition-transform duration-1000 ease-out"
+                  />
 
-                {/* Inner Content Layer */}
-                <div className="absolute inset-0 p-8 sm:p-10 flex flex-col justify-between z-10 text-white">
-                  
-                  {/* Top Bar inside Card: Category Pill */}
-                  <div className="flex items-center justify-between">
-                    <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-white/20 backdrop-blur-md border border-white/30 text-[11px] font-bold tracking-wider uppercase text-white shadow-sm">
-                      <Sparkles size={12} className="text-amber-300 animate-spin" style={{ animationDuration: '8s' }} />
-                      <span>{active.tag}</span>
-                    </div>
+                  {/* Rich Atmospheric Gradient Overlay */}
+                  <div className={`absolute inset-0 bg-gradient-to-t ${active.accentColor} transition-opacity duration-700`} />
+                  <div className="absolute inset-0 bg-gradient-to-r from-slate-950/80 via-slate-900/30 to-transparent" />
 
-                    {/* Reference Video Interactive Arrow Navigation */}
-                    <div className="flex items-center space-x-2">
-                      <button
-                        onClick={handlePrev}
-                        aria-label="Previous Destination"
-                        className="w-8 h-8 rounded-full bg-black/40 hover:bg-black/70 border border-white/20 backdrop-blur-md flex items-center justify-center text-white transition-all active:scale-90"
-                      >
-                        <ChevronLeft size={16} />
-                      </button>
-                      <button
-                        onClick={handleNext}
-                        aria-label="Next Destination"
-                        className="w-8 h-8 rounded-full bg-black/40 hover:bg-black/70 border border-white/20 backdrop-blur-md flex items-center justify-center text-white transition-all active:scale-90"
-                      >
-                        <ChevronRight size={16} />
-                      </button>
-                    </div>
-                  </div>
+                  {/* Inner Content Layer */}
+                  <div className="absolute inset-0 p-8 sm:p-10 flex flex-col justify-between z-10 text-white">
+                    
+                    {/* Top Bar inside Card: Category Pill */}
+                    <div className="flex items-center justify-between">
+                      <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-white/20 backdrop-blur-md border border-white/30 text-[11px] font-bold tracking-wider uppercase text-white shadow-sm">
+                        <Sparkles size={12} className="text-amber-300 animate-spin" style={{ animationDuration: '8s' }} />
+                        <span>{active.tag}</span>
+                      </div>
 
-                  {/* Middle Text: Destination, Tamil Name & Description */}
-                  <div className="max-w-xl space-y-2">
-                    <div className="flex items-baseline gap-3 flex-wrap">
-                      <h2 className="text-4xl sm:text-5xl font-black tracking-tight text-white drop-shadow-md">
-                        {active.name}
-                      </h2>
-                      <span className="text-2xl sm:text-3xl font-extrabold font-tamil text-sky-300 drop-shadow">
-                        {active.tamilName}
-                      </span>
-                    </div>
-
-                    <p className="text-xs sm:text-sm font-medium text-slate-200 drop-shadow line-clamp-2 max-w-lg leading-relaxed">
-                      {active.description}
-                    </p>
-
-                    {/* Action Pill Button (Exact "Explore Now ->" from Reference) */}
-                    <div className="pt-3">
-                      <Link
-                        to={`/search?from=Chennai&to=${active.name}`}
-                        className="inline-flex items-center space-x-2 px-6 py-3 rounded-full bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs uppercase tracking-wider shadow-xl shadow-blue-900/40 hover:shadow-blue-600/50 hover:scale-105 active:scale-95 transition-all border border-blue-400/40"
-                      >
-                        <span>Explore Now</span>
-                        <ArrowRight size={14} />
-                      </Link>
-                    </div>
-                  </div>
-
-                  {/* Bottom Bar inside Card: Circular Thumbnail Previews + `+` (Exact Reference Image) */}
-                  <div className="flex items-center justify-between pt-2">
-                    <div className="flex items-center space-x-2.5">
-                      {featuredDestinations.map((dest, idx) => (
+                      {/* Reference Video Interactive Arrow Navigation */}
+                      <div className="flex items-center space-x-2">
                         <button
-                          key={dest.id}
-                          onClick={() => setCurrentIndex(idx)}
-                          title={`${dest.name} (${dest.tamilName})`}
-                          className={`w-9 h-9 sm:w-10 sm:h-10 rounded-full overflow-hidden border-2 transition-all transform ${
-                            currentIndex === idx
-                              ? 'border-white scale-110 shadow-lg ring-2 ring-blue-500'
-                              : 'border-white/50 opacity-70 hover:opacity-100 hover:scale-105'
-                          }`}
+                          onClick={handlePrev}
+                          aria-label="Previous Destination"
+                          className="w-8 h-8 rounded-full bg-black/40 hover:bg-black/70 border border-white/20 backdrop-blur-md flex items-center justify-center text-white transition-all active:scale-90"
                         >
-                          <img
-                            src={dest.imageUrl}
-                            alt={dest.name}
-                            className="w-full h-full object-cover"
-                          />
+                          <ChevronLeft size={16} />
                         </button>
-                      ))}
-
-                      {/* Plus Pill to view all destinations */}
-                      <Link
-                        to="/destinations"
-                        title="View All 14+ Destinations"
-                        className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/20 hover:bg-white/40 border-2 border-white/60 backdrop-blur-md flex items-center justify-center text-white transition-all hover:scale-105 active:scale-95 shadow-sm"
-                      >
-                        <Plus size={16} />
-                      </Link>
-                    </div>
-
-                    {/* Pagination Indicators (Reference Video) */}
-                    <div className="flex items-center space-x-1.5">
-                      {featuredDestinations.map((_, idx) => (
                         <button
-                          key={idx}
-                          onClick={() => setCurrentIndex(idx)}
-                          className={`h-1.5 rounded-full transition-all ${
-                            currentIndex === idx ? 'w-6 bg-white' : 'w-1.5 bg-white/40'
-                          }`}
-                        />
-                      ))}
+                          onClick={handleNext}
+                          aria-label="Next Destination"
+                          className="w-8 h-8 rounded-full bg-black/40 hover:bg-black/70 border border-white/20 backdrop-blur-md flex items-center justify-center text-white transition-all active:scale-90"
+                        >
+                          <ChevronRight size={16} />
+                        </button>
+                      </div>
                     </div>
-                  </div>
 
+                    {/* Middle Text: Destination, Tamil Name & Description */}
+                    <div className="max-w-xl space-y-2">
+                      <div className="flex items-baseline gap-3 flex-wrap">
+                        <h2 className="text-4xl sm:text-5xl font-black tracking-tight text-white drop-shadow-md">
+                          {active.name}
+                        </h2>
+                        <span className="text-2xl sm:text-3xl font-extrabold font-tamil text-sky-300 drop-shadow">
+                          {active.tamilName}
+                        </span>
+                      </div>
+
+                      <p className="text-xs sm:text-sm font-medium text-slate-200 drop-shadow line-clamp-2 max-w-lg leading-relaxed">
+                        {active.description}
+                      </p>
+
+                      {/* Action Pill Button (Exact "Explore Now ->" from Reference) */}
+                      <div className="pt-3">
+                        <Link
+                          to={`/search?from=Chennai&to=${active.name}`}
+                          className="inline-flex items-center space-x-2 px-6 py-3 rounded-full bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs uppercase tracking-wider shadow-xl shadow-blue-900/40 hover:shadow-blue-600/50 hover:scale-105 active:scale-95 transition-all border border-blue-400/40"
+                        >
+                          <span>Explore Now</span>
+                          <ArrowRight size={14} />
+                        </Link>
+                      </div>
+                    </div>
+
+                    {/* Bottom Bar inside Card: Circular Thumbnail Previews + `+` (Exact Reference Image) */}
+                    <div className="flex items-center justify-between pt-2">
+                      <div className="flex items-center space-x-2.5">
+                        {featuredDestinations.map((dest, idx) => (
+                          <button
+                            key={dest.id}
+                            onClick={() => setCurrentIndex(idx)}
+                            title={`${dest.name} (${dest.tamilName})`}
+                            className={`w-9 h-9 sm:w-10 sm:h-10 rounded-full overflow-hidden border-2 transition-all transform ${
+                              currentIndex === idx
+                                ? 'border-white scale-110 shadow-lg ring-2 ring-blue-500'
+                                : 'border-white/50 opacity-70 hover:opacity-100 hover:scale-105'
+                            }`}
+                          >
+                            <img
+                              src={dest.imageUrl}
+                              alt={dest.name}
+                              className="w-full h-full object-cover"
+                            />
+                          </button>
+                        ))}
+
+                        {/* Plus Pill to view all destinations */}
+                        <Link
+                          to="/destinations"
+                          title="View All Destinations"
+                          className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/20 hover:bg-white/40 border-2 border-white/60 backdrop-blur-md flex items-center justify-center text-white transition-all hover:scale-105 active:scale-95 shadow-sm"
+                        >
+                          <Plus size={16} />
+                        </Link>
+                      </div>
+
+                      {/* Pagination Indicators (Reference Video) */}
+                      <div className="flex items-center space-x-1.5">
+                        {featuredDestinations.map((_, idx) => (
+                          <button
+                            key={idx}
+                            onClick={() => setCurrentIndex(idx)}
+                            className={`h-1.5 rounded-full transition-all ${
+                              currentIndex === idx ? 'w-6 bg-white' : 'w-1.5 bg-white/40'
+                            }`}
+                          />
+                        ))}
+                      </div>
+                    </div>
+
+                  </div>
                 </div>
               </div>
             </div>
@@ -354,8 +409,8 @@ export const Home: React.FC = () => {
                 </div>
               </div>
 
-              {/* 1. Organic Fluid Weather Widget (Exact Reference Image) */}
-              <div className="organic-blob-weather p-6 text-slate-800 relative overflow-hidden group">
+              {/* 1. True Organic Fluid Weather Widget (Exact Reference Image Pebble Shape) */}
+              <div className="p-6 sm:p-7 bg-white rounded-[44px_62px_46px_58px/54px_46px_60px_48px] border-4 border-white shadow-xl relative overflow-hidden group text-slate-800 transition-all hover:-translate-y-1">
                 <div className="flex items-start justify-between">
                   <div>
                     <div className="text-4xl sm:text-5xl font-black text-slate-900 tracking-tight">
