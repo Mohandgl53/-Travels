@@ -22,13 +22,13 @@ export const VideoSequence: React.FC<VideoSequenceProps> = ({
   const [currentStep, setCurrentStep] = useState<1 | 2 | 3 | 4>(1);
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
   const [hasError, setHasError] = useState(false);
-  const [playbackSpeed, setPlaybackSpeed] = useState<number>(1.35); // 1.35x faster for ultra-smooth dynamic animation
+  const [playbackSpeed, setPlaybackSpeed] = useState<number>(1.15); // Fast, rock-steady 30fps smooth playback
   const reachedWindowRef = useRef(false);
-  const durationRef = useRef(23.0);
+  const durationRef = useRef(14.17);
 
-  // Constants for scene markers in the user-supplied 23.07s 4K video
-  const WINDOW_PAUSE_TIME = 10.8;
-  const DEPARTURE_END_TIME = 23.0;
+  // Constants for scene markers in the remastered 30fps smooth video (no frame drops)
+  const WINDOW_PAUSE_TIME = 7.2;
+  const DEPARTURE_END_TIME = 14.1;
 
   // Set playback speed on video whenever it changes
   useEffect(() => {
@@ -45,7 +45,7 @@ export const VideoSequence: React.FC<VideoSequenceProps> = ({
     video.playbackRate = playbackSpeed;
 
     const handleCanPlay = () => {
-      durationRef.current = video.duration || 23.0;
+      durationRef.current = video.duration || 14.17;
       setIsVideoLoaded(true);
       video.playbackRate = playbackSpeed;
       // Start playback smoothly once the initial frames are decoded in GPU buffer
@@ -58,10 +58,12 @@ export const VideoSequence: React.FC<VideoSequenceProps> = ({
     if (video.readyState >= 3) {
       handleCanPlay();
     } else {
+      video.addEventListener('canplaythrough', handleCanPlay, { once: true });
       video.addEventListener('canplay', handleCanPlay, { once: true });
     }
 
     return () => {
+      video.removeEventListener('canplaythrough', handleCanPlay);
       video.removeEventListener('canplay', handleCanPlay);
     };
   }, [playbackSpeed]);
@@ -81,9 +83,9 @@ export const VideoSequence: React.FC<VideoSequenceProps> = ({
 
     // Step state changes only at major boundaries (drops re-renders from 300+ to 3)
     let newStep: 1 | 2 | 3 | 4 = 1;
-    if (time >= 12.0) newStep = 4;
-    else if (time >= 10.8) newStep = 3;
-    else if (time >= 5.5) newStep = 2;
+    if (time >= 8.0) newStep = 4;
+    else if (time >= 7.2) newStep = 3;
+    else if (time >= 3.6) newStep = 2;
 
     setCurrentStep((prev) => (prev !== newStep ? newStep : prev));
 
@@ -128,7 +130,7 @@ export const VideoSequence: React.FC<VideoSequenceProps> = ({
   };
 
   const toggleSpeed = () => {
-    const nextSpeed = playbackSpeed === 1.35 ? 1.0 : playbackSpeed === 1.0 ? 1.5 : 1.35;
+    const nextSpeed = playbackSpeed === 1.15 ? 1.0 : playbackSpeed === 1.0 ? 1.35 : 1.15;
     setPlaybackSpeed(nextSpeed);
     if (videoRef.current) {
       videoRef.current.playbackRate = nextSpeed;
@@ -160,20 +162,21 @@ export const VideoSequence: React.FC<VideoSequenceProps> = ({
 
   return (
     <div className="absolute inset-0 w-full h-full overflow-hidden bg-slate-950 select-none">
-      {/* 4K Cinematic Sequence Video with GPU Hardware Acceleration */}
+      {/* High-Definition 30fps Cinematic Sequence Video with GPU Hardware Acceleration */}
       {!hasError ? (
         <video
           ref={videoRef}
           src="/videos/Travel_bus_Animation_compressed.mp4"
-          className={`absolute inset-0 w-full h-full object-cover pointer-events-none transform-gpu translate-z-0 scale-[1.01] transition-opacity duration-700 ${
+          className={`absolute inset-0 w-full h-full object-cover pointer-events-none transform-gpu translate-z-0 scale-[1.01] transition-opacity duration-500 ${
             isVideoLoaded ? 'opacity-100' : 'opacity-0'
           }`}
           style={{
-            willChange: 'transform',
+            willChange: 'transform, opacity',
             backfaceVisibility: 'hidden',
           }}
           muted={isMuted}
           playsInline
+          autoPlay
           preload="auto"
           onTimeUpdate={handleTimeUpdate}
           onError={() => {
