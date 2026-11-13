@@ -48,7 +48,7 @@ export const Contact: React.FC = () => {
   ];
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-12 text-slate-100">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-12 text-slate-800">
       {/* Porcelain Canvas Header Banner */}
       <div className="porcelain-canvas rounded-[2.5rem] p-8 sm:p-12 shadow-2xl relative border border-slate-300/40 text-slate-900 overflow-hidden">
         <div className="max-w-3xl space-y-2">
@@ -68,8 +68,8 @@ export const Contact: React.FC = () => {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         {/* Terminal Counters (Left 7 Cols) */}
         <div className="lg:col-span-7 space-y-5">
-          <h2 className="text-xl font-black text-white flex items-center space-x-2">
-            <MapPin size={20} className="text-blue-400" />
+          <h2 className="text-xl font-black text-slate-900 flex items-center space-x-2">
+            <MapPin size={20} className="text-blue-600" />
             <span>Major Bus Terminals & Booking Counters</span>
           </h2>
 
@@ -77,21 +77,21 @@ export const Contact: React.FC = () => {
             {terminalLocations.map((t, idx) => (
               <div
                 key={idx}
-                className="p-6 rounded-[2rem] bg-[#101524] border border-white/10 hover:border-blue-500/40 shadow-xl space-y-3 transition-all"
+                className="p-6 rounded-[2.25rem] bg-white border border-slate-200/90 hover:border-blue-500/40 shadow-lg hover:shadow-xl space-y-3 transition-all text-slate-800"
               >
                 <div>
-                  <h3 className="text-base font-black text-white">{t.city}</h3>
-                  <p className="text-xs text-sky-400 font-tamil font-bold">{t.tamilCity}</p>
+                  <h3 className="text-base font-black text-slate-900">{t.city}</h3>
+                  <p className="text-xs text-blue-600 font-tamil font-bold">{t.tamilCity}</p>
                 </div>
-                <p className="text-xs text-slate-300 font-normal leading-relaxed">{t.address}</p>
-                <div className="space-y-1 text-xs text-slate-400">
+                <p className="text-xs text-slate-600 font-medium leading-relaxed">{t.address}</p>
+                <div className="space-y-1 text-xs text-slate-500">
                   {t.phones.map((p, i) => (
-                    <div key={i} className="flex items-center space-x-2 text-white font-mono font-bold">
-                      <PhoneCall size={12} className="text-blue-400" />
+                    <div key={i} className="flex items-center space-x-2 text-slate-900 font-mono font-bold">
+                      <PhoneCall size={12} className="text-blue-600" />
                       <span>{p}</span>
                     </div>
                   ))}
-                  <div className="flex items-center space-x-2 text-slate-400 pt-1">
+                  <div className="flex items-center space-x-2 text-slate-500 pt-1 font-medium">
                     <Clock size={12} />
                     <span>{t.hours}</span>
                   </div>
@@ -101,10 +101,10 @@ export const Contact: React.FC = () => {
           </div>
 
           {/* Emergency Assistance Callout */}
-          <div className="p-6 rounded-[2rem] bg-gradient-to-r from-blue-900/40 to-indigo-900/40 border border-blue-500/30 flex items-center justify-between shadow-xl">
+          <div className="p-6 rounded-[2.25rem] bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 flex items-center justify-between shadow-md">
             <div>
-              <h3 className="text-base font-bold text-white">Emergency On-Road Assistance</h3>
-              <p className="text-xs text-slate-300 mt-0.5">
+              <h3 className="text-base font-black text-slate-900">Emergency On-Road Assistance</h3>
+              <p className="text-xs text-slate-600 font-medium mt-0.5">
                 For in-transit bus breakdown, medical support, or driver assistance:
               </p>
             </div>
@@ -118,19 +118,19 @@ export const Contact: React.FC = () => {
         </div>
 
         {/* Message Form (Right 5 Cols) */}
-        <div className="lg:col-span-5 p-7 rounded-[2rem] bg-[#101524] border border-white/10 shadow-2xl space-y-5">
+        <div className="lg:col-span-5 p-7 rounded-[2.25rem] bg-white border border-slate-200/90 shadow-2xl space-y-5 text-slate-800">
           <div>
-            <h3 className="text-xl font-black text-white">Send Us a Message</h3>
-            <p className="text-xs text-slate-400 mt-1 font-normal">
+            <h3 className="text-xl font-black text-slate-900">Send Us a Message</h3>
+            <p className="text-xs text-slate-500 mt-1 font-medium">
               We respond to all passenger queries within 2 hours.
             </p>
           </div>
 
           {submitted ? (
-            <div className="p-6 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-200 text-center space-y-3 animate-fade-in">
-              <CheckCircle2 size={36} className="text-emerald-400 mx-auto" />
-              <h4 className="font-bold text-base text-white">Message Transmitted!</h4>
-              <p className="text-xs text-emerald-300 font-normal">
+            <div className="p-6 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-center space-y-3 animate-fade-in">
+              <CheckCircle2 size={36} className="text-emerald-600 mx-auto" />
+              <h4 className="font-bold text-base text-slate-900">Message Transmitted!</h4>
+              <p className="text-xs text-emerald-700 font-medium">
                 Our support desk in Chennai has received your dispatch and will call you on <strong>{formData.phone}</strong> shortly.
               </p>
               <button
@@ -138,7 +138,7 @@ export const Contact: React.FC = () => {
                   setSubmitted(false);
                   setFormData({ name: '', phone: '', message: '' });
                 }}
-                className="text-xs text-emerald-400 font-bold hover:underline"
+                className="text-xs text-blue-600 font-bold hover:underline"
               >
                 Send another message
               </button>
@@ -146,7 +146,7 @@ export const Contact: React.FC = () => {
           ) : (
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
-                <label className="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1.5">
+                <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
                   Your Full Name
                 </label>
                 <input
@@ -155,12 +155,12 @@ export const Contact: React.FC = () => {
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                   placeholder="e.g. Mohan Kumar"
-                  className="w-full px-4 py-3 rounded-xl bg-white/[0.05] border border-white/10 text-white placeholder-slate-500 text-xs focus:outline-none focus:border-blue-500"
+                  className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 placeholder-slate-400 text-xs focus:outline-none focus:border-blue-500 font-medium"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1.5">
+                <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
                   Phone Number
                 </label>
                 <input
@@ -169,12 +169,12 @@ export const Contact: React.FC = () => {
                   value={formData.phone}
                   onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                   placeholder="e.g. +91 98421 00000"
-                  className="w-full px-4 py-3 rounded-xl bg-white/[0.05] border border-white/10 text-white placeholder-slate-500 text-xs focus:outline-none focus:border-blue-500"
+                  className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 placeholder-slate-400 text-xs focus:outline-none focus:border-blue-500 font-medium"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1.5">
+                <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
                   Message or Query
                 </label>
                 <textarea
@@ -183,7 +183,7 @@ export const Contact: React.FC = () => {
                   value={formData.message}
                   onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                   placeholder="Tell us how we can assist your travel..."
-                  className="w-full px-4 py-3 rounded-xl bg-white/[0.05] border border-white/10 text-white placeholder-slate-500 text-xs focus:outline-none focus:border-blue-500 resize-none"
+                  className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 placeholder-slate-400 text-xs focus:outline-none focus:border-blue-500 resize-none font-medium"
                 />
               </div>
 

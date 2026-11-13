@@ -42,27 +42,27 @@ export const SearchBar: React.FC<SearchBarProps> = ({
   return (
     <form
       onSubmit={handleSearch}
-      className={`bg-[#111625]/95 backdrop-blur-2xl rounded-3xl p-5 md:p-7 shadow-2xl border border-white/10 relative z-20 ${
-        compact ? 'max-w-5xl mx-auto -mt-10' : 'w-full'
+      className={`bg-white/95 backdrop-blur-2xl rounded-[2.25rem] p-6 md:p-8 shadow-2xl border-4 border-white relative z-20 ${
+        compact ? 'max-w-5xl mx-auto -mt-6' : 'w-full'
       }`}
     >
-      <div className="grid grid-cols-1 md:grid-cols-12 gap-3.5 items-center">
+      <div className="grid grid-cols-1 md:grid-cols-12 gap-4 items-center">
         {/* From City */}
         <div className="md:col-span-4 relative">
-          <label className="block text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-2">
+          <label className="block text-xs font-black uppercase tracking-wider text-slate-600 mb-2">
             From (புறப்படும் இடம்)
           </label>
           <div className="relative">
-            <span className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-blue-400">
+            <span className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-blue-600">
               <MapPin size={18} />
             </span>
             <select
               value={fromCity}
               onChange={(e) => setFromCity(e.target.value)}
-              className="w-full pl-10 pr-4 py-3.5 bg-[#0a0d16] hover:bg-[#0d121f] border border-white/10 rounded-2xl text-white font-semibold text-sm appearance-none focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all cursor-pointer shadow-inner"
+              className="w-full pl-11 pr-4 py-3.5 bg-slate-50 hover:bg-slate-100/70 border border-slate-200 rounded-2xl text-slate-900 font-bold text-sm appearance-none focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all cursor-pointer shadow-inner"
             >
               {TAMIL_NADU_CITIES.map((city) => (
-                <option key={city} value={city} disabled={city === toCity} className="bg-[#0f1422] text-white">
+                <option key={city} value={city} disabled={city === toCity} className="bg-white text-slate-900 font-medium">
                   {city}
                 </option>
               ))}
@@ -75,8 +75,8 @@ export const SearchBar: React.FC<SearchBarProps> = ({
           <button
             type="button"
             onClick={handleSwap}
-            className="w-10 h-10 rounded-full bg-white/[0.06] hover:bg-white/[0.12] border border-white/10 text-slate-300 hover:text-white flex items-center justify-center transition-all hover:rotate-180 shadow-md active:scale-90"
-            title="Swap cities"
+            className="w-11 h-11 rounded-full bg-slate-100 hover:bg-blue-50 border border-slate-200 text-slate-600 hover:text-blue-600 flex items-center justify-center transition-all hover:rotate-180 shadow-md active:scale-90"
+            title="Swap origin and destination"
           >
             <ArrowRightLeft size={16} />
           </button>
@@ -84,20 +84,20 @@ export const SearchBar: React.FC<SearchBarProps> = ({
 
         {/* To City */}
         <div className="md:col-span-4 relative">
-          <label className="block text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-2">
+          <label className="block text-xs font-black uppercase tracking-wider text-slate-600 mb-2">
             To (சேரும் இடம்)
           </label>
           <div className="relative">
-            <span className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-emerald-400">
+            <span className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-emerald-600">
               <MapPin size={18} />
             </span>
             <select
               value={toCity}
               onChange={(e) => setToCity(e.target.value)}
-              className="w-full pl-10 pr-4 py-3.5 bg-[#0a0d16] hover:bg-[#0d121f] border border-white/10 rounded-2xl text-white font-semibold text-sm appearance-none focus:outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 transition-all cursor-pointer shadow-inner"
+              className="w-full pl-11 pr-4 py-3.5 bg-slate-50 hover:bg-slate-100/70 border border-slate-200 rounded-2xl text-slate-900 font-bold text-sm appearance-none focus:outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 transition-all cursor-pointer shadow-inner"
             >
               {TAMIL_NADU_CITIES.map((city) => (
-                <option key={city} value={city} disabled={city === fromCity} className="bg-[#0f1422] text-white">
+                <option key={city} value={city} disabled={city === fromCity} className="bg-white text-slate-900 font-medium">
                   {city}
                 </option>
               ))}
@@ -105,13 +105,13 @@ export const SearchBar: React.FC<SearchBarProps> = ({
           </div>
         </div>
 
-        {/* Date */}
+        {/* Journey Date */}
         <div className="md:col-span-3 relative">
-          <label className="block text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-2">
+          <label className="block text-xs font-black uppercase tracking-wider text-slate-600 mb-2">
             Date of Journey
           </label>
           <div className="relative">
-            <span className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-sky-400">
+            <span className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-blue-600">
               <Calendar size={18} />
             </span>
             <input
@@ -119,36 +119,41 @@ export const SearchBar: React.FC<SearchBarProps> = ({
               value={journeyDate}
               min={new Date().toISOString().split('T')[0]}
               onChange={(e) => setJourneyDate(e.target.value)}
-              className="w-full pl-10 pr-4 py-3.5 bg-[#0a0d16] hover:bg-[#0d121f] border border-white/10 rounded-2xl text-white font-semibold text-sm focus:outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-500/20 transition-all cursor-pointer shadow-inner"
+              className="w-full pl-11 pr-4 py-3.5 bg-slate-50 hover:bg-slate-100/70 border border-slate-200 rounded-2xl text-slate-900 font-bold text-sm focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all cursor-pointer shadow-inner"
             />
           </div>
         </div>
       </div>
 
-      {/* Quick shortcuts and search action */}
-      <div className="mt-5 pt-4 border-t border-white/[0.08] flex flex-col sm:flex-row items-center justify-between gap-4">
-        <div className="flex items-center space-x-2 text-xs text-slate-400 overflow-x-auto w-full sm:w-auto pb-1 sm:pb-0">
-          <span className="font-bold text-slate-400 shrink-0 uppercase tracking-wider text-[10px]">Popular:</span>
-          {['Madurai', 'Coimbatore', 'Tirunelveli', 'Trichy'].map((dest) => (
+      {/* Bottom Action Row: Popular Route Pills + Search Button */}
+      <div className="mt-6 pt-5 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div className="flex flex-wrap items-center gap-2">
+          <span className="text-xs font-black uppercase tracking-wider text-slate-500">Popular:</span>
+          {[
+            { from: 'Chennai', to: 'Madurai' },
+            { from: 'Chennai', to: 'Coimbatore' },
+            { from: 'Chennai', to: 'Tirunelveli' },
+            { from: 'Chennai', to: 'Tiruchirappalli', label: 'Chennai → Trichy' },
+          ].map((r, i) => (
             <button
-              key={dest}
+              key={i}
               type="button"
               onClick={() => {
-                setFromCity('Chennai');
-                setToCity(dest);
+                setFromCity(r.from);
+                setToCity(r.to);
               }}
-              className="px-3 py-1.5 rounded-xl bg-white/[0.05] hover:bg-blue-600/20 hover:text-blue-300 text-slate-300 font-medium text-xs shrink-0 transition-colors border border-white/10"
+              className="px-3 py-1 rounded-full text-xs font-bold bg-slate-100 hover:bg-blue-50 text-slate-700 hover:text-blue-700 border border-slate-200 transition-all hover:scale-105"
             >
-              Chennai → {dest}
+              {r.label || `${r.from} → ${r.to}`}
             </button>
           ))}
         </div>
 
         <button
           type="submit"
-          className="w-full sm:w-auto px-7 py-3.5 rounded-2xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-sm flex items-center justify-center space-x-2 shadow-lg shadow-blue-600/30 active:scale-95 transition-all border border-blue-400/30"
+          className="w-full sm:w-auto px-8 py-3.5 rounded-2xl bg-blue-600 hover:bg-blue-500 text-white font-extrabold text-xs uppercase tracking-wider shadow-xl shadow-blue-600/30 flex items-center justify-center space-x-2 transition-all active:scale-95 border border-blue-400/40"
         >
-          <Search size={18} />
+          <Search size={16} />
           <span>Search Buses (பயணம் காண்க)</span>
         </button>
       </div>

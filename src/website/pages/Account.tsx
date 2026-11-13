@@ -24,7 +24,7 @@ export const Account: React.FC = () => {
   };
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8 text-slate-100">
+    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8 text-slate-800">
       {/* Porcelain Canvas Header matching Reference Theme */}
       <div className="porcelain-canvas rounded-[2.5rem] p-8 sm:p-10 shadow-2xl relative border border-slate-300/40 text-slate-900 flex flex-col md:flex-row items-center justify-between gap-6 overflow-hidden">
         <div className="flex items-center space-x-5">
@@ -62,14 +62,14 @@ export const Account: React.FC = () => {
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         {/* Profile Information Form */}
-        <div className="lg:col-span-7 bg-[#101524] border border-white/10 rounded-[2rem] p-7 md:p-8 space-y-6 shadow-xl">
-          <div className="flex items-center justify-between border-b border-white/[0.08] pb-4">
-            <h2 className="text-lg font-black text-white flex items-center space-x-2">
-              <User size={18} className="text-blue-400" />
+        <div className="lg:col-span-7 bg-white border border-slate-200/90 rounded-[2.25rem] p-7 md:p-8 space-y-6 shadow-xl text-slate-800">
+          <div className="flex items-center justify-between border-b border-slate-100 pb-4">
+            <h2 className="text-lg font-black text-slate-900 flex items-center space-x-2">
+              <User size={18} className="text-blue-600" />
               <span>Personal Details</span>
             </h2>
             {isSaved && (
-              <span className="text-xs text-emerald-400 flex items-center space-x-1 font-bold animate-fade-in">
+              <span className="text-xs text-emerald-600 flex items-center space-x-1 font-bold animate-fade-in">
                 <Check size={14} />
                 <span>Changes Saved!</span>
               </span>
@@ -78,39 +78,39 @@ export const Account: React.FC = () => {
 
           <form onSubmit={handleSave} className="space-y-4">
             <div>
-              <label className="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1.5">
+              <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
                 Full Name
               </label>
               <input
                 type="text"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className="w-full px-4 py-3 rounded-xl bg-white/[0.05] border border-white/10 text-xs text-white font-medium focus:outline-none focus:border-blue-500"
+                className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-900 font-bold focus:outline-none focus:border-blue-500"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1.5">
+              <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
                 Email Address (Permanent)
               </label>
               <input
                 type="email"
                 disabled
                 value={user?.email || ''}
-                className="w-full px-4 py-3 rounded-xl bg-white/[0.02] border border-white/5 text-xs text-slate-500 cursor-not-allowed"
+                className="w-full px-4 py-3 rounded-xl bg-slate-100 border border-slate-200 text-xs text-slate-500 cursor-not-allowed font-medium"
               />
-              <span className="text-[10px] text-slate-500 mt-1 block">Verified contact email</span>
+              <span className="text-[10px] text-slate-400 mt-1 block font-medium">Verified contact email</span>
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1.5">
+              <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
                 Mobile Number (SMS & WhatsApp Telemetry)
               </label>
               <input
                 type="tel"
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
-                className="w-full px-4 py-3 rounded-xl bg-white/[0.05] border border-white/10 text-xs text-white font-medium focus:outline-none focus:border-blue-500"
+                className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-900 font-bold focus:outline-none focus:border-blue-500"
               />
             </div>
 
@@ -127,16 +127,16 @@ export const Account: React.FC = () => {
 
         {/* Quick Shortcuts & Security */}
         <div className="lg:col-span-5 space-y-5">
-          <div className="bg-[#101524] border border-white/10 rounded-[2rem] p-7 space-y-4 shadow-xl">
-            <h3 className="text-base font-black text-white">Traveler Dashboard</h3>
+          <div className="bg-white border border-slate-200/90 rounded-[2.25rem] p-7 space-y-4 shadow-xl text-slate-800">
+            <h3 className="text-base font-black text-slate-900">Traveler Dashboard</h3>
             
             <div className="space-y-2">
               <Link
                 to="/bookings"
-                className="flex items-center justify-between p-3.5 rounded-xl bg-white/[0.03] hover:bg-white/[0.08] border border-white/5 transition-all text-xs font-semibold text-white group"
+                className="flex items-center justify-between p-3.5 rounded-xl bg-slate-50 hover:bg-blue-50/50 border border-slate-200 transition-all text-xs font-bold text-slate-800 group"
               >
                 <div className="flex items-center space-x-2.5">
-                  <Ticket size={16} className="text-emerald-400" />
+                  <Ticket size={16} className="text-emerald-600" />
                   <span>My Active & Past Bookings</span>
                 </div>
                 <span className="text-slate-400 group-hover:translate-x-1 transition-transform">→</span>
@@ -144,10 +144,10 @@ export const Account: React.FC = () => {
 
               <Link
                 to="/search"
-                className="flex items-center justify-between p-3.5 rounded-xl bg-white/[0.03] hover:bg-white/[0.08] border border-white/5 transition-all text-xs font-semibold text-white group"
+                className="flex items-center justify-between p-3.5 rounded-xl bg-slate-50 hover:bg-blue-50/50 border border-slate-200 transition-all text-xs font-bold text-slate-800 group"
               >
                 <div className="flex items-center space-x-2.5">
-                  <Award size={16} className="text-sky-400" />
+                  <Award size={16} className="text-blue-600" />
                   <span>Explore Sleeper Routes</span>
                 </div>
                 <span className="text-slate-400 group-hover:translate-x-1 transition-transform">→</span>
@@ -155,20 +155,20 @@ export const Account: React.FC = () => {
 
               <Link
                 to="/login"
-                className="flex items-center justify-between p-3.5 rounded-xl bg-white/[0.03] hover:bg-white/[0.08] border border-white/5 transition-all text-xs font-semibold text-white group"
+                className="flex items-center justify-between p-3.5 rounded-xl bg-slate-50 hover:bg-blue-50/50 border border-slate-200 transition-all text-xs font-bold text-slate-800 group"
               >
                 <div className="flex items-center space-x-2.5">
-                  <Sparkles size={16} className="text-amber-400" />
+                  <Sparkles size={16} className="text-amber-500" />
                   <span>Re-watch Cinematic Intro Video</span>
                 </div>
                 <span className="text-slate-400 group-hover:translate-x-1 transition-transform">→</span>
               </Link>
             </div>
 
-            <div className="pt-4 border-t border-white/10">
+            <div className="pt-4 border-t border-slate-100">
               <button
                 onClick={handleLogout}
-                className="w-full py-3 rounded-xl bg-rose-600/10 hover:bg-rose-600/20 border border-rose-500/20 text-rose-300 font-bold text-xs flex items-center justify-center space-x-2 transition-all active:scale-95"
+                className="w-full py-3 rounded-xl bg-rose-50 hover:bg-rose-100 border border-rose-200 text-rose-700 font-bold text-xs flex items-center justify-center space-x-2 transition-all active:scale-95"
               >
                 <LogOut size={14} />
                 <span>Sign Out of Account</span>

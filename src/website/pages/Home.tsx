@@ -170,7 +170,7 @@ export const Home: React.FC = () => {
   };
 
   return (
-    <div className="space-y-12 pb-24 text-slate-100 overflow-x-hidden">
+    <div className="space-y-12 pb-24 text-slate-800 overflow-x-hidden">
       {/* =========================================================================
           HERO SHOWCASE CANVAS: EXACT REFERENCE IMAGE COMPOSITION & MOTION
           ========================================================================= */}
@@ -440,108 +440,106 @@ export const Home: React.FC = () => {
       </section>
 
       {/* =========================================================================
-          KEY FLEET METRICS & LIVE CORRIDOR STATUS
+          KEY FLEET METRICS & LIVE CORRIDOR STATUS (Light Porcelain)
           ========================================================================= */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          <div className="p-5 rounded-2xl bg-[#0f1422] border border-white/10 shadow-lg flex items-center space-x-4">
-            <div className="w-12 h-12 rounded-xl bg-blue-500/10 text-blue-400 border border-blue-500/20 flex items-center justify-center shrink-0">
+          <div className="p-6 rounded-[2rem] bg-white border border-slate-200/80 shadow-lg flex items-center space-x-4 hover:shadow-xl transition-all">
+            <div className="w-12 h-12 rounded-2xl bg-blue-50 text-blue-600 border border-blue-200 flex items-center justify-center shrink-0">
               <Bus size={22} />
             </div>
             <div>
-              <div className="text-2xl sm:text-3xl font-black text-white">120+</div>
-              <div className="text-xs text-slate-400 font-medium">Daily Services</div>
+              <div className="text-2xl sm:text-3xl font-black text-slate-900">120+</div>
+              <div className="text-xs text-slate-500 font-bold">Daily Coach Routes</div>
             </div>
           </div>
 
-          <div className="p-5 rounded-2xl bg-[#0f1422] border border-white/10 shadow-lg flex items-center space-x-4">
-            <div className="w-12 h-12 rounded-xl bg-amber-500/10 text-amber-400 border border-amber-500/20 flex items-center justify-center shrink-0">
+          <div className="p-6 rounded-[2rem] bg-white border border-slate-200/80 shadow-lg flex items-center space-x-4 hover:shadow-xl transition-all">
+            <div className="w-12 h-12 rounded-2xl bg-amber-50 text-amber-600 border border-amber-200 flex items-center justify-center shrink-0">
               <ShieldCheck size={22} />
             </div>
             <div>
-              <div className="text-2xl sm:text-3xl font-black text-white">4.8 ★</div>
-              <div className="text-xs text-slate-400 font-medium">Passenger Rating</div>
+              <div className="text-2xl sm:text-3xl font-black text-slate-900">4.8 ★</div>
+              <div className="text-xs text-slate-500 font-bold">Passenger Rating</div>
             </div>
           </div>
 
-          <div className="p-5 rounded-2xl bg-[#0f1422] border border-white/10 shadow-lg flex items-center space-x-4">
-            <div className="w-12 h-12 rounded-xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 flex items-center justify-center shrink-0">
+          <div className="p-6 rounded-[2rem] bg-white border border-slate-200/80 shadow-lg flex items-center space-x-4 hover:shadow-xl transition-all">
+            <div className="w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-600 border border-emerald-200 flex items-center justify-center shrink-0">
               <Zap size={22} />
             </div>
             <div>
-              <div className="text-2xl sm:text-3xl font-black text-emerald-400">1.2M+</div>
-              <div className="text-xs text-slate-400 font-medium">Happy Travelers</div>
+              <div className="text-2xl sm:text-3xl font-black text-emerald-600">1.2M+</div>
+              <div className="text-xs text-slate-500 font-bold">Happy Travelers</div>
             </div>
           </div>
 
-          <div className="p-5 rounded-2xl bg-[#0f1422] border border-white/10 shadow-lg flex items-center space-x-4">
-            <div className="w-12 h-12 rounded-xl bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 flex items-center justify-center shrink-0">
+          <div className="p-6 rounded-[2rem] bg-white border border-slate-200/80 shadow-lg flex items-center space-x-4 hover:shadow-xl transition-all">
+            <div className="w-12 h-12 rounded-2xl bg-sky-50 text-sky-600 border border-sky-200 flex items-center justify-center shrink-0">
               <Clock size={22} />
             </div>
             <div>
-              <div className="text-2xl sm:text-3xl font-black text-cyan-400">99.4%</div>
-              <div className="text-xs text-slate-400 font-medium">Punctuality Score</div>
+              <div className="text-2xl sm:text-3xl font-black text-blue-600">99.4%</div>
+              <div className="text-xs text-slate-500 font-bold">Punctuality Score</div>
             </div>
           </div>
         </div>
       </section>
 
       {/* =========================================================================
-          VOLVO 9600 & BHARATBENZ SLEEPER COMFORTS
+          VOLVO 9600 & BHARATBENZ SLEEPER COMFORTS (Light Porcelain)
           ========================================================================= */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="p-8 sm:p-12 rounded-3xl bg-gradient-to-br from-[#0e1424] via-[#0b0e18] to-[#070910] border border-white/10 shadow-2xl relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl pointer-events-none" />
-
+        <div className="p-8 sm:p-12 rounded-[2.5rem] bg-white border border-slate-200/80 shadow-2xl relative overflow-hidden">
           <div className="max-w-2xl">
-            <span className="text-[11px] uppercase tracking-widest font-black text-blue-400">
+            <span className="text-[11px] uppercase tracking-widest font-black text-blue-600">
               Executive Sleeper Experience
             </span>
-            <h2 className="text-3xl sm:text-4xl font-black text-white mt-1">
+            <h2 className="text-3xl sm:text-4xl font-black text-slate-900 mt-1">
               Restorative Sleep on South Indian Highways
             </h2>
-            <p className="text-sm text-slate-400 mt-3 leading-relaxed">
+            <p className="text-sm text-slate-600 mt-2.5 leading-relaxed font-medium">
               Every berth in our Volvo 9600 Multi-Axle fleet is designed to feel like a private luxury capsule, ensuring you arrive refreshed and energized.
             </p>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-8">
-            <div className="p-5 rounded-2xl bg-white/[0.04] border border-white/10 hover:border-blue-500/40 transition-all">
-              <div className="w-10 h-10 rounded-xl bg-blue-500/20 text-sky-400 flex items-center justify-center mb-3">
+            <div className="p-6 rounded-2xl bg-[#faf8f5] border border-slate-200 hover:border-blue-400 hover:bg-blue-50/20 transition-all">
+              <div className="w-11 h-11 rounded-xl bg-blue-100 text-blue-600 flex items-center justify-center mb-3.5 shadow-sm">
                 <Wind size={20} />
               </div>
-              <h3 className="text-base font-bold text-white">Individual AC Vents</h3>
-              <p className="text-xs text-slate-400 mt-1">
+              <h3 className="text-base font-black text-slate-900">Individual AC Vents</h3>
+              <p className="text-xs text-slate-500 mt-1.5 font-medium leading-relaxed">
                 Precision climate dial for personalized cooling comfort throughout your overnight voyage.
               </p>
             </div>
 
-            <div className="p-5 rounded-2xl bg-white/[0.04] border border-white/10 hover:border-blue-500/40 transition-all">
-              <div className="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center mb-3">
+            <div className="p-6 rounded-2xl bg-[#faf8f5] border border-slate-200 hover:border-emerald-400 hover:bg-emerald-50/20 transition-all">
+              <div className="w-11 h-11 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center mb-3.5 shadow-sm">
                 <Zap size={20} />
               </div>
-              <h3 className="text-base font-bold text-white">USB-C Fast Charging</h3>
-              <p className="text-xs text-slate-400 mt-1">
+              <h3 className="text-base font-black text-slate-900">USB-C Fast Charging</h3>
+              <p className="text-xs text-slate-500 mt-1.5 font-medium leading-relaxed">
                 Dual fast-charge outlets per berth to keep your smartphone, laptop, and tablet powered.
               </p>
             </div>
 
-            <div className="p-5 rounded-2xl bg-white/[0.04] border border-white/10 hover:border-blue-500/40 transition-all">
-              <div className="w-10 h-10 rounded-xl bg-cyan-500/20 text-cyan-400 flex items-center justify-center mb-3">
+            <div className="p-6 rounded-2xl bg-[#faf8f5] border border-slate-200 hover:border-sky-400 hover:bg-sky-50/20 transition-all">
+              <div className="w-11 h-11 rounded-xl bg-sky-100 text-sky-600 flex items-center justify-center mb-3.5 shadow-sm">
                 <Radio size={20} />
               </div>
-              <h3 className="text-base font-bold text-white">Live Telemetry & GPS</h3>
-              <p className="text-xs text-slate-400 mt-1">
+              <h3 className="text-base font-black text-slate-900">Live Telemetry & GPS</h3>
+              <p className="text-xs text-slate-500 mt-1.5 font-medium leading-relaxed">
                 Real-time WhatsApp tracking and highway telemetry shared with families for peace of mind.
               </p>
             </div>
 
-            <div className="p-5 rounded-2xl bg-white/[0.04] border border-white/10 hover:border-blue-500/40 transition-all">
-              <div className="w-10 h-10 rounded-xl bg-purple-500/20 text-purple-400 flex items-center justify-center mb-3">
+            <div className="p-6 rounded-2xl bg-[#faf8f5] border border-slate-200 hover:border-purple-400 hover:bg-purple-50/20 transition-all">
+              <div className="w-11 h-11 rounded-xl bg-purple-100 text-purple-600 flex items-center justify-center mb-3.5 shadow-sm">
                 <Coffee size={20} />
               </div>
-              <h3 className="text-base font-bold text-white">Laundered Linens</h3>
-              <p className="text-xs text-slate-400 mt-1">
+              <h3 className="text-base font-black text-slate-900">Laundered Linens</h3>
+              <p className="text-xs text-slate-500 mt-1.5 font-medium leading-relaxed">
                 Factory-sanitized bedsheets, sealed pillows, and premium mineral water bottles provided.
               </p>
             </div>
@@ -550,18 +548,18 @@ export const Home: React.FC = () => {
       </section>
 
       {/* =========================================================================
-          THE 6 COMPLETE WEBSITE GATEWAY TILES
+          THE 6 COMPLETE WEBSITE GATEWAY TILES (Light Porcelain)
           ========================================================================= */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="p-8 sm:p-10 rounded-3xl bg-[#0f1422] border border-white/10 shadow-2xl relative overflow-hidden">
+        <div className="p-8 sm:p-10 rounded-[2.5rem] bg-white border border-slate-200/80 shadow-2xl relative overflow-hidden">
           <div className="text-center max-w-2xl mx-auto mb-8">
-            <span className="text-[11px] uppercase tracking-widest font-black text-blue-400">
+            <span className="text-[11px] uppercase tracking-widest font-black text-blue-600">
               Passenger Portals
             </span>
-            <h2 className="text-2xl sm:text-3xl font-black text-white mt-1 font-tamil">
+            <h2 className="text-2xl sm:text-3xl font-black text-slate-900 mt-1 font-tamil">
               மாரியம்மன் Travels Gateway
             </h2>
-            <p className="text-xs sm:text-sm text-slate-400 mt-2">
+            <p className="text-xs sm:text-sm text-slate-600 mt-1.5 font-medium">
               Instant access to live schedules, e-ticket downloads, city guides, and 24x7 helpdesk.
             </p>
           </div>
@@ -569,19 +567,19 @@ export const Home: React.FC = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             <Link
               to="/search"
-              className="p-5 rounded-2xl bg-white/[0.03] hover:bg-white/[0.07] border border-white/10 hover:border-blue-500/40 transition-all group flex items-start space-x-4"
+              className="p-5 rounded-2xl bg-[#faf8f5] hover:bg-blue-50/40 border border-slate-200/80 hover:border-blue-400 transition-all group flex items-start space-x-4 shadow-sm"
             >
-              <div className="w-12 h-12 rounded-xl bg-blue-500/10 text-blue-400 border border-blue-500/20 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+              <div className="w-12 h-12 rounded-xl bg-blue-100 text-blue-600 border border-blue-200 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
                 <Bus size={22} />
               </div>
               <div className="flex-1">
                 <div className="flex items-center justify-between">
-                  <h3 className="text-base font-bold text-white group-hover:text-sky-300 transition-colors">
+                  <h3 className="text-base font-extrabold text-slate-900 group-hover:text-blue-600 transition-colors">
                     Bus Search & Seats
                   </h3>
                   <ChevronRight size={16} className="text-slate-400 group-hover:translate-x-1 transition-transform" />
                 </div>
-                <p className="text-xs text-slate-400 mt-1">
+                <p className="text-xs text-slate-500 mt-1 font-medium">
                   Real-time seat availability, sleeper cabin layouts & live fares.
                 </p>
               </div>
@@ -589,19 +587,19 @@ export const Home: React.FC = () => {
 
             <Link
               to="/bookings"
-              className="p-5 rounded-2xl bg-white/[0.03] hover:bg-white/[0.07] border border-white/10 hover:border-emerald-500/40 transition-all group flex items-start space-x-4"
+              className="p-5 rounded-2xl bg-[#faf8f5] hover:bg-emerald-50/40 border border-slate-200/80 hover:border-emerald-400 transition-all group flex items-start space-x-4 shadow-sm"
             >
-              <div className="w-12 h-12 rounded-xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+              <div className="w-12 h-12 rounded-xl bg-emerald-100 text-emerald-600 border border-emerald-200 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
                 <Ticket size={22} />
               </div>
               <div className="flex-1">
                 <div className="flex items-center justify-between">
-                  <h3 className="text-base font-bold text-white group-hover:text-emerald-300 transition-colors">
+                  <h3 className="text-base font-extrabold text-slate-900 group-hover:text-emerald-700 transition-colors">
                     My Bookings & PNR
                   </h3>
                   <ChevronRight size={16} className="text-slate-400 group-hover:translate-x-1 transition-transform" />
                 </div>
-                <p className="text-xs text-slate-400 mt-1">
+                <p className="text-xs text-slate-500 mt-1 font-medium">
                   Download official e-Ticket boarding pass, check PNR or reschedule.
                 </p>
               </div>
@@ -609,19 +607,19 @@ export const Home: React.FC = () => {
 
             <Link
               to="/destinations"
-              className="p-5 rounded-2xl bg-white/[0.03] hover:bg-white/[0.07] border border-white/10 hover:border-sky-500/40 transition-all group flex items-start space-x-4"
+              className="p-5 rounded-2xl bg-[#faf8f5] hover:bg-sky-50/40 border border-slate-200/80 hover:border-sky-400 transition-all group flex items-start space-x-4 shadow-sm"
             >
-              <div className="w-12 h-12 rounded-xl bg-sky-500/10 text-sky-400 border border-sky-500/20 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+              <div className="w-12 h-12 rounded-xl bg-sky-100 text-sky-600 border border-sky-200 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
                 <MapPin size={22} />
               </div>
               <div className="flex-1">
                 <div className="flex items-center justify-between">
-                  <h3 className="text-base font-bold text-white group-hover:text-sky-300 transition-colors">
+                  <h3 className="text-base font-extrabold text-slate-900 group-hover:text-sky-700 transition-colors">
                     Destinations Guide
                   </h3>
                   <ChevronRight size={16} className="text-slate-400 group-hover:translate-x-1 transition-transform" />
                 </div>
-                <p className="text-xs text-slate-400 mt-1">
+                <p className="text-xs text-slate-500 mt-1 font-medium">
                   Madurai, Ooty, Rameswaram, Coimbatore, Trichy & Tirunelveli.
                 </p>
               </div>
@@ -629,19 +627,19 @@ export const Home: React.FC = () => {
 
             <Link
               to="/about"
-              className="p-5 rounded-2xl bg-white/[0.03] hover:bg-white/[0.07] border border-white/10 hover:border-amber-500/40 transition-all group flex items-start space-x-4"
+              className="p-5 rounded-2xl bg-[#faf8f5] hover:bg-amber-50/40 border border-slate-200/80 hover:border-amber-400 transition-all group flex items-start space-x-4 shadow-sm"
             >
-              <div className="w-12 h-12 rounded-xl bg-amber-500/10 text-amber-400 border border-amber-500/20 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+              <div className="w-12 h-12 rounded-xl bg-amber-100 text-amber-700 border border-amber-200 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
                 <Award size={22} />
               </div>
               <div className="flex-1">
                 <div className="flex items-center justify-between">
-                  <h3 className="text-base font-bold text-white group-hover:text-amber-300 transition-colors">
+                  <h3 className="text-base font-extrabold text-slate-900 group-hover:text-amber-800 transition-colors">
                     Fleet Heritage
                   </h3>
                   <ChevronRight size={16} className="text-slate-400 group-hover:translate-x-1 transition-transform" />
                 </div>
-                <p className="text-xs text-slate-400 mt-1">
+                <p className="text-xs text-slate-500 mt-1 font-medium">
                   20+ years of punctual excellence on Tamil Nadu highways since 2004.
                 </p>
               </div>
@@ -649,19 +647,19 @@ export const Home: React.FC = () => {
 
             <Link
               to="/contact"
-              className="p-5 rounded-2xl bg-white/[0.03] hover:bg-white/[0.07] border border-white/10 hover:border-purple-500/40 transition-all group flex items-start space-x-4"
+              className="p-5 rounded-2xl bg-[#faf8f5] hover:bg-purple-50/40 border border-slate-200/80 hover:border-purple-400 transition-all group flex items-start space-x-4 shadow-sm"
             >
-              <div className="w-12 h-12 rounded-xl bg-purple-500/10 text-purple-400 border border-purple-500/20 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+              <div className="w-12 h-12 rounded-xl bg-purple-100 text-purple-700 border border-purple-200 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
                 <PhoneCall size={22} />
               </div>
               <div className="flex-1">
                 <div className="flex items-center justify-between">
-                  <h3 className="text-base font-bold text-white group-hover:text-purple-300 transition-colors">
+                  <h3 className="text-base font-extrabold text-slate-900 group-hover:text-purple-700 transition-colors">
                     24x7 Helpdesk
                   </h3>
                   <ChevronRight size={16} className="text-slate-400 group-hover:translate-x-1 transition-transform" />
                 </div>
-                <p className="text-xs text-slate-400 mt-1">
+                <p className="text-xs text-slate-500 mt-1 font-medium">
                   Terminal counters in Chennai, Madurai, Coimbatore & Trichy.
                 </p>
               </div>
@@ -669,19 +667,19 @@ export const Home: React.FC = () => {
 
             <Link
               to="/login"
-              className="p-5 rounded-2xl bg-gradient-to-r from-blue-900/30 to-indigo-900/30 hover:from-blue-900/50 hover:to-indigo-900/50 border border-blue-500/30 transition-all group flex items-start space-x-4"
+              className="p-5 rounded-2xl bg-gradient-to-r from-blue-50 to-indigo-50 hover:from-blue-100 hover:to-indigo-100 border border-blue-200 transition-all group flex items-start space-x-4 shadow-sm"
             >
-              <div className="w-12 h-12 rounded-xl bg-blue-600 text-white flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform shadow-lg">
+              <div className="w-12 h-12 rounded-xl bg-blue-600 text-white flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform shadow-md">
                 <Sparkles size={22} />
               </div>
               <div className="flex-1">
                 <div className="flex items-center justify-between">
-                  <h3 className="text-base font-bold text-white group-hover:text-sky-300 transition-colors">
+                  <h3 className="text-base font-extrabold text-blue-900 group-hover:text-blue-700 transition-colors">
                     Cinematic Intro Video
                   </h3>
-                  <ChevronRight size={16} className="text-slate-400 group-hover:translate-x-1 transition-transform" />
+                  <ChevronRight size={16} className="text-blue-500 group-hover:translate-x-1 transition-transform" />
                 </div>
-                <p className="text-xs text-slate-400 mt-1">
+                <p className="text-xs text-blue-700/80 mt-1 font-medium">
                   Re-watch the 4-phase luxury bus animation & highway journey.
                 </p>
               </div>

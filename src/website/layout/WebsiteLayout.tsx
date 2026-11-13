@@ -5,7 +5,7 @@ import { Footer } from './Footer';
 
 export const WebsiteLayout: React.FC = () => {
   return (
-    <div className="min-h-screen flex flex-col bg-[#090a0f] text-slate-100 font-sans selection:bg-blue-600 selection:text-white">
+    <div className="min-h-screen flex flex-col bg-[#f7f5f0] text-slate-800 font-sans selection:bg-blue-600 selection:text-white">
       <Navbar />
       <main className="flex-1">
         <Outlet />

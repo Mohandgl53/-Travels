@@ -38,7 +38,7 @@ export const MyBookings: React.FC = () => {
   );
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8 text-slate-100">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8 text-slate-800">
       {/* Page Header Banner */}
       <div className="porcelain-canvas rounded-[2.5rem] p-8 sm:p-10 shadow-2xl relative border border-slate-300/40 text-slate-900 flex flex-col md:flex-row md:items-center justify-between gap-6 overflow-hidden">
         <div>
@@ -115,31 +115,31 @@ export const MyBookings: React.FC = () => {
           filteredBookings.map((b) => (
             <div
               key={b.pnr}
-              className="p-7 rounded-[2rem] bg-[#101524] border border-white/10 hover:border-blue-500/40 shadow-xl transition-all duration-300"
+              className="p-7 rounded-[2.25rem] bg-white border border-slate-200/90 hover:border-blue-500/40 shadow-xl transition-all duration-300 text-slate-800"
             >
               {/* Header Bar */}
-              <div className="flex flex-wrap items-center justify-between gap-3 pb-5 border-b border-white/[0.08]">
-                <div className="flex items-center space-x-3">
+              <div className="flex flex-wrap items-center justify-between gap-3 pb-5 border-b border-slate-100">
+                <div className="flex items-center space-x-3.5">
                   <BrandEmblem size="md" />
                   <div>
                     <div className="flex items-center space-x-2">
-                      <span className="text-xs text-slate-400 font-bold">PNR:</span>
-                      <span className="text-sm font-mono font-black text-white px-2 py-0.5 rounded bg-white/[0.08] border border-white/10">
+                      <span className="text-xs text-slate-500 font-bold">PNR:</span>
+                      <span className="text-sm font-mono font-black text-slate-900 px-2.5 py-0.5 rounded-lg bg-slate-100 border border-slate-200">
                         {b.pnr}
                       </span>
                       <span
                         className={`text-[10px] font-black uppercase tracking-wider px-2.5 py-0.5 rounded-full border ${
                           b.status === 'CONFIRMED'
-                            ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30'
+                            ? 'bg-emerald-50 text-emerald-700 border-emerald-200'
                             : b.status === 'CANCELLED'
-                            ? 'bg-rose-500/10 text-rose-400 border-rose-500/30'
-                            : 'bg-blue-500/10 text-blue-400 border-blue-500/30'
+                            ? 'bg-rose-50 text-rose-700 border-rose-200'
+                            : 'bg-blue-50 text-blue-700 border-blue-200'
                         }`}
                       >
                         {b.status}
                       </span>
                     </div>
-                    <p className="text-xs text-slate-400 mt-1">
+                    <p className="text-xs text-slate-500 mt-1 font-medium">
                       Booked on {b.bookedAt} • {b.busType} ({b.busNumber})
                     </p>
                   </div>
@@ -147,55 +147,55 @@ export const MyBookings: React.FC = () => {
 
                 <div className="text-right">
                   <span className="text-[10px] text-slate-400 uppercase font-bold tracking-wider block">Total Fare Paid</span>
-                  <span className="text-2xl font-black text-white">₹{b.totalAmount}</span>
+                  <span className="text-2xl font-black text-slate-900">₹{b.totalAmount}</span>
                 </div>
               </div>
 
               {/* Journey Route Info */}
               <div className="py-6 grid grid-cols-1 md:grid-cols-12 gap-5 items-center">
                 <div className="md:col-span-4">
-                  <div className="text-2xl font-black text-white">{b.from}</div>
-                  <div className="text-xs font-bold text-sky-400 mt-0.5">{b.departureTime}</div>
-                  <p className="text-xs text-slate-400 mt-1 flex items-center gap-1">
-                    <MapPin size={11} className="text-blue-400 shrink-0" />
+                  <div className="text-2xl font-black text-slate-900">{b.from}</div>
+                  <div className="text-xs font-bold text-blue-600 mt-0.5">{b.departureTime}</div>
+                  <p className="text-xs text-slate-500 mt-1 flex items-center gap-1 font-medium">
+                    <MapPin size={11} className="text-blue-600 shrink-0" />
                     <span>{b.boardingPoint}</span>
                   </p>
                 </div>
 
                 <div className="md:col-span-4 flex flex-col items-center justify-center text-center">
-                  <span className="text-xs font-semibold text-slate-300 flex items-center gap-1 mb-1">
-                    <Calendar size={13} className="text-blue-400" />
+                  <span className="text-xs font-bold text-slate-700 flex items-center gap-1 mb-1">
+                    <Calendar size={13} className="text-blue-600" />
                     <span>{b.journeyDate}</span>
                   </span>
                   <div className="w-full flex items-center space-x-1 px-4">
-                    <div className="w-2.5 h-2.5 rounded-full bg-blue-500" />
-                    <div className="flex-1 border-t-2 border-dashed border-slate-600" />
-                    <div className="w-2.5 h-2.5 rounded-full bg-emerald-400" />
+                    <div className="w-2.5 h-2.5 rounded-full bg-blue-600" />
+                    <div className="flex-1 border-t-2 border-dashed border-slate-300" />
+                    <div className="w-2.5 h-2.5 rounded-full bg-emerald-500" />
                   </div>
-                  <span className="text-[11px] text-slate-400 mt-1">
+                  <span className="text-[11px] text-slate-500 font-medium mt-1">
                     {b.passengers.length} Passenger{b.passengers.length > 1 ? 's' : ''}
                   </span>
                 </div>
 
                 <div className="md:col-span-4 md:text-right">
-                  <div className="text-2xl font-black text-white">{b.to}</div>
-                  <div className="text-xs font-bold text-emerald-400 mt-0.5">{b.arrivalTime}</div>
-                  <p className="text-xs text-slate-400 mt-1 flex items-center md:justify-end gap-1">
-                    <MapPin size={11} className="text-emerald-400 shrink-0" />
+                  <div className="text-2xl font-black text-slate-900">{b.to}</div>
+                  <div className="text-xs font-bold text-emerald-700 mt-0.5">{b.arrivalTime}</div>
+                  <p className="text-xs text-slate-500 mt-1 flex items-center md:justify-end gap-1 font-medium">
+                    <MapPin size={11} className="text-emerald-600 shrink-0" />
                     <span>{b.droppingPoint}</span>
                   </p>
                 </div>
               </div>
 
               {/* Passengers & Action Buttons */}
-              <div className="pt-4 border-t border-white/[0.08] flex flex-wrap items-center justify-between gap-4">
+              <div className="pt-4 border-t border-slate-100 flex flex-wrap items-center justify-between gap-4">
                 <div className="flex items-center space-x-2 text-xs">
-                  <span className="text-slate-400 font-bold">Reserved Berths:</span>
+                  <span className="text-slate-500 font-bold">Reserved Berths:</span>
                   <div className="flex items-center space-x-1.5">
                     {b.passengers.map((p, idx) => (
                       <span
                         key={idx}
-                        className="px-2.5 py-1 rounded-lg bg-blue-500/15 border border-blue-500/30 text-sky-300 font-bold"
+                        className="px-3 py-1 rounded-lg bg-blue-50 border border-blue-200 text-blue-800 font-bold"
                       >
                         {p.seatNumber} ({p.name})
                       </span>
@@ -215,7 +215,7 @@ export const MyBookings: React.FC = () => {
                   {b.status === 'CONFIRMED' && (
                     <button
                       onClick={() => setCancelModalPnr(b.pnr)}
-                      className="px-4 py-2.5 rounded-xl bg-white/[0.05] hover:bg-rose-600/20 text-slate-300 hover:text-rose-300 border border-white/10 hover:border-rose-500/30 font-bold text-xs transition-all active:scale-95"
+                      className="px-4 py-2.5 rounded-xl bg-slate-100 hover:bg-rose-50 text-slate-600 hover:text-rose-700 border border-slate-200 hover:border-rose-300 font-bold text-xs transition-all active:scale-95"
                     >
                       Cancel Ticket
                     </button>

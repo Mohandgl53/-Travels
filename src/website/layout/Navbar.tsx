@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Bus, MapPin, User, LogOut, Menu, X, PhoneCall, Award, Ticket, Sparkles } from 'lucide-react';
+import { Bus, MapPin, User, LogOut, Menu, X, PhoneCall, Award, Ticket, Sparkles, ChevronDown } from 'lucide-react';
 import { useAuth } from '../../auth/AuthContext';
 import { BrandLogo, BrandEmblem } from '../components/BrandLogo';
 
@@ -26,22 +26,22 @@ export const Navbar: React.FC = () => {
   };
 
   return (
-    <header className="sticky top-0 z-50 bg-[#0d121f]/95 backdrop-blur-xl border-b border-white/[0.08] transition-all">
-      {/* Top micro bar for emergency / helpline */}
-      <div className="bg-[#06080d] text-slate-400 text-xs py-1.5 px-4 sm:px-8 border-b border-white/[0.05]">
+    <header className="sticky top-0 z-50 bg-[#faf8f5]/90 backdrop-blur-xl border-b border-slate-200/80 shadow-[0_4px_25px_-5px_rgba(15,23,42,0.06)] transition-all">
+      {/* Top micro ribbon for live highway status & helpline */}
+      <div className="bg-[#ede7dc] text-slate-600 text-xs py-1.5 px-4 sm:px-8 border-b border-slate-300/60 font-medium">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
           <div className="flex items-center space-x-4">
             <span className="flex items-center space-x-1.5">
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse inline-block" />
-              <span className="font-semibold text-emerald-400">Live GPS Active</span>
+              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse inline-block" />
+              <span className="font-bold text-emerald-700">Live GPS Active</span>
             </span>
-            <span className="text-slate-700 hidden sm:inline">|</span>
-            <span className="hidden sm:inline">24x7 Helpline: <strong className="text-sky-300 font-mono">+91 044 2479 9999</strong></span>
+            <span className="text-slate-400 hidden sm:inline">|</span>
+            <span className="hidden sm:inline">24x7 Helpline: <strong className="text-blue-700 font-mono">+91 044 2479 9999</strong></span>
           </div>
-          <div className="flex items-center space-x-3 text-[11px] text-slate-400">
-            <span>Official Operator: <strong className="text-blue-300 font-tamil">மாரியம்மன் டிராவல்ஸ்</strong></span>
+          <div className="flex items-center space-x-3 text-[11px] text-slate-600">
+            <span>Official Operator: <strong className="text-blue-800 font-tamil font-bold">மாரியம்மன் டிராவல்ஸ்</strong></span>
             <span>•</span>
-            <span className="hidden sm:inline text-emerald-400">Sanitized Sleeper Fleet</span>
+            <span className="hidden sm:inline text-emerald-700 font-bold">Sanitized Sleeper Fleet</span>
           </div>
         </div>
       </div>
@@ -50,10 +50,10 @@ export const Navbar: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           {/* Professional Brand Logo */}
-          <BrandLogo size="md" />
+          <BrandLogo size="md" theme="light" />
 
           {/* Desktop Navigation Links */}
-          <nav className="hidden lg:flex items-center space-x-1.5">
+          <nav className="hidden lg:flex items-center space-x-1.5 bg-white/80 p-1.5 rounded-full border border-slate-200/80 shadow-sm">
             {navLinks.map((link) => {
               const Icon = link.icon;
               const isActive = location.pathname === link.path;
@@ -61,13 +61,13 @@ export const Navbar: React.FC = () => {
                 <Link
                   key={link.path}
                   to={link.path}
-                  className={`px-3.5 py-2 rounded-xl text-sm font-semibold flex items-center space-x-2 transition-all ${
+                  className={`px-4 py-2 rounded-full text-xs font-bold flex items-center space-x-2 transition-all ${
                     isActive
-                      ? 'bg-blue-600/15 text-blue-400 border border-blue-500/30 shadow-sm'
-                      : 'text-slate-300 hover:text-white hover:bg-white/[0.05]'
+                      ? 'bg-blue-600 text-white shadow-md shadow-blue-600/30'
+                      : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100/80'
                   }`}
                 >
-                  <Icon size={15} className={isActive ? 'text-blue-400' : 'text-slate-400'} />
+                  <Icon size={14} className={isActive ? 'text-white' : 'text-slate-400'} />
                   <span>{link.label}</span>
                 </Link>
               );
@@ -78,18 +78,18 @@ export const Navbar: React.FC = () => {
           <div className="hidden md:flex items-center space-x-3">
             <Link
               to="/login"
-              title="Experience Cinematic Animated Arrival & Window Auth"
-              className="px-3 py-2 rounded-xl bg-white/[0.05] hover:bg-white/[0.1] text-sky-300 border border-white/10 text-xs font-semibold flex items-center space-x-1.5 transition-all"
+              title="Experience Cinematic Animated Arrival"
+              className="px-3.5 py-2 rounded-full bg-white hover:bg-slate-50 text-slate-700 border border-slate-200/80 text-xs font-bold flex items-center space-x-1.5 shadow-sm transition-all"
             >
-              <span className="w-1.5 h-1.5 rounded-full bg-sky-400 animate-pulse" />
+              <span className="w-2 h-2 rounded-full bg-sky-500 animate-pulse" />
               <span>Cinematic Intro</span>
             </Link>
 
             <Link
               to="/search"
-              className="px-4 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold uppercase tracking-wider flex items-center space-x-1.5 shadow-lg shadow-blue-600/25 active:scale-95 transition-all border border-blue-400/30"
+              className="px-5 py-2.5 rounded-full bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold uppercase tracking-wider flex items-center space-x-1.5 shadow-lg shadow-blue-600/25 active:scale-95 transition-all border border-blue-400/30"
             >
-              <Ticket size={15} />
+              <Ticket size={14} />
               <span>Book Ticket</span>
             </Link>
 
@@ -97,40 +97,41 @@ export const Navbar: React.FC = () => {
             <div className="relative">
               <button
                 onClick={() => setUserDropdownOpen(!userDropdownOpen)}
-                className="flex items-center space-x-2.5 p-1.5 pr-3 rounded-xl bg-white/[0.05] hover:bg-white/[0.09] border border-white/10 text-white text-xs font-semibold transition-all"
+                className="flex items-center space-x-2.5 p-1 pr-3 rounded-full bg-white hover:bg-slate-50 border border-slate-200/80 text-slate-800 text-xs font-bold shadow-sm transition-all"
               >
-                <div className="w-8 h-8 rounded-lg bg-blue-600 text-white font-black flex items-center justify-center text-xs shadow-sm">
-                  {user?.name ? user.name.charAt(0).toUpperCase() : 'U'}
+                <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-blue-600 to-indigo-600 text-white font-black flex items-center justify-center text-xs shadow-sm">
+                  {user?.name ? user.name.charAt(0).toUpperCase() : 'M'}
                 </div>
                 <div className="text-left hidden xl:block">
-                  <div className="font-bold text-slate-100 leading-tight truncate max-w-[110px]">
+                  <div className="font-extrabold text-slate-900 leading-tight truncate max-w-[110px]">
                     {user?.name || 'Passenger'}
                   </div>
-                  <div className="text-[10px] text-blue-400 font-semibold flex items-center space-x-1">
-                    <span>{user?.loyaltyPoints || 100} Club pts</span>
+                  <div className="text-[10px] text-blue-600 font-bold">
+                    {user?.loyaltyPoints || 450} Club pts
                   </div>
                 </div>
+                <ChevronDown size={14} className="text-slate-400" />
               </button>
 
               {userDropdownOpen && (
                 <div
                   onMouseLeave={() => setUserDropdownOpen(false)}
-                  className="absolute right-0 mt-2 w-64 rounded-2xl bg-[#111625] border border-white/10 shadow-2xl py-2 z-50 text-slate-200 animate-slide-up backdrop-blur-2xl"
+                  className="absolute right-0 mt-2 w-64 rounded-3xl bg-white border border-slate-200 shadow-2xl py-2 z-50 text-slate-800 animate-slide-up"
                 >
-                  <div className="px-4 py-3 border-b border-white/10 bg-white/[0.03] rounded-t-2xl">
-                    <p className="text-[10px] text-slate-400 uppercase tracking-wider font-bold">Signed in as</p>
-                    <p className="text-sm font-bold text-white truncate">{user?.name || 'Traveler'}</p>
-                    <p className="text-xs text-slate-400 truncate">{user?.email}</p>
-                    <div className="mt-2 flex items-center justify-between text-xs bg-blue-500/10 border border-blue-500/20 px-2.5 py-1 rounded-lg text-blue-300 font-semibold">
+                  <div className="px-5 py-3.5 border-b border-slate-100 bg-slate-50 rounded-t-3xl">
+                    <p className="text-[10px] text-slate-500 uppercase tracking-wider font-extrabold">Signed in as</p>
+                    <p className="text-sm font-black text-slate-900 truncate">{user?.name || 'Traveler'}</p>
+                    <p className="text-xs text-slate-500 truncate">{user?.email}</p>
+                    <div className="mt-2 flex items-center justify-between text-xs bg-blue-50 border border-blue-200 px-3 py-1.5 rounded-xl text-blue-800 font-bold">
                       <span>Reward Points:</span>
-                      <span className="font-black text-blue-400">{user?.loyaltyPoints || 100} pts</span>
+                      <span className="font-black text-blue-600">{user?.loyaltyPoints || 450} pts</span>
                     </div>
                   </div>
 
                   <Link
                     to="/account"
                     onClick={() => setUserDropdownOpen(false)}
-                    className="flex items-center space-x-2.5 px-4 py-2.5 text-xs font-medium text-slate-300 hover:bg-white/[0.06] hover:text-white transition-colors"
+                    className="flex items-center space-x-2.5 px-5 py-2.5 text-xs font-bold text-slate-700 hover:bg-slate-50 hover:text-blue-600 transition-colors"
                   >
                     <User size={15} className="text-slate-400" />
                     <span>My Profile & Preferences</span>
@@ -139,17 +140,17 @@ export const Navbar: React.FC = () => {
                   <Link
                     to="/bookings"
                     onClick={() => setUserDropdownOpen(false)}
-                    className="flex items-center space-x-2.5 px-4 py-2.5 text-xs font-medium text-slate-300 hover:bg-white/[0.06] hover:text-white transition-colors"
+                    className="flex items-center space-x-2.5 px-5 py-2.5 text-xs font-bold text-slate-700 hover:bg-slate-50 hover:text-blue-600 transition-colors"
                   >
                     <Ticket size={15} className="text-slate-400" />
                     <span>My Bookings & Tickets</span>
                   </Link>
 
-                  <div className="border-t border-white/10 my-1" />
+                  <div className="border-t border-slate-100 my-1" />
 
                   <button
                     onClick={handleLogout}
-                    className="w-full flex items-center space-x-2.5 px-4 py-2 text-xs font-semibold text-rose-400 hover:bg-rose-500/10 text-left transition-colors"
+                    className="w-full flex items-center space-x-2.5 px-5 py-2 text-xs font-bold text-rose-600 hover:bg-rose-50 text-left transition-colors"
                   >
                     <LogOut size={15} />
                     <span>Sign Out</span>
@@ -163,7 +164,7 @@ export const Navbar: React.FC = () => {
           <div className="lg:hidden flex items-center space-x-2">
             <Link
               to="/search"
-              className="px-3 py-1.5 rounded-xl bg-blue-600 text-white font-bold text-xs flex items-center space-x-1"
+              className="px-3.5 py-1.5 rounded-full bg-blue-600 text-white font-bold text-xs flex items-center space-x-1 shadow-sm"
             >
               <Ticket size={13} />
               <span>Book</span>
@@ -171,7 +172,7 @@ export const Navbar: React.FC = () => {
 
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 rounded-xl bg-white/[0.06] text-slate-300 hover:text-white border border-white/10"
+              className="p-2 rounded-full bg-white text-slate-700 border border-slate-200 shadow-sm"
               aria-label="Toggle menu"
             >
               {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
@@ -182,15 +183,15 @@ export const Navbar: React.FC = () => {
 
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
-        <div className="lg:hidden bg-[#0d121f] border-t border-white/10 px-4 pt-3 pb-6 space-y-2 animate-fade-in shadow-2xl">
-          <div className="p-3.5 bg-white/[0.04] rounded-2xl mb-3 border border-white/10 flex items-center justify-between">
+        <div className="lg:hidden bg-[#faf8f5] border-t border-slate-200 px-4 pt-3 pb-6 space-y-2 animate-fade-in shadow-2xl">
+          <div className="p-4 bg-white rounded-2xl mb-3 border border-slate-200 flex items-center justify-between shadow-sm">
             <div>
-              <p className="text-xs text-slate-400 font-medium">Passenger</p>
-              <p className="text-sm font-bold text-white">{user?.name || 'Traveler'}</p>
+              <p className="text-xs text-slate-500 font-bold">Passenger</p>
+              <p className="text-sm font-black text-slate-900">{user?.name || 'Traveler'}</p>
             </div>
             <div className="text-right">
-              <p className="text-xs text-slate-400 font-medium">Club Points</p>
-              <p className="text-sm font-black text-blue-400">{user?.loyaltyPoints || 100} pts</p>
+              <p className="text-xs text-slate-500 font-bold">Club Points</p>
+              <p className="text-sm font-black text-blue-600">{user?.loyaltyPoints || 450} pts</p>
             </div>
           </div>
 
@@ -202,13 +203,13 @@ export const Navbar: React.FC = () => {
                 key={link.path}
                 to={link.path}
                 onClick={() => setMobileMenuOpen(false)}
-                className={`flex items-center space-x-3 px-3.5 py-2.5 rounded-xl text-sm font-medium ${
+                className={`flex items-center space-x-3 px-4 py-2.5 rounded-xl text-sm font-bold ${
                   isActive
-                    ? 'bg-blue-600/20 text-blue-400 border border-blue-500/30'
-                    : 'text-slate-300 hover:bg-white/[0.05] hover:text-white'
+                    ? 'bg-blue-600 text-white shadow-md'
+                    : 'text-slate-700 hover:bg-white hover:text-blue-600'
                 }`}
               >
-                <Icon size={18} className={isActive ? 'text-blue-400' : 'text-slate-400'} />
+                <Icon size={18} className={isActive ? 'text-white' : 'text-slate-400'} />
                 <span>{link.label}</span>
               </Link>
             );
@@ -217,16 +218,16 @@ export const Navbar: React.FC = () => {
           <Link
             to="/login"
             onClick={() => setMobileMenuOpen(false)}
-            className="flex items-center space-x-3 px-3.5 py-2.5 rounded-xl text-sm font-medium text-sky-300 hover:bg-white/[0.05]"
+            className="flex items-center space-x-3 px-4 py-2.5 rounded-xl text-sm font-bold text-slate-700 hover:bg-white"
           >
-            <span className="w-2 h-2 rounded-full bg-sky-400 animate-pulse" />
+            <span className="w-2 h-2 rounded-full bg-sky-500 animate-pulse" />
             <span>Cinematic Bus Intro</span>
           </Link>
 
           <Link
             to="/account"
             onClick={() => setMobileMenuOpen(false)}
-            className="flex items-center space-x-3 px-3.5 py-2.5 rounded-xl text-sm font-medium text-slate-300 hover:bg-white/[0.05] hover:text-white"
+            className="flex items-center space-x-3 px-4 py-2.5 rounded-xl text-sm font-bold text-slate-700 hover:bg-white"
           >
             <User size={18} className="text-slate-400" />
             <span>My Profile</span>
@@ -237,7 +238,7 @@ export const Navbar: React.FC = () => {
               setMobileMenuOpen(false);
               handleLogout();
             }}
-            className="w-full flex items-center space-x-3 px-3.5 py-2.5 rounded-xl text-sm font-semibold text-rose-400 hover:bg-rose-500/10"
+            className="w-full flex items-center space-x-3 px-4 py-2.5 rounded-xl text-sm font-bold text-rose-600 hover:bg-rose-50"
           >
             <LogOut size={18} />
             <span>Sign Out</span>

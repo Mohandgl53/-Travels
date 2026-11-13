@@ -9,9 +9,55 @@
   }
 
   body {
-    background-color: #090a0f;
-    color: #f1f5f9;
+    background-color: #f7f5f0;
+    color: #1e293b;
   }
+}
+
+/* Claymorphic Porcelain Light Surfaces */
+.clay-card {
+  background: #ffffff;
+  border-radius: 2rem;
+  border: 1px solid rgba(226, 232, 240, 0.8);
+  box-shadow: 0 20px 40px -15px rgba(15, 23, 42, 0.07), 0 4px 12px -2px rgba(15, 23, 42, 0.03), inset 0 2px 4px rgba(255, 255, 255, 0.95);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.clay-card:hover {
+  box-shadow: 0 28px 56px -15px rgba(15, 23, 42, 0.12), 0 8px 20px -4px rgba(15, 23, 42, 0.05);
+}
+
+.clay-card-beveled {
+  background: #ffffff;
+  border: 6px solid #ffffff;
+  border-radius: 2.25rem;
+  box-shadow: 0 24px 48px -12px rgba(15, 23, 42, 0.09), inset 0 2px 4px rgba(255, 255, 255, 0.95), inset 0 -2px 4px rgba(0, 0, 0, 0.03);
+}
+
+.clay-surface {
+  background: #ffffff;
+  border: 1px solid rgba(226, 232, 240, 0.8);
+  box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.05);
+}
+
+/* Custom smooth light scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1ede4;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 9999px;
+  border: 2px solid #f1ede4;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
 }
 
 /* Glassmorphism for the bus window overlay & luxury panels */
@@ -38,14 +84,14 @@
 
 /* Luxury card styling */
 .luxury-surface {
-  background: #111625;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+  background: #ffffff;
+  border: 1px solid rgba(226, 232, 240, 0.9);
+  box-shadow: 0 10px 30px -10px rgba(15, 23, 42, 0.08);
   transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .luxury-surface:hover {
-  background: #141c2e;
+  background: #fafaf9;
   border-color: rgba(59, 130, 246, 0.3);
 }
 

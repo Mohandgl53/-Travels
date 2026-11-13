@@ -56,7 +56,7 @@ export const SearchBuses: React.FC = () => {
   }, [fromParam, toParam, selectedType, sortBy, onlyGps]);
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8 text-slate-100">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8 text-slate-800">
       {/* Top Search Adjustment Widget */}
       <SearchBar
         initialFrom={fromParam}
@@ -68,13 +68,13 @@ export const SearchBuses: React.FC = () => {
       {/* Confirmed Booking Success Alert */}
       {confirmedBooking && (
         <div className="space-y-4 animate-slide-up">
-          <div className="p-6 rounded-[2rem] bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-between text-emerald-200 shadow-xl backdrop-blur-md">
+          <div className="p-6 rounded-[2rem] bg-emerald-50 border border-emerald-200 flex items-center justify-between text-emerald-900 shadow-xl">
             <div className="flex items-center space-x-3.5">
-              <CheckCircle2 size={32} className="text-emerald-400 shrink-0" />
+              <CheckCircle2 size={32} className="text-emerald-600 shrink-0" />
               <div>
-                <h4 className="font-black text-lg text-white">Ticket Confirmed Successfully!</h4>
-                <p className="text-xs text-emerald-300 font-medium mt-0.5">
-                  PNR: <strong className="font-mono text-white">{confirmedBooking.pnr}</strong>. Your luxury berths are reserved. View official boarding pass below.
+                <h4 className="font-black text-lg text-slate-900">Ticket Confirmed Successfully!</h4>
+                <p className="text-xs text-emerald-700 font-medium mt-0.5">
+                  PNR: <strong className="font-mono text-slate-900">{confirmedBooking.pnr}</strong>. Your luxury berths are reserved. View official boarding pass below.
                 </p>
               </div>
             </div>
@@ -91,26 +91,26 @@ export const SearchBuses: React.FC = () => {
       )}
 
       {/* Results Header & Filters */}
-      <div className="p-6 rounded-[2rem] bg-[#101524] border border-white/10 shadow-xl flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div className="p-6 rounded-[2.25rem] bg-white border border-slate-200/90 shadow-xl flex flex-col md:flex-row md:items-center justify-between gap-4 text-slate-800">
         <div>
-          <div className="flex items-center space-x-2 text-xs font-bold text-sky-400 uppercase tracking-wider mb-1">
+          <div className="flex items-center space-x-2 text-xs font-bold text-blue-600 uppercase tracking-wider mb-1">
             <Bus size={14} />
             <span>Scheduled Intercity Express</span>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-black text-white flex items-center space-x-2">
+          <h1 className="text-2xl sm:text-3xl font-black text-slate-900 flex items-center space-x-2">
             <span>{fromParam}</span>
-            <span className="text-blue-400 font-bold">→</span>
+            <span className="text-blue-600 font-bold">→</span>
             <span>{toParam}</span>
           </h1>
-          <p className="text-xs text-slate-400 font-medium mt-1">
-            Showing <strong className="text-sky-400 font-black">{filteredTrips.length}</strong> verified departures on {dateParam}
+          <p className="text-xs text-slate-500 font-medium mt-1">
+            Showing <strong className="text-blue-600 font-black">{filteredTrips.length}</strong> verified departures on {dateParam}
           </p>
         </div>
 
         {/* Filter Pills */}
         <div className="flex flex-wrap items-center gap-2 text-xs">
           {/* Service Filter */}
-          <div className="flex rounded-2xl bg-white/[0.05] border border-white/10 p-1 shadow-inner">
+          <div className="flex rounded-2xl bg-slate-100 border border-slate-200 p-1 shadow-inner">
             {[
               { id: 'all', label: 'All Services' },
               { id: 'volvo', label: 'Volvo Multi-Axle' },
@@ -120,10 +120,10 @@ export const SearchBuses: React.FC = () => {
               <button
                 key={f.id}
                 onClick={() => setSelectedType(f.id)}
-                className={`px-3 py-1.5 rounded-xl font-bold transition-all ${
+                className={`px-3.5 py-1.5 rounded-xl font-bold transition-all ${
                   selectedType === f.id
                     ? 'bg-blue-600 text-white shadow-md'
-                    : 'text-slate-400 hover:text-white'
+                    : 'text-slate-600 hover:text-slate-900'
                 }`}
               >
                 {f.label}
@@ -136,25 +136,25 @@ export const SearchBuses: React.FC = () => {
             <select
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value as any)}
-              className="px-3.5 py-2 rounded-xl bg-white/[0.05] border border-white/10 text-white font-semibold text-xs focus:outline-none focus:border-blue-500 cursor-pointer shadow-sm"
+              className="px-3.5 py-2 rounded-xl bg-slate-50 border border-slate-200 text-slate-800 font-bold text-xs focus:outline-none focus:border-blue-500 cursor-pointer shadow-sm"
             >
-              <option value="departure" className="bg-[#101524] text-white">Sort: Departure Time</option>
-              <option value="fare-asc" className="bg-[#101524] text-white">Price: Low to High</option>
-              <option value="fare-desc" className="bg-[#101524] text-white">Price: High to Low</option>
-              <option value="rating" className="bg-[#101524] text-white">Highest Rated</option>
+              <option value="departure" className="bg-white text-slate-800">Sort: Departure Time</option>
+              <option value="fare-asc" className="bg-white text-slate-800">Price: Low to High</option>
+              <option value="fare-desc" className="bg-white text-slate-800">Price: High to Low</option>
+              <option value="rating" className="bg-white text-slate-800">Highest Rated</option>
             </select>
           </div>
 
           {/* GPS Toggle Pill */}
           <button
             onClick={() => setOnlyGps(!onlyGps)}
-            className={`px-3 py-1.5 rounded-xl text-xs font-bold flex items-center space-x-1.5 border transition-all ${
+            className={`px-3.5 py-2 rounded-xl text-xs font-bold flex items-center space-x-1.5 border transition-all ${
               onlyGps
-                ? 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40 shadow-sm'
-                : 'bg-white/[0.05] text-slate-400 border-white/10 hover:text-white'
+                ? 'bg-emerald-50 text-emerald-800 border-emerald-300 shadow-sm'
+                : 'bg-white text-slate-600 border-slate-200 hover:text-slate-900'
             }`}
           >
-            <Radio size={12} className={onlyGps ? 'animate-pulse text-emerald-400' : 'text-slate-400'} />
+            <Radio size={12} className={onlyGps ? 'animate-pulse text-emerald-600' : 'text-slate-400'} />
             <span>Live GPS Only</span>
           </button>
         </div>

@@ -97,7 +97,7 @@ export const Destinations: React.FC = () => {
   ];
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-12 text-slate-100">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-12 text-slate-800">
       {/* Porcelain Canvas Header matching Reference Image Style */}
       <div className="porcelain-canvas rounded-[2.5rem] p-8 sm:p-12 shadow-2xl relative border border-slate-300/40 text-slate-900 overflow-hidden">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 relative z-10">
@@ -126,10 +126,10 @@ export const Destinations: React.FC = () => {
         {destinationList.map((item) => (
           <div
             key={item.id}
-            className="rounded-[2.25rem] bg-[#101524] border border-white/10 hover:border-blue-500/50 shadow-2xl overflow-hidden flex flex-col justify-between group transition-all duration-300 hover:-translate-y-1.5"
+            className="rounded-[2.25rem] bg-white border-2 border-slate-200/90 hover:border-blue-500/50 shadow-xl overflow-hidden flex flex-col justify-between group transition-all duration-300 hover:-translate-y-1.5"
           >
             {/* Top Organic Sculpted Image Frame */}
-            <div className="relative h-56 overflow-hidden m-3.5 rounded-[1.75rem] border-4 border-white/15 shadow-inner">
+            <div className="relative h-56 overflow-hidden m-3.5 rounded-[1.75rem] border-4 border-white shadow-md">
               <img
                 src={item.imageUrl}
                 alt={item.name}
@@ -138,7 +138,7 @@ export const Destinations: React.FC = () => {
               <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-900/20 to-transparent" />
 
               {/* Floating Weather Pill */}
-              <div className="absolute top-3.5 right-3.5 px-3 py-1 rounded-full bg-white/20 backdrop-blur-md border border-white/30 text-white text-xs font-bold flex items-center space-x-1.5 shadow-md">
+              <div className="absolute top-3.5 right-3.5 px-3 py-1 rounded-full bg-white/30 backdrop-blur-md border border-white/40 text-white text-xs font-bold flex items-center space-x-1.5 shadow-md">
                 <Sun size={13} className="text-amber-300" />
                 <span>{item.weather}</span>
               </div>
@@ -157,7 +157,7 @@ export const Destinations: React.FC = () => {
 
             {/* Content Details */}
             <div className="p-6 pt-2 flex-1 flex flex-col justify-between space-y-4">
-              <p className="text-xs text-slate-300 leading-relaxed font-normal">
+              <p className="text-xs text-slate-600 leading-relaxed font-medium">
                 {item.description}
               </p>
 
@@ -170,7 +170,7 @@ export const Destinations: React.FC = () => {
                   {item.highlights.map((h, i) => (
                     <span
                       key={i}
-                      className="px-2.5 py-1 rounded-lg bg-white/[0.05] border border-white/10 text-[11px] text-slate-300 font-medium"
+                      className="px-2.5 py-1 rounded-lg bg-slate-100 border border-slate-200 text-[11px] text-slate-700 font-bold"
                     >
                       {h}
                     </span>
@@ -179,10 +179,10 @@ export const Destinations: React.FC = () => {
               </div>
 
               {/* Pricing & CTA */}
-              <div className="pt-4 border-t border-white/10 flex items-center justify-between">
+              <div className="pt-4 border-t border-slate-100 flex items-center justify-between">
                 <div>
-                  <span className="text-[10px] text-slate-400 uppercase tracking-wider block">Fares starting</span>
-                  <span className="text-2xl font-black text-white">₹{item.startingFare}</span>
+                  <span className="text-[10px] text-slate-400 uppercase tracking-wider block font-bold">Fares starting</span>
+                  <span className="text-2xl font-black text-slate-900">₹{item.startingFare}</span>
                 </div>
 
                 <Link
