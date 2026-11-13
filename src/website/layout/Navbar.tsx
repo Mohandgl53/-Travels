@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Bus, MapPin, User, LogOut, Menu, X, PhoneCall, Award, Ticket, Sparkles } from 'lucide-react';
 import { useAuth } from '../../auth/AuthContext';
+import { BrandLogo, BrandEmblem } from '../components/BrandLogo';
 
 export const Navbar: React.FC = () => {
   const location = useLocation();
@@ -48,25 +49,8 @@ export const Navbar: React.FC = () => {
       {/* Main navigation */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
-          {/* Brand Logo & Name */}
-          <Link to="/home" className="flex items-center space-x-3 group">
-            <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center text-white shadow-lg shadow-blue-600/30 group-hover:scale-105 transition-transform border border-blue-400/20">
-              <span className="text-2xl font-black font-tamil">மா</span>
-            </div>
-            <div>
-              <div className="flex items-center space-x-2">
-                <span className="text-2xl font-black font-tamil tracking-tight text-white group-hover:text-blue-400 transition-colors">
-                  மாரியம்மன்
-                </span>
-                <span className="text-2xl font-black tracking-wider text-blue-400">
-                  TRAVELS
-                </span>
-              </div>
-              <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest flex items-center space-x-1">
-                <span>Intercity Luxury Express</span>
-              </p>
-            </div>
-          </Link>
+          {/* Professional Brand Logo */}
+          <BrandLogo size="md" />
 
           {/* Desktop Navigation Links */}
           <nav className="hidden lg:flex items-center space-x-1.5">

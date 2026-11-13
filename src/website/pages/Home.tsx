@@ -26,6 +26,7 @@ import {
   Radio,
 } from 'lucide-react';
 import { useAuth } from '../../auth/AuthContext';
+import { BrandEmblem } from '../components/BrandLogo';
 
 interface FeaturedSlide {
   id: string;
@@ -207,11 +208,9 @@ export const Home: React.FC = () => {
               <Link
                 to="/account"
                 title="View Passenger Profile"
-                className="w-10 h-10 rounded-full bg-gradient-to-tr from-blue-600 to-sky-400 p-0.5 shadow-md hover:scale-105 transition-all flex items-center justify-center text-white font-bold text-xs"
+                className="hover:scale-105 transition-all"
               >
-                <div className="w-full h-full rounded-full bg-slate-900 flex items-center justify-center font-tamil text-sky-300 font-extrabold text-sm">
-                  மா
-                </div>
+                <BrandEmblem size="sm" />
               </Link>
             </div>
           </div>

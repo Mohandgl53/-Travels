@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Star, Radio, Clock, ChevronDown, ChevronUp, MapPin, Zap, Wind, ShieldCheck, Coffee } from 'lucide-react';
 import { BusTrip } from '../data/travelData';
+import { BrandEmblem } from './BrandLogo';
 
 interface BusCardProps {
   trip: BusTrip;
@@ -23,9 +24,7 @@ export const BusCard: React.FC<BusCardProps> = ({ trip, onSelectSeats, isSelecte
         {/* Top Header: Operator & Service Type */}
         <div className="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-white/[0.08]">
           <div className="flex items-center space-x-3.5">
-            <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center text-white font-black font-tamil text-lg shadow-lg border border-blue-400/30">
-              மா
-            </div>
+            <BrandEmblem size="md" />
             <div>
               <div className="flex items-center space-x-2">
                 <h3 className="text-xl font-black text-white font-tamil">

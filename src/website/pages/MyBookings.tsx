@@ -3,6 +3,7 @@ import { TicketPass } from '../components/TicketPass';
 import { BookingRecord, INITIAL_BOOKINGS } from '../data/travelData';
 import { Ticket, Search, Calendar, AlertCircle, ArrowRight, CheckCircle2, Clock, MapPin, Printer } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { BrandEmblem } from '../components/BrandLogo';
 
 export const MyBookings: React.FC = () => {
   const [bookings, setBookings] = useState<BookingRecord[]>([]);
@@ -119,9 +120,7 @@ export const MyBookings: React.FC = () => {
               {/* Header Bar */}
               <div className="flex flex-wrap items-center justify-between gap-3 pb-5 border-b border-white/[0.08]">
                 <div className="flex items-center space-x-3">
-                  <div className="w-11 h-11 rounded-2xl bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center text-white font-black font-tamil text-sm shadow-md">
-                    மா
-                  </div>
+                  <BrandEmblem size="md" />
                   <div>
                     <div className="flex items-center space-x-2">
                       <span className="text-xs text-slate-400 font-bold">PNR:</span>

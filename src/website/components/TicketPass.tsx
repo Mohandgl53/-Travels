@@ -1,6 +1,7 @@
 import React from 'react';
 import { QrCode, Printer, CheckCircle, Bus, Calendar, User } from 'lucide-react';
 import { BookingRecord } from '../data/travelData';
+import { BrandEmblem } from './BrandLogo';
 
 interface TicketPassProps {
   booking: BookingRecord;
@@ -17,9 +18,7 @@ export const TicketPass: React.FC<TicketPassProps> = ({ booking, onClose }) => {
       {/* Top Banner */}
       <div className="bg-[#0a0d16] p-6 flex items-center justify-between text-white border-b border-white/[0.08]">
         <div className="flex items-center space-x-3">
-          <div className="w-11 h-11 rounded-2xl bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center font-tamil font-black text-xl border border-blue-400/30 shadow-md">
-            மா
-          </div>
+          <BrandEmblem size="md" />
           <div>
             <h3 className="font-bold font-tamil text-xl text-white">மாரியம்மன் Travels</h3>
             <p className="text-xs text-blue-400 font-semibold">Official E-Ticket & Boarding Pass</p>
