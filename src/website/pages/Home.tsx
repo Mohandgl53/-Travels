@@ -1,564 +1,693 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { SearchBar } from '../components/SearchBar';
 import {
-  Clock,
-  Radio,
-  Sparkles,
+  Compass,
   ArrowRight,
-  Star,
-  ChevronRight,
-  Bus,
+  Sun,
   MapPin,
+  Calendar,
+  Users,
+  ChevronLeft,
+  ChevronRight,
+  Search,
+  Sparkles,
+  ShieldCheck,
+  Zap,
+  Coffee,
+  Wifi,
+  Wind,
+  Plus,
+  Bus,
   Ticket,
   Award,
   PhoneCall,
-  Sun,
-  CloudSun,
-  Compass,
+  Clock,
+  Radio,
 } from 'lucide-react';
-import { MOCK_BUS_TRIPS } from '../data/travelData';
+import { useAuth } from '../../auth/AuthContext';
+
+interface FeaturedSlide {
+  id: string;
+  name: string;
+  tamilName: string;
+  region: string;
+  tag: string;
+  description: string;
+  temp: string;
+  weatherCondition: string;
+  locationLabel: string;
+  upcomingRoute: string;
+  upcomingDate: string;
+  upcomingPassengers: string;
+  startingFare: number;
+  imageUrl: string;
+  accentColor: string;
+}
 
 export const Home: React.FC = () => {
-  const [activeFeaturedIndex, setActiveFeaturedIndex] = useState(0);
+  const navigate = useNavigate();
+  const { user } = useAuth();
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isAutoPlay, setIsAutoPlay] = useState(true);
+  const [headerSearch, setHeaderSearch] = useState('');
 
-  const featuredDestinations = [
+  const featuredDestinations: FeaturedSlide[] = [
     {
       id: 'madurai',
-      city: 'Madurai',
+      name: 'Madurai',
       tamilName: 'மதுரை',
-      tag: 'SACRED HERITAGE • MEENAKSHI SHRINE',
-      title: 'Madurai Temple Express',
-      subtitle: 'Experience midnight Jigarthanda, thousand-pillar mandapams, and restorative sleep aboard our Volvo multi-axle coaches.',
-      weather: '28°C Pleasant Skies',
-      corridor: 'Madurai Central Terminal',
-      departureTime: '20:45 Tonight',
-      busNumber: 'TN-72-CD-7777',
-      coachType: 'Volvo Multi-Axle 9600 Sleeper',
-      availableSeats: 9,
-      fare: 1350,
-      bgGradient: 'from-blue-900/90 via-slate-900 to-[#0a0d16]',
-      accentColor: 'text-amber-400',
-      iconBg: 'bg-amber-500/20 text-amber-300 border-amber-500/30',
+      region: 'Tamil Nadu, South India',
+      tag: 'FEATURED DESTINATION • TEMPLE HERITAGE',
+      description: 'Towering Dravidian gopurams, sacred night temple corridors, authentic midnight jigarthanda & serene overnight sleeper travel.',
+      temp: '28°',
+      weatherCondition: 'Sunny',
+      locationLabel: 'Madurai, Tamil Nadu',
+      upcomingRoute: 'Chennai → Madurai Express',
+      upcomingDate: '18 Nov 2026 • 20:45',
+      upcomingPassengers: '2 People • Sleeper L4, L5',
+      startingFare: 1350,
+      imageUrl: 'https://images.unsplash.com/photo-1582510003544-4d00b7f74220?auto=format&fit=crop&w=1600&q=80',
+      accentColor: 'from-blue-900/90 via-slate-950/60 to-transparent',
     },
     {
       id: 'ooty',
-      city: 'Ooty',
+      name: 'Ooty',
       tamilName: 'ஊட்டி',
-      tag: 'MISTY NILGIRIS • 7,500 FT ELEVATION',
-      title: 'Nilgiri Mountain Sleeper',
-      subtitle: 'Wake up refreshed amidst rolling emerald tea gardens, crisp eucalyptus air, and breathtaking Western Ghats pine peaks.',
-      weather: '16°C Misty Morning',
-      corridor: 'Ooty Central Stand',
-      departureTime: '21:30 Tonight',
-      busNumber: 'TN-43-BB-9999',
-      coachType: 'BharatBenz Glider AC Sleeper',
-      availableSeats: 12,
-      fare: 1450,
-      bgGradient: 'from-emerald-950/90 via-slate-900 to-[#0a0d16]',
-      accentColor: 'text-emerald-400',
-      iconBg: 'bg-emerald-500/20 text-emerald-300 border-emerald-500/30',
+      region: 'Nilgiris, Western Ghats',
+      tag: 'FEATURED DESTINATION • MISTY NILGIRIS',
+      description: 'Rolling emerald tea gardens, crisp eucalyptus mountain breeze, misty pine forests & tranquil 7,500 ft elevation.',
+      temp: '17°',
+      weatherCondition: 'Misty',
+      locationLabel: 'Ooty, Nilgiris',
+      upcomingRoute: 'Chennai → Ooty Horizon',
+      upcomingDate: '21 Nov 2026 • 21:30',
+      upcomingPassengers: '2 People • Sleeper U2, U3',
+      startingFare: 1450,
+      imageUrl: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1600&q=80',
+      accentColor: 'from-emerald-950/90 via-slate-950/60 to-transparent',
     },
     {
       id: 'rameswaram',
-      city: 'Rameswaram',
+      name: 'Rameswaram',
       tamilName: 'ராமேஸ்வரம்',
-      tag: 'HOLY ISLAND • OCEAN CORRIDOR',
-      title: 'Pamban Sea Express',
-      subtitle: 'Cross the majestic ocean bridge to India’s sacred southern tip with high-speed 4-lane highway cruising.',
-      weather: '29°C Ocean Breeze',
-      corridor: 'Rameswaram Temple Gate',
-      departureTime: '19:45 Tonight',
-      busNumber: 'TN-65-RM-1212',
-      coachType: 'Volvo B11R Luxury Sleeper',
-      availableSeats: 7,
-      fare: 1550,
-      bgGradient: 'from-cyan-950/90 via-slate-900 to-[#0a0d16]',
-      accentColor: 'text-cyan-400',
-      iconBg: 'bg-cyan-500/20 text-cyan-300 border-cyan-500/30',
+      region: 'Sacred Island Corridor',
+      tag: 'FEATURED DESTINATION • OCEAN CORRIDOR',
+      description: 'The legendary Pamban Sea Bridge, azure coastal horizons, ancient sacred wells & direct high-speed luxury highway cruising.',
+      temp: '29°',
+      weatherCondition: 'Ocean Breeze',
+      locationLabel: 'Rameswaram, Tamil Nadu',
+      upcomingRoute: 'Chennai → Rameswaram Sea Express',
+      upcomingDate: '24 Nov 2026 • 19:45',
+      upcomingPassengers: '2 People • Sleeper L1, L2',
+      startingFare: 1550,
+      imageUrl: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1600&q=80',
+      accentColor: 'from-cyan-950/90 via-slate-950/60 to-transparent',
+    },
+    {
+      id: 'kodaikanal',
+      name: 'Kodaikanal',
+      tamilName: 'கொடைக்கானல்',
+      region: 'Princess of Hill Stations',
+      tag: 'FEATURED DESTINATION • MISTY PEAKS',
+      description: 'Star-shaped lake reflections, pine forest canopy walks, silver cascades & restorative cool mountain air.',
+      temp: '18°',
+      weatherCondition: 'Pleasant Breeze',
+      locationLabel: 'Kodaikanal, Dindigul',
+      upcomingRoute: 'Chennai → Kodaikanal Night Rider',
+      upcomingDate: '27 Nov 2026 • 21:15',
+      upcomingPassengers: '2 People • Sleeper L7, L8',
+      startingFare: 1400,
+      imageUrl: 'https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=1600&q=80',
+      accentColor: 'from-sky-950/90 via-slate-950/60 to-transparent',
     },
     {
       id: 'coimbatore',
-      city: 'Coimbatore',
+      name: 'Coimbatore',
       tamilName: 'கோயம்புத்தூர்',
-      tag: 'MANCHESTER OF SOUTH • ADIYOGI SHIVA',
-      title: 'Siruvani Adiyogi Express',
-      subtitle: 'Swift, non-stop luxury transit to the bustling industrial capital and the peaceful foothills of Isha Adiyogi.',
-      weather: '24°C Cool Ghats',
-      corridor: 'Gandhipuram Omni Terminal',
-      departureTime: '22:00 Tonight',
-      busNumber: 'TN-38-CB-4444',
-      coachType: 'BharatBenz Executive Sleeper',
-      availableSeats: 14,
-      fare: 1250,
-      bgGradient: 'from-indigo-950/90 via-slate-900 to-[#0a0d16]',
-      accentColor: 'text-indigo-400',
-      iconBg: 'bg-indigo-500/20 text-indigo-300 border-indigo-500/30',
+      region: 'Gateway to Western Ghats',
+      tag: 'FEATURED DESTINATION • ADIYOGI SHIVA',
+      description: 'Foothills of the sacred Western Ghats, the iconic Adiyogi Shiva monument, swift non-stop multi-axle sleeper transits.',
+      temp: '24°',
+      weatherCondition: 'Sunny',
+      locationLabel: 'Coimbatore, Tamil Nadu',
+      upcomingRoute: 'Chennai → Coimbatore Glider',
+      upcomingDate: '30 Nov 2026 • 22:00',
+      upcomingPassengers: '1 Person • Sleeper L12',
+      startingFare: 1250,
+      imageUrl: 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1600&q=80',
+      accentColor: 'from-indigo-950/90 via-slate-950/60 to-transparent',
     },
   ];
 
-  // Auto rotate featured showcase smoothly every 7 seconds
+  // Auto-play destination carousel every 6 seconds (pause on hover)
   useEffect(() => {
-    const timer = setInterval(() => {
-      setActiveFeaturedIndex((prev) => (prev + 1) % featuredDestinations.length);
-    }, 7000);
-    return () => clearInterval(timer);
-  }, [featuredDestinations.length]);
+    if (!isAutoPlay) return;
+    const interval = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % featuredDestinations.length);
+    }, 6000);
+    return () => clearInterval(interval);
+  }, [isAutoPlay, featuredDestinations.length]);
 
-  const currentFeatured = featuredDestinations[activeFeaturedIndex];
+  const active = featuredDestinations[currentIndex];
 
-  const quickPortals = [
-    {
-      title: 'Home',
-      subtitle: 'Official Passenger Portal & Fleet Overview',
-      path: '/home',
-      icon: Bus,
-      tag: 'Current View',
-      active: true,
-    },
-    {
-      title: 'Bus Search',
-      subtitle: 'Real-time seat availability & live fares',
-      path: '/search',
-      icon: MapPin,
-      tag: 'Live Schedules',
-      active: false,
-    },
-    {
-      title: 'My Bookings',
-      subtitle: 'Download boarding pass, track PNR & cancel',
-      path: '/bookings',
-      icon: Ticket,
-      tag: 'E-Ticket Pass',
-      active: false,
-    },
-    {
-      title: 'Destinations',
-      subtitle: 'Chennai, Madurai, Coimbatore & sacred temples',
-      path: '/destinations',
-      icon: MapPin,
-      tag: 'City Guides',
-      active: false,
-    },
-    {
-      title: 'About Us',
-      subtitle: '20+ years of luxury highway heritage',
-      path: '/about',
-      icon: Award,
-      tag: 'Fleet Heritage',
-      active: false,
-    },
-    {
-      title: 'Contact',
-      subtitle: '24x7 customer support & station terminals',
-      path: '/contact',
-      icon: PhoneCall,
-      tag: '24x7 Helpline',
-      active: false,
-    },
-  ];
+  const handleNext = () => {
+    setCurrentIndex((prev) => (prev + 1) % featuredDestinations.length);
+  };
+
+  const handlePrev = () => {
+    setCurrentIndex((prev) => (prev - 1 + featuredDestinations.length) % featuredDestinations.length);
+  };
+
+  const handleHeaderSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (headerSearch.trim()) {
+      navigate(`/search?to=${encodeURIComponent(headerSearch.trim())}`);
+    } else {
+      navigate('/search');
+    }
+  };
 
   return (
-    <div className="space-y-16 pb-24 text-slate-100 overflow-x-hidden">
-      {/* 1. Hero Section - Deep Atmospheric Obsidian & Sapphire Blue */}
-      <section className="relative pt-12 pb-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-[#06080e] via-[#0d1424] to-[#090a0f] text-white overflow-hidden border-b border-white/[0.08]">
-        {/* Subtle patterned background ambient glows */}
-        <div className="absolute top-0 right-1/4 w-[500px] h-[500px] bg-blue-600/10 rounded-full blur-[120px] pointer-events-none" />
-        <div className="absolute bottom-0 left-1/4 w-[400px] h-[400px] bg-emerald-500/10 rounded-full blur-[100px] pointer-events-none" />
-
-        <div className="max-w-7xl mx-auto relative z-10">
-          <div className="text-center max-w-3xl mx-auto mb-8">
-            <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-blue-500/10 border border-blue-400/20 text-sky-400 text-xs font-semibold mb-4 backdrop-blur-md shadow-sm">
-              <Sparkles size={14} className="text-sky-400" />
-              <span>South India's Most Trusted Luxury Coach Network</span>
+    <div className="space-y-12 pb-24 text-slate-100 overflow-x-hidden">
+      {/* =========================================================================
+          HERO SHOWCASE CANVAS: EXACT REFERENCE IMAGE COMPOSITION & MOTION
+          ========================================================================= */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
+        <div
+          className="porcelain-canvas rounded-[2.5rem] p-6 sm:p-10 shadow-2xl relative border border-slate-300/40 animate-hero-entrance"
+          onMouseEnter={() => setIsAutoPlay(false)}
+          onMouseLeave={() => setIsAutoPlay(true)}
+        >
+          {/* 1. Header Bar: "Hello, Explorer 👋" + Search + Profile (Exact Reference) */}
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-8 border-b border-slate-200/60 animate-hero-slide-down">
+            <div>
+              <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight flex items-center gap-2">
+                <span>Hello, {user ? user.name.split(' ')[0] : 'Explorer'}</span>
+                <span className="inline-block animate-bounce origin-bottom-right">👋</span>
+              </h1>
+              <p className="text-xs sm:text-sm text-slate-600 mt-1 font-medium">
+                Discover South India's scenic places, create unforgettable journeys.
+              </p>
             </div>
 
-            <h1 className="text-4xl sm:text-6xl font-black tracking-tight text-white leading-tight font-tamil">
-              மாரியம்மன் Travels
-            </h1>
-            <p className="mt-2 text-xl sm:text-2xl font-bold text-sky-400 drop-shadow">
-              Travel in Comfort • Arrive on Time
-            </p>
-            <p className="mt-3 text-sm sm:text-base text-slate-400 max-w-2xl mx-auto leading-relaxed font-normal">
-              Daily luxury Volvo Multi-Axle and BharatBenz AC sleeper express routes connecting Chennai, Madurai, Coimbatore, Trichy, Tirunelveli and Bangalore.
-            </p>
+            {/* Top Right: Pill Search Bar + User Avatar (Exact Reference) */}
+            <div className="flex items-center space-x-3 self-end md:self-auto">
+              <form onSubmit={handleHeaderSearch} className="relative">
+                <Search size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
+                <input
+                  type="text"
+                  value={headerSearch}
+                  onChange={(e) => setHeaderSearch(e.target.value)}
+                  placeholder="Search destinations..."
+                  className="clay-pill-input pl-10 pr-4 py-2.5 rounded-full text-xs font-semibold text-slate-800 placeholder-slate-400 w-52 sm:w-64 border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500/40 transition-all"
+                />
+              </form>
+
+              <Link
+                to="/account"
+                title="View Passenger Profile"
+                className="w-10 h-10 rounded-full bg-gradient-to-tr from-blue-600 to-sky-400 p-0.5 shadow-md hover:scale-105 transition-all flex items-center justify-center text-white font-bold text-xs"
+              >
+                <div className="w-full h-full rounded-full bg-slate-900 flex items-center justify-center font-tamil text-sky-300 font-extrabold text-sm">
+                  மா
+                </div>
+              </Link>
+            </div>
           </div>
 
-          {/* Quick Metrics Bar */}
-          <div className="mt-6 grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto text-center">
-            <div className="p-4 rounded-2xl bg-white/[0.03] border border-white/10 backdrop-blur-md shadow-lg">
-              <div className="text-2xl sm:text-3xl font-black text-sky-400">120+</div>
-              <div className="text-xs text-slate-400 font-medium mt-0.5">Daily Coach Services</div>
+          {/* 2. Main Canvas Grid: Asymmetric Layout matching the Reference Image */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start mt-8 relative">
+            
+            {/* -------------------------------------------------------------
+                LEFT / CENTER: Large Fluid Organic Showcase Card (Reference Blob)
+                ------------------------------------------------------------- */}
+            <div className="lg:col-span-8 relative">
+              <div className="organic-blob-hero relative h-[420px] sm:h-[480px] overflow-hidden group">
+                {/* Background Photo with smooth crossfade & gentle Ken-Burns zoom */}
+                <img
+                  key={active.id}
+                  src={active.imageUrl}
+                  alt={active.name}
+                  className="absolute inset-0 w-full h-full object-cover object-center scale-100 group-hover:scale-105 transition-transform duration-1000 ease-out"
+                />
+
+                {/* Rich Atmospheric Gradient Overlay */}
+                <div className={`absolute inset-0 bg-gradient-to-t ${active.accentColor} transition-opacity duration-700`} />
+                <div className="absolute inset-0 bg-gradient-to-r from-slate-950/80 via-slate-900/30 to-transparent" />
+
+                {/* Inner Content Layer */}
+                <div className="absolute inset-0 p-8 sm:p-10 flex flex-col justify-between z-10 text-white">
+                  
+                  {/* Top Bar inside Card: Category Pill */}
+                  <div className="flex items-center justify-between">
+                    <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-white/20 backdrop-blur-md border border-white/30 text-[11px] font-bold tracking-wider uppercase text-white shadow-sm">
+                      <Sparkles size={12} className="text-amber-300 animate-spin" style={{ animationDuration: '8s' }} />
+                      <span>{active.tag}</span>
+                    </div>
+
+                    {/* Reference Video Interactive Arrow Navigation */}
+                    <div className="flex items-center space-x-2">
+                      <button
+                        onClick={handlePrev}
+                        aria-label="Previous Destination"
+                        className="w-8 h-8 rounded-full bg-black/40 hover:bg-black/70 border border-white/20 backdrop-blur-md flex items-center justify-center text-white transition-all active:scale-90"
+                      >
+                        <ChevronLeft size={16} />
+                      </button>
+                      <button
+                        onClick={handleNext}
+                        aria-label="Next Destination"
+                        className="w-8 h-8 rounded-full bg-black/40 hover:bg-black/70 border border-white/20 backdrop-blur-md flex items-center justify-center text-white transition-all active:scale-90"
+                      >
+                        <ChevronRight size={16} />
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* Middle Text: Destination, Tamil Name & Description */}
+                  <div className="max-w-xl space-y-2">
+                    <div className="flex items-baseline gap-3 flex-wrap">
+                      <h2 className="text-4xl sm:text-5xl font-black tracking-tight text-white drop-shadow-md">
+                        {active.name}
+                      </h2>
+                      <span className="text-2xl sm:text-3xl font-extrabold font-tamil text-sky-300 drop-shadow">
+                        {active.tamilName}
+                      </span>
+                    </div>
+
+                    <p className="text-xs sm:text-sm font-medium text-slate-200 drop-shadow line-clamp-2 max-w-lg leading-relaxed">
+                      {active.description}
+                    </p>
+
+                    {/* Action Pill Button (Exact "Explore Now ->" from Reference) */}
+                    <div className="pt-3">
+                      <Link
+                        to={`/search?from=Chennai&to=${active.name}`}
+                        className="inline-flex items-center space-x-2 px-6 py-3 rounded-full bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs uppercase tracking-wider shadow-xl shadow-blue-900/40 hover:shadow-blue-600/50 hover:scale-105 active:scale-95 transition-all border border-blue-400/40"
+                      >
+                        <span>Explore Now</span>
+                        <ArrowRight size={14} />
+                      </Link>
+                    </div>
+                  </div>
+
+                  {/* Bottom Bar inside Card: Circular Thumbnail Previews + `+` (Exact Reference Image) */}
+                  <div className="flex items-center justify-between pt-2">
+                    <div className="flex items-center space-x-2.5">
+                      {featuredDestinations.map((dest, idx) => (
+                        <button
+                          key={dest.id}
+                          onClick={() => setCurrentIndex(idx)}
+                          title={`${dest.name} (${dest.tamilName})`}
+                          className={`w-9 h-9 sm:w-10 sm:h-10 rounded-full overflow-hidden border-2 transition-all transform ${
+                            currentIndex === idx
+                              ? 'border-white scale-110 shadow-lg ring-2 ring-blue-500'
+                              : 'border-white/50 opacity-70 hover:opacity-100 hover:scale-105'
+                          }`}
+                        >
+                          <img
+                            src={dest.imageUrl}
+                            alt={dest.name}
+                            className="w-full h-full object-cover"
+                          />
+                        </button>
+                      ))}
+
+                      {/* Plus Pill to view all destinations */}
+                      <Link
+                        to="/destinations"
+                        title="View All 14+ Destinations"
+                        className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/20 hover:bg-white/40 border-2 border-white/60 backdrop-blur-md flex items-center justify-center text-white transition-all hover:scale-105 active:scale-95 shadow-sm"
+                      >
+                        <Plus size={16} />
+                      </Link>
+                    </div>
+
+                    {/* Pagination Indicators (Reference Video) */}
+                    <div className="flex items-center space-x-1.5">
+                      {featuredDestinations.map((_, idx) => (
+                        <button
+                          key={idx}
+                          onClick={() => setCurrentIndex(idx)}
+                          className={`h-1.5 rounded-full transition-all ${
+                            currentIndex === idx ? 'w-6 bg-white' : 'w-1.5 bg-white/40'
+                          }`}
+                        />
+                      ))}
+                    </div>
+                  </div>
+
+                </div>
+              </div>
             </div>
-            <div className="p-4 rounded-2xl bg-white/[0.03] border border-white/10 backdrop-blur-md shadow-lg">
-              <div className="text-2xl sm:text-3xl font-black text-white">4.8 ★</div>
-              <div className="text-xs text-slate-400 font-medium mt-0.5">Passenger Rating</div>
-            </div>
-            <div className="p-4 rounded-2xl bg-white/[0.03] border border-white/10 backdrop-blur-md shadow-lg">
-              <div className="text-2xl sm:text-3xl font-black text-emerald-400">1.2M+</div>
-              <div className="text-xs text-slate-400 font-medium mt-0.5">Happy Travelers</div>
-            </div>
-            <div className="p-4 rounded-2xl bg-white/[0.03] border border-white/10 backdrop-blur-md shadow-lg">
-              <div className="text-2xl sm:text-3xl font-black text-cyan-400">99.4%</div>
-              <div className="text-xs text-slate-400 font-medium mt-0.5">Punctuality Score</div>
+
+            {/* -------------------------------------------------------------
+                RIGHT COLUMN: Script Accent + Weather Card + Upcoming Trip Card
+                ------------------------------------------------------------- */}
+            <div className="lg:col-span-4 flex flex-col space-y-6 animate-hero-slide-right">
+              
+              {/* Handwritten Script Accent: "Let's Explore ☀️" (Exact Reference) */}
+              <div className="flex items-center justify-start lg:justify-center pt-2">
+                <div className="flex items-center space-x-2 text-blue-700 font-handwriting text-3xl sm:text-4xl font-bold tracking-wide -rotate-3 select-none">
+                  <span>Let's Explore</span>
+                  <Sun size={26} className="text-amber-500 animate-spin" style={{ animationDuration: '16s' }} />
+                </div>
+              </div>
+
+              {/* 1. Organic Fluid Weather Widget (Exact Reference Image) */}
+              <div className="organic-blob-weather p-6 text-slate-800 relative overflow-hidden group">
+                <div className="flex items-start justify-between">
+                  <div>
+                    <div className="text-4xl sm:text-5xl font-black text-slate-900 tracking-tight">
+                      {active.temp}
+                    </div>
+                    <div className="text-xs sm:text-sm font-bold text-slate-600 mt-0.5">
+                      {active.weatherCondition}
+                    </div>
+                  </div>
+
+                  {/* Radiant Sun / Weather Illustration */}
+                  <div className="w-16 h-16 rounded-full bg-amber-100 flex items-center justify-center text-amber-500 shadow-inner group-hover:rotate-12 transition-transform duration-500">
+                    <Sun size={36} className="text-amber-500 animate-pulse" />
+                  </div>
+                </div>
+
+                {/* Location Pill */}
+                <div className="mt-4 pt-3 border-t border-slate-100 flex items-center space-x-2 text-slate-700">
+                  <MapPin size={14} className="text-blue-600 shrink-0" />
+                  <span className="text-xs font-bold truncate">{active.locationLabel}</span>
+                </div>
+              </div>
+
+              {/* 2. Sculpted Upcoming Trip Card (Exact Reference Image) */}
+              <div className="organic-blob-trip p-6 text-slate-800 relative group">
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-sm font-extrabold text-slate-900">Upcoming Trip</h3>
+                  <Link
+                    to="/bookings"
+                    className="text-xs font-bold text-blue-600 hover:text-blue-700 flex items-center space-x-1 transition-colors"
+                  >
+                    <span>View All</span>
+                    <ArrowRight size={12} />
+                  </Link>
+                </div>
+
+                <div className="flex items-center justify-between gap-3">
+                  <div className="flex items-center space-x-3">
+                    <div className="w-14 h-14 rounded-2xl overflow-hidden shrink-0 border border-slate-200 shadow-sm">
+                      <img
+                        src={active.imageUrl}
+                        alt="Coach Tour"
+                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                      />
+                    </div>
+                    <div className="space-y-1">
+                      <div className="text-xs font-black text-slate-900 leading-tight">
+                        {active.upcomingRoute}
+                      </div>
+                      <div className="flex items-center space-x-1.5 text-[11px] text-slate-500 font-medium">
+                        <Calendar size={12} className="text-slate-400" />
+                        <span>{active.upcomingDate}</span>
+                      </div>
+                      <div className="flex items-center space-x-1.5 text-[11px] text-slate-500 font-medium">
+                        <Users size={12} className="text-slate-400" />
+                        <span>{active.upcomingPassengers}</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Interactive Arrow Button */}
+                  <Link
+                    to="/bookings"
+                    title="Open Boarding Pass"
+                    className="w-9 h-9 rounded-full bg-slate-100 hover:bg-blue-600 hover:text-white text-slate-700 flex items-center justify-center shrink-0 transition-all shadow-sm active:scale-95"
+                  >
+                    <ChevronRight size={18} />
+                  </Link>
+                </div>
+              </div>
+
             </div>
           </div>
         </div>
       </section>
 
-      {/* Floating Search Bar Container */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-30">
-        <SearchBar compact={true} />
-      </div>
+      {/* =========================================================================
+          INTERACTIVE SEARCH & ROUTE CONSOLE
+          ========================================================================= */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-4 relative z-30">
+        <SearchBar compact={false} />
+      </section>
 
-      {/* 2. Organic Fluid Showcase Canvas (Inspired by Reference Image & Motion Choreography) */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative pt-2">
-        <div className="text-center max-w-2xl mx-auto mb-6">
-          <div className="inline-flex items-center space-x-1.5 text-xs uppercase tracking-widest font-black text-blue-400">
-            <Compass size={14} className="text-blue-400 animate-spin" style={{ animationDuration: '12s' }} />
-            <span>Featured Express Corridors</span>
+      {/* =========================================================================
+          KEY FLEET METRICS & LIVE CORRIDOR STATUS
+          ========================================================================= */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div className="p-5 rounded-2xl bg-[#0f1422] border border-white/10 shadow-lg flex items-center space-x-4">
+            <div className="w-12 h-12 rounded-xl bg-blue-500/10 text-blue-400 border border-blue-500/20 flex items-center justify-center shrink-0">
+              <Bus size={22} />
+            </div>
+            <div>
+              <div className="text-2xl sm:text-3xl font-black text-white">120+</div>
+              <div className="text-xs text-slate-400 font-medium">Daily Services</div>
+            </div>
           </div>
-          <h2 className="text-2xl sm:text-3xl font-black text-white mt-1">
-            Curated Highway Journeys
-          </h2>
-          <p className="text-xs sm:text-sm text-slate-400 mt-1.5 font-normal">
-            Immerse yourself in scenic journeys crafted for deep relaxation and punctuality.
-          </p>
+
+          <div className="p-5 rounded-2xl bg-[#0f1422] border border-white/10 shadow-lg flex items-center space-x-4">
+            <div className="w-12 h-12 rounded-xl bg-amber-500/10 text-amber-400 border border-amber-500/20 flex items-center justify-center shrink-0">
+              <ShieldCheck size={22} />
+            </div>
+            <div>
+              <div className="text-2xl sm:text-3xl font-black text-white">4.8 ★</div>
+              <div className="text-xs text-slate-400 font-medium">Passenger Rating</div>
+            </div>
+          </div>
+
+          <div className="p-5 rounded-2xl bg-[#0f1422] border border-white/10 shadow-lg flex items-center space-x-4">
+            <div className="w-12 h-12 rounded-xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 flex items-center justify-center shrink-0">
+              <Zap size={22} />
+            </div>
+            <div>
+              <div className="text-2xl sm:text-3xl font-black text-emerald-400">1.2M+</div>
+              <div className="text-xs text-slate-400 font-medium">Happy Travelers</div>
+            </div>
+          </div>
+
+          <div className="p-5 rounded-2xl bg-[#0f1422] border border-white/10 shadow-lg flex items-center space-x-4">
+            <div className="w-12 h-12 rounded-xl bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 flex items-center justify-center shrink-0">
+              <Clock size={22} />
+            </div>
+            <div>
+              <div className="text-2xl sm:text-3xl font-black text-cyan-400">99.4%</div>
+              <div className="text-xs text-slate-400 font-medium">Punctuality Score</div>
+            </div>
+          </div>
         </div>
+      </section>
 
-        {/* Outer Canvas with Floating Badges */}
-        <div className="relative">
-          {/* Handwritten Script Accent (Top Left) */}
-          <div className="hidden md:flex items-center space-x-2 absolute -top-4 left-6 z-20 px-3.5 py-1 rounded-full bg-blue-600/20 border border-blue-500/30 backdrop-blur-md shadow-lg">
-            <span className="text-sm">✨</span>
-            <span className="text-xs font-bold text-sky-300 font-tamil tracking-wide">
-              பயணம் செய்வோம்!
+      {/* =========================================================================
+          VOLVO 9600 & BHARATBENZ SLEEPER COMFORTS
+          ========================================================================= */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="p-8 sm:p-12 rounded-3xl bg-gradient-to-br from-[#0e1424] via-[#0b0e18] to-[#070910] border border-white/10 shadow-2xl relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl pointer-events-none" />
+
+          <div className="max-w-2xl">
+            <span className="text-[11px] uppercase tracking-widest font-black text-blue-400">
+              Executive Sleeper Experience
             </span>
-            <span className="text-xs text-slate-300 font-medium">— Let's Journey</span>
+            <h2 className="text-3xl sm:text-4xl font-black text-white mt-1">
+              Restorative Sleep on South Indian Highways
+            </h2>
+            <p className="text-sm text-slate-400 mt-3 leading-relaxed">
+              Every berth in our Volvo 9600 Multi-Axle fleet is designed to feel like a private luxury capsule, ensuring you arrive refreshed and energized.
+            </p>
           </div>
 
-          {/* Floating Weather & Telemetry Widget (Top Right) */}
-          <div className="hidden lg:flex items-center space-x-3 absolute -top-5 right-6 z-20 px-4 py-2 rounded-2xl bg-[#111625]/90 border border-white/15 backdrop-blur-xl shadow-2xl animate-float-slow">
-            <div className="w-8 h-8 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center border border-amber-500/30">
-              <Sun size={17} className="animate-spin" style={{ animationDuration: '20s' }} />
-            </div>
-            <div>
-              <div className="text-xs font-bold text-white">{currentFeatured.weather}</div>
-              <div className="text-[10px] text-slate-400 font-medium">{currentFeatured.corridor}</div>
-            </div>
-          </div>
-
-          {/* Floating Upcoming Coach Status Widget (Bottom Right) */}
-          <div className="hidden lg:flex items-center space-x-3.5 absolute -bottom-5 right-8 z-20 px-4 py-2.5 rounded-2xl bg-[#111625]/95 border border-white/15 backdrop-blur-xl shadow-2xl animate-float-reverse">
-            <div className="w-9 h-9 rounded-xl bg-blue-600 text-white flex items-center justify-center font-tamil font-black text-sm shadow-md">
-              மா
-            </div>
-            <div>
-              <div className="flex items-center space-x-2">
-                <span className="text-xs font-bold text-white">{currentFeatured.departureTime}</span>
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                <span className="text-[10px] font-bold text-emerald-400 uppercase tracking-wider">On-Time</span>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-8">
+            <div className="p-5 rounded-2xl bg-white/[0.04] border border-white/10 hover:border-blue-500/40 transition-all">
+              <div className="w-10 h-10 rounded-xl bg-blue-500/20 text-sky-400 flex items-center justify-center mb-3">
+                <Wind size={20} />
               </div>
-              <p className="text-[10px] text-slate-400 font-medium mt-0.5">
-                {currentFeatured.coachType} • <strong className="text-blue-400">{currentFeatured.availableSeats} Berths Left</strong>
+              <h3 className="text-base font-bold text-white">Individual AC Vents</h3>
+              <p className="text-xs text-slate-400 mt-1">
+                Precision climate dial for personalized cooling comfort throughout your overnight voyage.
+              </p>
+            </div>
+
+            <div className="p-5 rounded-2xl bg-white/[0.04] border border-white/10 hover:border-blue-500/40 transition-all">
+              <div className="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center mb-3">
+                <Zap size={20} />
+              </div>
+              <h3 className="text-base font-bold text-white">USB-C Fast Charging</h3>
+              <p className="text-xs text-slate-400 mt-1">
+                Dual fast-charge outlets per berth to keep your smartphone, laptop, and tablet powered.
+              </p>
+            </div>
+
+            <div className="p-5 rounded-2xl bg-white/[0.04] border border-white/10 hover:border-blue-500/40 transition-all">
+              <div className="w-10 h-10 rounded-xl bg-cyan-500/20 text-cyan-400 flex items-center justify-center mb-3">
+                <Radio size={20} />
+              </div>
+              <h3 className="text-base font-bold text-white">Live Telemetry & GPS</h3>
+              <p className="text-xs text-slate-400 mt-1">
+                Real-time WhatsApp tracking and highway telemetry shared with families for peace of mind.
+              </p>
+            </div>
+
+            <div className="p-5 rounded-2xl bg-white/[0.04] border border-white/10 hover:border-blue-500/40 transition-all">
+              <div className="w-10 h-10 rounded-xl bg-purple-500/20 text-purple-400 flex items-center justify-center mb-3">
+                <Coffee size={20} />
+              </div>
+              <h3 className="text-base font-bold text-white">Laundered Linens</h3>
+              <p className="text-xs text-slate-400 mt-1">
+                Factory-sanitized bedsheets, sealed pillows, and premium mineral water bottles provided.
               </p>
             </div>
           </div>
-
-          {/* The Main Organic Sculpted Frame */}
-          <div className={`organic-card-frame bg-gradient-to-br ${currentFeatured.bgGradient} p-8 md:p-12 relative overflow-hidden transition-all duration-700`}>
-            {/* Ambient Background Art Glows */}
-            <div className="absolute top-0 right-0 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl pointer-events-none" />
-            <div className="absolute -bottom-10 -left-10 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
-
-            <div className="relative z-10 max-w-2xl space-y-5">
-              {/* Category Pill */}
-              <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-white/[0.08] border border-white/15 text-xs font-bold uppercase tracking-wider">
-                <span className="w-2 h-2 rounded-full bg-blue-400 animate-ping" />
-                <span className="text-slate-200">{currentFeatured.tag}</span>
-              </div>
-
-              {/* Title & Tamil Subhead */}
-              <div>
-                <div className="flex items-baseline space-x-3">
-                  <h3 className="text-3xl sm:text-5xl font-black text-white tracking-tight">
-                    {currentFeatured.title}
-                  </h3>
-                  <span className="text-2xl sm:text-3xl font-black font-tamil text-blue-400">
-                    {currentFeatured.tamilName}
-                  </span>
-                </div>
-                <p className="text-sm sm:text-base text-slate-300 mt-3 leading-relaxed font-normal">
-                  {currentFeatured.subtitle}
-                </p>
-              </div>
-
-              {/* Action & Pricing Bar */}
-              <div className="pt-2 flex flex-wrap items-center gap-4">
-                <Link
-                  to={`/search?from=Chennai&to=${currentFeatured.city}`}
-                  className="px-6 py-3 rounded-2xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs uppercase tracking-wider shadow-lg shadow-blue-600/30 flex items-center space-x-2 transition-all border border-blue-400/30 active:scale-95"
-                >
-                  <span>Explore Sleeper Schedule</span>
-                  <ArrowRight size={15} />
-                </Link>
-
-                <div className="px-4 py-2.5 rounded-2xl bg-white/[0.06] border border-white/10 text-xs">
-                  <span className="text-slate-400 block text-[10px] uppercase tracking-wider font-semibold">Starting Fare</span>
-                  <span className="text-white text-lg font-black">₹{currentFeatured.fare}</span>
-                </div>
-              </div>
-
-              {/* Mini Thumbnail Destination Switcher Avatars (Direct Reference Element) */}
-              <div className="pt-4 flex items-center space-x-3">
-                <span className="text-xs text-slate-400 font-semibold">Select Destination:</span>
-                <div className="flex items-center space-x-2">
-                  {featuredDestinations.map((dest, idx) => (
-                    <button
-                      key={dest.id}
-                      onClick={() => setActiveFeaturedIndex(idx)}
-                      className={`px-3 py-1 rounded-xl text-xs font-semibold transition-all ${
-                        activeFeaturedIndex === idx
-                          ? 'bg-blue-600 text-white shadow-md border border-blue-400/40 font-bold scale-105'
-                          : 'bg-white/[0.06] text-slate-400 hover:text-white hover:bg-white/[0.12] border border-white/10'
-                      }`}
-                    >
-                      {dest.city}
-                    </button>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
       </section>
 
-      {/* 3. Architectural Flow Showcase: The 6 Website Portals (Matching Design Specification) */}
+      {/* =========================================================================
+          THE 6 COMPLETE WEBSITE GATEWAY TILES
+          ========================================================================= */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="p-8 sm:p-10 rounded-3xl bg-[#0f1422] border border-white/10 shadow-2xl relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-80 h-80 bg-blue-600/5 rounded-full blur-3xl pointer-events-none" />
-
           <div className="text-center max-w-2xl mx-auto mb-8">
             <span className="text-[11px] uppercase tracking-widest font-black text-blue-400">
-              Complete Travel Website
+              Passenger Portals
             </span>
             <h2 className="text-2xl sm:text-3xl font-black text-white mt-1 font-tamil">
               மாரியம்மன் Travels Gateway
             </h2>
-            <p className="text-xs sm:text-sm text-slate-400 mt-2 font-normal">
-              Direct access to all services, booking schedules, account management and contact desks.
+            <p className="text-xs sm:text-sm text-slate-400 mt-2">
+              Instant access to live schedules, e-ticket downloads, city guides, and 24x7 helpdesk.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {quickPortals.map((portal) => {
-              const Icon = portal.icon;
-              return (
-                <Link
-                  key={portal.path}
-                  to={portal.path}
-                  className={`p-5 rounded-2xl border transition-all flex flex-col justify-between group ${
-                    portal.active
-                      ? 'bg-blue-600/15 border-blue-500/40 shadow-lg shadow-blue-500/10'
-                      : 'bg-white/[0.03] border-white/10 hover:border-white/20 hover:bg-white/[0.06]'
-                  }`}
-                >
-                  <div className="flex items-start justify-between">
-                    <div className="w-10 h-10 rounded-xl bg-white/[0.06] border border-white/10 flex items-center justify-center text-blue-400 group-hover:text-white group-hover:bg-blue-600 transition-colors">
-                      <Icon size={20} />
-                    </div>
-                    <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-white/[0.06] text-slate-400 border border-white/10">
-                      {portal.tag}
-                    </span>
-                  </div>
-
-                  <div className="mt-4">
-                    <h3 className="text-base font-bold text-white group-hover:text-blue-400 transition-colors flex items-center justify-between">
-                      <span>{portal.title}</span>
-                      <ChevronRight size={16} className="text-slate-500 group-hover:text-blue-400 group-hover:translate-x-1 transition-all" />
-                    </h3>
-                    <p className="text-xs text-slate-400 mt-1 line-clamp-2">
-                      {portal.subtitle}
-                    </p>
-                  </div>
-                </Link>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* 4. Popular Routes Showcase */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 gap-4">
-          <div>
-            <div className="text-xs uppercase tracking-widest font-black text-blue-400 mb-1">
-              Guaranteed Daily Departures
-            </div>
-            <h2 className="text-2xl sm:text-3xl font-black text-white">
-              Popular Express Routes
-            </h2>
-          </div>
-          <Link
-            to="/search"
-            className="inline-flex items-center space-x-1.5 text-xs sm:text-sm font-semibold text-blue-400 hover:text-blue-300 transition-colors"
-          >
-            <span>Explore All Schedules</span>
-            <ArrowRight size={16} />
-          </Link>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {MOCK_BUS_TRIPS.slice(0, 3).map((trip) => (
-            <div
-              key={trip.id}
-              className="rounded-3xl bg-[#111625] border border-white/10 p-6 flex flex-col justify-between hover:border-blue-500/40 hover:shadow-2xl transition-all group shadow-xl"
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <Link
+              to="/search"
+              className="p-5 rounded-2xl bg-white/[0.03] hover:bg-white/[0.07] border border-white/10 hover:border-blue-500/40 transition-all group flex items-start space-x-4"
             >
-              <div>
-                <div className="flex justify-between items-start mb-4">
-                  <span className="text-[11px] font-semibold px-3 py-1 rounded-full bg-blue-500/10 text-blue-300 border border-blue-500/20">
-                    {trip.serviceType}
-                  </span>
-                  <div className="flex items-center space-x-1 text-xs font-bold text-emerald-400 bg-emerald-500/10 px-2.5 py-1 rounded-lg border border-emerald-500/20">
-                    <Star size={13} className="fill-emerald-400 text-emerald-400" />
-                    <span>{trip.rating}</span>
-                  </div>
+              <div className="w-12 h-12 rounded-xl bg-blue-500/10 text-blue-400 border border-blue-500/20 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+                <Bus size={22} />
+              </div>
+              <div className="flex-1">
+                <div className="flex items-center justify-between">
+                  <h3 className="text-base font-bold text-white group-hover:text-sky-300 transition-colors">
+                    Bus Search & Seats
+                  </h3>
+                  <ChevronRight size={16} className="text-slate-400 group-hover:translate-x-1 transition-transform" />
                 </div>
-
-                <div className="flex items-center justify-between my-4 bg-white/[0.03] p-4 rounded-2xl border border-white/[0.06]">
-                  <div>
-                    <h3 className="text-xl font-black text-white">{trip.from}</h3>
-                    <p className="text-sm text-blue-400 font-extrabold mt-0.5">{trip.departureTime}</p>
-                  </div>
-                  <div className="flex flex-col items-center px-2">
-                    <span className="text-[11px] text-slate-400 font-semibold">{trip.duration}</span>
-                    <div className="w-16 border-t border-dashed border-slate-600 my-1 relative">
-                      <span className="absolute -top-1 right-0 w-2 h-2 rounded-full bg-blue-500" />
-                    </div>
-                    <span className="text-[10px] text-emerald-400 font-bold">Express Corridor</span>
-                  </div>
-                  <div className="text-right">
-                    <h3 className="text-xl font-black text-white">{trip.to}</h3>
-                    <p className="text-sm text-emerald-400 font-extrabold mt-0.5">{trip.arrivalTime}</p>
-                  </div>
-                </div>
-
-                <p className="text-xs text-slate-400 truncate">
-                  Boarding: <strong className="text-slate-200">{trip.boardingPoints[0]?.location}</strong>
+                <p className="text-xs text-slate-400 mt-1">
+                  Real-time seat availability, sleeper cabin layouts & live fares.
                 </p>
               </div>
+            </Link>
 
-              <div className="mt-6 pt-4 border-t border-white/[0.08] flex items-center justify-between">
-                <div>
-                  <span className="text-[11px] text-slate-400 uppercase tracking-wider font-medium block">Seat Fare</span>
-                  <span className="text-2xl font-black text-white">₹{trip.fare}</span>
-                </div>
-                <Link
-                  to={`/search?from=${encodeURIComponent(trip.from)}&to=${encodeURIComponent(trip.to)}`}
-                  className="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold uppercase tracking-wider transition-all shadow-md flex items-center space-x-1 border border-blue-400/30"
-                >
-                  <span>Select Seat</span>
-                  <ChevronRight size={14} />
-                </Link>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* 5. Why Travel with மாரியம்மன் Travels */}
-      <section className="bg-[#0c101a] border-y border-white/[0.08] py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-2xl mx-auto mb-12">
-            <span className="text-xs uppercase tracking-widest font-black text-blue-400">
-              The Gold Standard of Intercity Travel
-            </span>
-            <h2 className="text-2xl sm:text-3xl font-black text-white mt-1">
-              Why 12 Lakh+ Passengers Choose Us
-            </h2>
-            <p className="text-xs sm:text-sm text-slate-400 mt-2 font-normal">
-              Engineered for restful overnight sleep and stress-free intercity connectivity.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="p-7 rounded-3xl bg-[#111625] border border-white/10 space-y-3 shadow-lg">
-              <div className="w-12 h-12 rounded-2xl bg-blue-500/10 text-blue-400 border border-blue-500/20 flex items-center justify-center">
-                <Radio size={24} />
-              </div>
-              <h3 className="text-lg font-bold text-white">Live Telemetry & Safety</h3>
-              <p className="text-xs text-slate-400 leading-relaxed">
-                Satellite GPS telemetry with continuous speed monitoring, emergency SOS button on every single berth, and CCTV surveillance for woman travelers.
-              </p>
-            </div>
-
-            <div className="p-7 rounded-3xl bg-[#111625] border border-white/10 space-y-3 shadow-lg">
-              <div className="w-12 h-12 rounded-2xl bg-teal-500/10 text-teal-400 border border-teal-500/20 flex items-center justify-center">
-                <Sparkles size={24} />
-              </div>
-              <h3 className="text-lg font-bold text-white">Fresh Bedrolls & Hospitality</h3>
-              <p className="text-xs text-slate-400 leading-relaxed">
-                Steam-sanitized pillows, freshly laundered blankets in sealed pouches, bottled drinking water, reading lamps, and individual fast USB phone chargers.
-              </p>
-            </div>
-
-            <div className="p-7 rounded-3xl bg-[#111625] border border-white/10 space-y-3 shadow-lg">
-              <div className="w-12 h-12 rounded-2xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 flex items-center justify-center">
-                <Clock size={24} />
-              </div>
-              <h3 className="text-lg font-bold text-white">Strict Punctuality</h3>
-              <p className="text-xs text-slate-400 leading-relaxed">
-                Dual certified captains operating on direct 4-lane highway corridors ensure you reach your destination well in time for morning temple visits or business meetings.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 6. Destinations Spotlight */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center max-w-2xl mx-auto mb-10">
-          <span className="text-xs uppercase tracking-widest font-black text-blue-400">
-            Explore Tamil Nadu
-          </span>
-          <h2 className="text-2xl sm:text-3xl font-black text-white mt-1">
-            Featured Destinations
-          </h2>
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {[
-            { name: 'Madurai', tag: 'Temple City', buses: '24 Daily Services', desc: 'Meenakshi Amman Temple & Heritage Food' },
-            { name: 'Coimbatore', tag: 'Textile Capital', buses: '18 Daily Services', desc: 'Adiyogi Shiva & Siruvani Waterfalls' },
-            { name: 'Ooty', tag: 'Queen of Hills', buses: '10 Daily Services', desc: 'Nilgiris, Tea Gardens & Pine Forests' },
-            { name: 'Rameswaram', tag: 'Holy Island', buses: '8 Daily Services', desc: 'Pamban Bridge & Ramanathaswamy Shrine' },
-          ].map((dest, i) => (
-            <div
-              key={i}
-              className="rounded-3xl bg-[#111625] border border-white/10 p-6 hover:border-blue-500/40 hover:shadow-xl transition-all group shadow-lg flex flex-col justify-between"
+            <Link
+              to="/bookings"
+              className="p-5 rounded-2xl bg-white/[0.03] hover:bg-white/[0.07] border border-white/10 hover:border-emerald-500/40 transition-all group flex items-start space-x-4"
             >
-              <div>
-                <span className="text-[11px] font-semibold text-blue-300 bg-blue-500/10 border border-blue-500/20 px-2.5 py-0.5 rounded-full inline-block mb-2">
-                  {dest.tag}
-                </span>
-                <h3 className="text-xl font-bold text-white group-hover:text-blue-400 transition-colors">
-                  {dest.name}
-                </h3>
-                <p className="text-xs text-slate-400 mt-2 mb-4 leading-relaxed">{dest.desc}</p>
+              <div className="w-12 h-12 rounded-xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+                <Ticket size={22} />
               </div>
+              <div className="flex-1">
+                <div className="flex items-center justify-between">
+                  <h3 className="text-base font-bold text-white group-hover:text-emerald-300 transition-colors">
+                    My Bookings & PNR
+                  </h3>
+                  <ChevronRight size={16} className="text-slate-400 group-hover:translate-x-1 transition-transform" />
+                </div>
+                <p className="text-xs text-slate-400 mt-1">
+                  Download official e-Ticket boarding pass, check PNR or reschedule.
+                </p>
+              </div>
+            </Link>
 
-              <div className="flex items-center justify-between text-xs pt-4 border-t border-white/[0.08]">
-                <span className="text-slate-400 font-medium">{dest.buses}</span>
-                <Link
-                  to={`/search?from=Chennai&to=${dest.name}`}
-                  className="font-bold text-blue-400 hover:text-blue-300 flex items-center space-x-1"
-                >
-                  <span>Book</span>
-                  <ChevronRight size={14} />
-                </Link>
+            <Link
+              to="/destinations"
+              className="p-5 rounded-2xl bg-white/[0.03] hover:bg-white/[0.07] border border-white/10 hover:border-sky-500/40 transition-all group flex items-start space-x-4"
+            >
+              <div className="w-12 h-12 rounded-xl bg-sky-500/10 text-sky-400 border border-sky-500/20 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+                <MapPin size={22} />
               </div>
-            </div>
-          ))}
+              <div className="flex-1">
+                <div className="flex items-center justify-between">
+                  <h3 className="text-base font-bold text-white group-hover:text-sky-300 transition-colors">
+                    Destinations Guide
+                  </h3>
+                  <ChevronRight size={16} className="text-slate-400 group-hover:translate-x-1 transition-transform" />
+                </div>
+                <p className="text-xs text-slate-400 mt-1">
+                  Madurai, Ooty, Rameswaram, Coimbatore, Trichy & Tirunelveli.
+                </p>
+              </div>
+            </Link>
+
+            <Link
+              to="/about"
+              className="p-5 rounded-2xl bg-white/[0.03] hover:bg-white/[0.07] border border-white/10 hover:border-amber-500/40 transition-all group flex items-start space-x-4"
+            >
+              <div className="w-12 h-12 rounded-xl bg-amber-500/10 text-amber-400 border border-amber-500/20 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+                <Award size={22} />
+              </div>
+              <div className="flex-1">
+                <div className="flex items-center justify-between">
+                  <h3 className="text-base font-bold text-white group-hover:text-amber-300 transition-colors">
+                    Fleet Heritage
+                  </h3>
+                  <ChevronRight size={16} className="text-slate-400 group-hover:translate-x-1 transition-transform" />
+                </div>
+                <p className="text-xs text-slate-400 mt-1">
+                  20+ years of punctual excellence on Tamil Nadu highways since 2004.
+                </p>
+              </div>
+            </Link>
+
+            <Link
+              to="/contact"
+              className="p-5 rounded-2xl bg-white/[0.03] hover:bg-white/[0.07] border border-white/10 hover:border-purple-500/40 transition-all group flex items-start space-x-4"
+            >
+              <div className="w-12 h-12 rounded-xl bg-purple-500/10 text-purple-400 border border-purple-500/20 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+                <PhoneCall size={22} />
+              </div>
+              <div className="flex-1">
+                <div className="flex items-center justify-between">
+                  <h3 className="text-base font-bold text-white group-hover:text-purple-300 transition-colors">
+                    24x7 Helpdesk
+                  </h3>
+                  <ChevronRight size={16} className="text-slate-400 group-hover:translate-x-1 transition-transform" />
+                </div>
+                <p className="text-xs text-slate-400 mt-1">
+                  Terminal counters in Chennai, Madurai, Coimbatore & Trichy.
+                </p>
+              </div>
+            </Link>
+
+            <Link
+              to="/login"
+              className="p-5 rounded-2xl bg-gradient-to-r from-blue-900/30 to-indigo-900/30 hover:from-blue-900/50 hover:to-indigo-900/50 border border-blue-500/30 transition-all group flex items-start space-x-4"
+            >
+              <div className="w-12 h-12 rounded-xl bg-blue-600 text-white flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform shadow-lg">
+                <Sparkles size={22} />
+              </div>
+              <div className="flex-1">
+                <div className="flex items-center justify-between">
+                  <h3 className="text-base font-bold text-white group-hover:text-sky-300 transition-colors">
+                    Cinematic Intro Video
+                  </h3>
+                  <ChevronRight size={16} className="text-slate-400 group-hover:translate-x-1 transition-transform" />
+                </div>
+                <p className="text-xs text-slate-400 mt-1">
+                  Re-watch the 4-phase luxury bus animation & highway journey.
+                </p>
+              </div>
+            </Link>
+          </div>
         </div>
       </section>
     </div>

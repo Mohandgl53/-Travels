@@ -49,12 +49,107 @@
   border-color: rgba(59, 130, 246, 0.3);
 }
 
+/* Custom handwriting font */
+.font-handwriting {
+  font-family: 'Caveat', cursive, -apple-system, sans-serif;
+}
+
+/* Reference-inspired Porcelain Claymorphic Canvas */
+.porcelain-canvas {
+  background: radial-gradient(ellipse at 50% 10%, #faf8f5 0%, #f3eee6 55%, #e8e1d5 100%);
+  color: #0f172a;
+}
+
+/* Reference Fluid Organic Blob Cutouts with 3D Sculpted Bevels */
+.organic-blob-hero {
+  border-radius: 56px 84px 68px 92px / 76px 64px 84px 68px;
+  border: 7px solid #ffffff;
+  box-shadow: 
+    0 24px 48px -12px rgba(15, 23, 42, 0.16),
+    0 8px 16px -4px rgba(15, 23, 42, 0.08),
+    inset 0 2px 4px rgba(255, 255, 255, 0.95),
+    inset 0 -2px 4px rgba(0, 0, 0, 0.06);
+}
+
+.organic-blob-weather {
+  border-radius: 48px 64px 52px 68px / 60px 48px 66px 54px;
+  border: 6px solid #ffffff;
+  background: #ffffff;
+  box-shadow: 
+    0 20px 40px -10px rgba(15, 23, 42, 0.14),
+    0 4px 12px -2px rgba(15, 23, 42, 0.06),
+    inset 0 2px 4px rgba(255, 255, 255, 0.95);
+}
+
+.organic-blob-trip {
+  border-radius: 36px;
+  border: 6px solid #ffffff;
+  background: #ffffff;
+  box-shadow: 
+    0 20px 40px -10px rgba(15, 23, 42, 0.14),
+    0 4px 12px -2px rgba(15, 23, 42, 0.06),
+    inset 0 2px 4px rgba(255, 255, 255, 0.95);
+}
+
+.clay-pill-input {
+  background: #ffffff;
+  box-shadow: 
+    0 4px 12px rgba(15, 23, 42, 0.06),
+    inset 0 2px 3px rgba(0, 0, 0, 0.04);
+}
+
 /* Fluid Organic Card Frame (Reference-inspired) */
 .organic-card-frame {
   border-radius: 2.25rem;
   background: radial-gradient(130% 130% at 50% 10%, #151d33 0%, #0c111e 100%);
   border: 1px solid rgba(255, 255, 255, 0.12);
   box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+/* Entrance Animations */
+@keyframes heroEntrance {
+  0% {
+    opacity: 0;
+    transform: translateY(28px) scale(0.96);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0px) scale(1);
+  }
+}
+
+@keyframes heroSlideRight {
+  0% {
+    opacity: 0;
+    transform: translateX(36px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0px);
+  }
+}
+
+@keyframes heroSlideDown {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+}
+
+.animate-hero-entrance {
+  animation: heroEntrance 0.85s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-hero-slide-right {
+  animation: heroSlideRight 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.15s forwards;
+}
+
+.animate-hero-slide-down {
+  animation: heroSlideDown 0.75s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 /* Smooth organic keyframe motions */
