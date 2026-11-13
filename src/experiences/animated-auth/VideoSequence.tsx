@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState, useCallback } from 'react';
-import { Volume2, VolumeX, FastForward, Play, RotateCcw } from 'lucide-react';
+import { Volume2, VolumeX, FastForward, RotateCcw, Zap } from 'lucide-react';
 
 export type SequencePhase = 'arriving' | 'zooming' | 'window-ready' | 'authenticating' | 'departing' | 'complete';
 
@@ -17,47 +17,79 @@ export const VideoSequence: React.FC<VideoSequenceProps> = ({
   isFormSubmitting,
 }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const progressBarRef = useRef<HTMLDivElement>(null);
   const [isMuted, setIsMuted] = useState(true);
-  const [currentTime, setCurrentTime] = useState(0);
-  const [duration, setDuration] = useState(23);
+  const [currentStep, setCurrentStep] = useState<1 | 2 | 3 | 4>(1);
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
   const [hasError, setHasError] = useState(false);
+  const [playbackSpeed, setPlaybackSpeed] = useState<number>(1.35); // 1.35x faster for ultra-smooth dynamic animation
   const reachedWindowRef = useRef(false);
+  const durationRef = useRef(23.0);
 
   // Constants for scene markers in the user-supplied 23.07s 4K video
   const WINDOW_PAUSE_TIME = 10.8;
   const DEPARTURE_END_TIME = 23.0;
 
-  // Initialize playback
+  // Set playback speed on video whenever it changes
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.playbackRate = playbackSpeed;
+    }
+  }, [playbackSpeed]);
+
+  // Buffer video and initiate smooth playback without start stutter
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
 
-    const handleLoadedMetadata = () => {
-      setDuration(video.duration || 23);
+    video.playbackRate = playbackSpeed;
+
+    const handleCanPlay = () => {
+      durationRef.current = video.duration || 23.0;
       setIsVideoLoaded(true);
-      // Attempt autoplay
+      video.playbackRate = playbackSpeed;
+      // Start playback smoothly once the initial frames are decoded in GPU buffer
       video.play().catch((err) => {
-        console.warn('Autoplay prevented, awaiting user interaction:', err);
+        console.warn('Autoplay prevented by browser:', err);
       });
     };
 
-    video.addEventListener('loadedmetadata', handleLoadedMetadata);
-    return () => {
-      video.removeEventListener('loadedmetadata', handleLoadedMetadata);
-    };
-  }, []);
+    // If already buffered enough
+    if (video.readyState >= 3) {
+      handleCanPlay();
+    } else {
+      video.addEventListener('canplay', handleCanPlay, { once: true });
+    }
 
-  // Time tracking and boundary handling
+    return () => {
+      video.removeEventListener('canplay', handleCanPlay);
+    };
+  }, [playbackSpeed]);
+
+  // High-performance time tracking avoiding React main-thread render stalls
   const handleTimeUpdate = useCallback(() => {
     const video = videoRef.current;
     if (!video) return;
 
-    setCurrentTime(video.currentTime);
+    const time = video.currentTime;
 
-    // Pause when we reach the interior window scene
+    // Directly update DOM progress bar without triggering React virtual DOM diffing
+    if (progressBarRef.current) {
+      const pct = Math.min(100, (time / durationRef.current) * 100);
+      progressBarRef.current.style.width = `${pct}%`;
+    }
+
+    // Step state changes only at major boundaries (drops re-renders from 300+ to 3)
+    let newStep: 1 | 2 | 3 | 4 = 1;
+    if (time >= 12.0) newStep = 4;
+    else if (time >= 10.8) newStep = 3;
+    else if (time >= 5.5) newStep = 2;
+
+    setCurrentStep((prev) => (prev !== newStep ? newStep : prev));
+
+    // Pause smoothly when we reach the interior window scene
     if (phase !== 'departing' && phase !== 'complete' && !reachedWindowRef.current) {
-      if (video.currentTime >= WINDOW_PAUSE_TIME) {
+      if (time >= WINDOW_PAUSE_TIME) {
         video.pause();
         video.currentTime = WINDOW_PAUSE_TIME;
         reachedWindowRef.current = true;
@@ -67,7 +99,7 @@ export const VideoSequence: React.FC<VideoSequenceProps> = ({
 
     // Check for departure sequence completion
     if (phase === 'departing') {
-      if (video.currentTime >= DEPARTURE_END_TIME - 0.2 || video.ended) {
+      if (time >= DEPARTURE_END_TIME - 0.2 || video.ended) {
         onDepartureComplete();
       }
     }
@@ -79,13 +111,14 @@ export const VideoSequence: React.FC<VideoSequenceProps> = ({
     if (!video) return;
 
     if (phase === 'departing') {
-      // User successfully authenticated: resume video towards departure!
+      // User successfully authenticated: resume video smoothly towards departure!
       if (video.currentTime < WINDOW_PAUSE_TIME) {
         video.currentTime = WINDOW_PAUSE_TIME;
       }
+      video.playbackRate = playbackSpeed;
       video.play().catch(console.error);
     }
-  }, [phase]);
+  }, [phase, playbackSpeed]);
 
   const toggleMute = () => {
     if (videoRef.current) {
@@ -94,11 +127,20 @@ export const VideoSequence: React.FC<VideoSequenceProps> = ({
     }
   };
 
+  const toggleSpeed = () => {
+    const nextSpeed = playbackSpeed === 1.35 ? 1.0 : playbackSpeed === 1.0 ? 1.5 : 1.35;
+    setPlaybackSpeed(nextSpeed);
+    if (videoRef.current) {
+      videoRef.current.playbackRate = nextSpeed;
+    }
+  };
+
   const handleReplay = () => {
     const video = videoRef.current;
     if (!video) return;
     reachedWindowRef.current = false;
     video.currentTime = 0;
+    video.playbackRate = playbackSpeed;
     video.play().catch(console.error);
   };
 
@@ -118,15 +160,20 @@ export const VideoSequence: React.FC<VideoSequenceProps> = ({
 
   return (
     <div className="absolute inset-0 w-full h-full overflow-hidden bg-slate-950 select-none">
-      {/* 4K Cinematic Sequence Video */}
+      {/* 4K Cinematic Sequence Video with GPU Hardware Acceleration */}
       {!hasError ? (
         <video
           ref={videoRef}
           src="/videos/Travel_bus_Animation_compressed.mp4"
-          className="absolute inset-0 w-full h-full object-cover pointer-events-none transform scale-[1.02]"
+          className={`absolute inset-0 w-full h-full object-cover pointer-events-none transform-gpu translate-z-0 scale-[1.01] transition-opacity duration-700 ${
+            isVideoLoaded ? 'opacity-100' : 'opacity-0'
+          }`}
+          style={{
+            willChange: 'transform',
+            backfaceVisibility: 'hidden',
+          }}
           muted={isMuted}
           playsInline
-          autoPlay
           preload="auto"
           onTimeUpdate={handleTimeUpdate}
           onError={() => {
@@ -162,17 +209,26 @@ export const VideoSequence: React.FC<VideoSequenceProps> = ({
               </span>
             </div>
             <p className="text-xs text-slate-300/80 hidden sm:block">
-              {phase === 'arriving' && 'Step 1 of 4: Bus arriving at boarding station...'}
-              {phase === 'zooming' && 'Step 2 of 4: Zooming in to passenger window...'}
-              {phase === 'window-ready' && 'Step 3 of 4: Interior window view — Please sign in'}
-              {phase === 'authenticating' && 'Verifying boarding pass...'}
-              {phase === 'departing' && 'Step 4 of 4: Boarding confirmed! Bus departing...'}
+              {currentStep === 1 && 'Step 1 of 4: Bus arriving at boarding station...'}
+              {currentStep === 2 && 'Step 2 of 4: Zooming in to passenger window...'}
+              {currentStep === 3 && 'Step 3 of 4: Interior window view — Please sign in'}
+              {currentStep === 4 && 'Step 4 of 4: Boarding confirmed! Bus departing...'}
             </p>
           </div>
         </div>
 
         {/* Cinematic Controls */}
         <div className="flex items-center space-x-2 md:space-x-3">
+          {/* Speed Indicator & Toggle Button */}
+          <button
+            onClick={toggleSpeed}
+            title="Toggle playback speed"
+            className="px-3 py-2 rounded-xl bg-slate-900/80 hover:bg-slate-800 text-sky-300 border border-white/10 text-xs font-bold flex items-center space-x-1.5 backdrop-blur-md transition-all shadow-md active:scale-95"
+          >
+            <Zap size={14} className="text-sky-400" />
+            <span>{playbackSpeed}x Smooth</span>
+          </button>
+
           <button
             onClick={toggleMute}
             aria-label={isMuted ? 'Unmute audio' : 'Mute audio'}
@@ -206,18 +262,18 @@ export const VideoSequence: React.FC<VideoSequenceProps> = ({
       <div className="absolute bottom-4 left-4 right-4 md:left-8 md:right-8 z-20 flex flex-col items-center pointer-events-none">
         <div className="w-full max-w-xl bg-slate-900/60 backdrop-blur-md rounded-full h-1.5 p-0.5 border border-white/10 overflow-hidden shadow-lg">
           <div
-            className="bg-gradient-to-r from-sky-400 via-blue-500 to-emerald-400 h-full rounded-full transition-all duration-300"
-            style={{ width: `${Math.min(100, (currentTime / duration) * 100)}%` }}
+            ref={progressBarRef}
+            className="bg-gradient-to-r from-sky-400 via-blue-500 to-emerald-400 h-full rounded-full transition-all duration-150"
+            style={{ width: '0%' }}
           />
         </div>
         <div className="flex justify-between w-full max-w-xl mt-2 text-[11px] text-slate-400/90 font-medium px-1">
-          <span className={currentTime < 5.5 ? 'text-sky-400 font-semibold' : 'text-slate-500'}>1. Arrival</span>
-          <span className={currentTime >= 5.5 && currentTime < 10.8 ? 'text-sky-400 font-semibold' : 'text-slate-500'}>2. Zoom In</span>
-          <span className={currentTime >= 10.8 && currentTime < 12.0 ? 'text-blue-400 font-semibold' : 'text-slate-500'}>3. Passenger Window (Auth)</span>
-          <span className={currentTime >= 12.0 ? 'text-emerald-400 font-semibold' : 'text-slate-500'}>4. Departure</span>
+          <span className={currentStep === 1 ? 'text-sky-400 font-bold' : 'text-slate-500'}>1. Arrival</span>
+          <span className={currentStep === 2 ? 'text-sky-400 font-bold' : 'text-slate-500'}>2. Zoom In</span>
+          <span className={currentStep === 3 ? 'text-blue-400 font-bold' : 'text-slate-500'}>3. Passenger Window (Auth)</span>
+          <span className={currentStep === 4 ? 'text-emerald-400 font-bold' : 'text-slate-500'}>4. Departure</span>
         </div>
       </div>
     </div>
   );
 };
-
